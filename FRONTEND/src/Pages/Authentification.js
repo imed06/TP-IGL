@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from '../images/forgotpasswordback.jpg'
+import Image from '../images/AuthBackground.jpg'
 import { FcGoogle } from 'react-icons/fc'
 
 function Authentification() {
