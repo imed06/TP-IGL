@@ -7,8 +7,7 @@ import Home from './Pages/Home';
 function App() {
   return (
     
-      <Home />
-
+      <Authentification />
   );
 }
 export default App;
