@@ -8,11 +8,14 @@ from fastapi.responses import HTMLResponse
 import os
 from fastapi import FastAPI
 import uvicorn
-import auth
-
+from apps import auth
+import Database,models
 app = FastAPI()
 
+models.Base.metadata.create_all(bind=Database.engine)
+
 app.mount('/auth',auth.myapp)
+
 
 @app.get('/')
 async def root():

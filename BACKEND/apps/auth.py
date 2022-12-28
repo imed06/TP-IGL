@@ -18,15 +18,15 @@ from starlette.responses import JSONResponse
 from starlette.responses import HTMLResponse, RedirectResponse
 
 
-import jwt
+from . import jwt1
 
 
 myapp = FastAPI()
 
 
-create_token=jwt.create_token
-valid_email_from_db= jwt.valid_email_from_db
-CREDENTIALS_EXCEPTION=jwt.CREDENTIALS_EXCEPTION
+create_token=jwt1.create_token
+valid_email_from_db= jwt1.valid_email_from_db
+CREDENTIALS_EXCEPTION=jwt1.CREDENTIALS_EXCEPTION
 
 
 # OAuth settings
