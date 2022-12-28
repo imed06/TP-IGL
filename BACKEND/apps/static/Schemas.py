@@ -2,8 +2,8 @@ from pydantic import BaseModel
 from typing import List, Optional
 
 class blogbase(BaseModel):
-    title :str
-    body:str
+    categories :str
+    typeDuBien :str
 
 class Annonce(blogbase):
     class Config(): 
@@ -24,9 +24,9 @@ class showuser(BaseModel):
         orm_mode=True
 
 class showblog(BaseModel):
-    title :str
-    body  :str
-    creator:showuser
+    categories :str
+    typeDuBien :str
+    #creator:showuser
     class Config():
         orm_mode=True
 

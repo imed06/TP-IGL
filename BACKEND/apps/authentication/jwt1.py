@@ -1,7 +1,6 @@
 import os
 from datetime import datetime
 from datetime import timedelta
-
 import jwt
 from fastapi import Depends
 from fastapi import HTTPException
@@ -9,7 +8,9 @@ from fastapi import status
 from fastapi.security import OAuth2PasswordBearer
 
 # Create a fake db:
-FAKE_DB = {'ka_hamza@esi.dz': {'name': 'Hamza Abdelali'}}
+FAKE_DB = {
+'abdelalihamza2002@gmail.com': {'name': 'Hamza Abdo'}
+}
 
 
 # Helper to read numbers using var envs
@@ -44,6 +45,7 @@ CREDENTIALS_EXCEPTION = HTTPException(
 
 # Create token internal function
 def create_access_token(*, data: dict, expires_delta: timedelta = None):
+    print(dir(jwt))
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
@@ -70,11 +72,13 @@ async def get_current_user_email(token: str = Depends(oauth2_scheme)):
         payload = jwt.decode(token, API_SECRET_KEY, algorithms=[API_ALGORITHM])
         email: str = payload.get('sub')
         if email is None:
+            print('first test failed')
             raise CREDENTIALS_EXCEPTION
     except jwt.PyJWTError:
+        print('second test failed')
         raise CREDENTIALS_EXCEPTION
 
     if valid_email_from_db(email):
         return email
-
+    print('third test failed')
     raise CREDENTIALS_EXCEPTION

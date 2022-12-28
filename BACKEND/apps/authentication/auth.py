@@ -1,4 +1,3 @@
-import uvicorn
 from fastapi import FastAPI
 from fastapi import Request
 from fastapi.responses import HTMLResponse
@@ -8,14 +7,10 @@ import os
 from authlib.integrations.starlette_client import OAuth
 from authlib.integrations.starlette_client import OAuthError
 from fastapi import FastAPI
-from fastapi import HTTPException
 from fastapi import Request
-from fastapi import status
 from starlette.config import Config
 from starlette.middleware.sessions import SessionMiddleware
-from starlette.responses import JSONResponse
-
-from starlette.responses import HTMLResponse, RedirectResponse
+from starlette.responses import HTMLResponse,JSONResponse
 
 
 from . import jwt1
@@ -67,9 +62,9 @@ async def login(request: Request):
 
 @myapp.get('/callback')
 async def callback(request: Request):
-    print(request)
+    
     try:
-        print(request)
+        
         token = await oauth.google.authorize_access_token(request)
     except OAuthError as error:
         return HTMLResponse(f'<h1> here is the error {error.error}</h1>')
@@ -77,21 +72,40 @@ async def callback(request: Request):
     if user:
         request.session['user'] = dict(user)
     if valid_email_from_db(user.email):
-        #return RedirectResponse(url='/logout')
-        return 'this is  a valid email address'
-    return 'this is not a valid email address'
-    # return RedirectResponse(url='/logout')
+        token=create_token(user.email)
+        return JSONResponse({'result': True, 'access_token': create_token(user.email)})
 
+    return 'user doesnt exist'
+
+
+
+
+
+
+@myapp.get('/signin')
+async def login(request: Request):
+    redirect_uri = 'http://127.0.0.1:5000/auth/callback2'  # This creates the url for our /auth endpoint
+    return await oauth.google.authorize_redirect(request, redirect_uri)
+
+@myapp.get('/callback2')
+async def callback(request: Request):
+    
+    try:
+        token = await oauth.google.authorize_access_token(request)
+    except OAuthError as error:
+        return HTMLResponse(f'<h1> here is the error {error.error}</h1>')
+    user = token.get('userinfo')
+    if user:
+        request.session['user'] = dict(user)
+    if valid_email_from_db(user.email):
+        return 'user already exists'
+    return user.email
 
 
 
 @myapp.get('/')
 async def root():
     return HTMLResponse('<body><a href="/auth/login">Log In</a></body>')
-
-@myapp.get('/logout')
-async def root():
-    return HTMLResponse('<body><a href="/auth">Log out</a></body>')
 
 
 
