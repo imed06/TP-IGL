@@ -11,9 +11,15 @@ router = APIRouter(
 )
 get_db=Database.get_db
 
+# @router.get('/{email}')
+# def checkuser(email:str,db :Session ):
+#     user = db.query(models.user).filter(models.user.email==email)
+#     if not user: return 'user not found'
+#     else : return 'user found'
+
 @router.post('/', response_model=Schemas.showuser)
 def create(request:Schemas.user,db :Session = Depends( get_db)):
-    new_user = models.user(name=request.name,email=request.email)
+    new_user = models.user(name=request.name,email=request.email,numeroDeTelephone = request.numeroDeTlphn)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)

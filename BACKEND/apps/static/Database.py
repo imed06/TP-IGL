@@ -2,12 +2,15 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./bdd.db"
+# SQLALCHEMY_DATABASE_URL = "sqlite:///./bdd.db"
 #SQLALCHEMY_DATABASE_URL = 'mysql+pymysql://root@localhost:3306/TPIGL'
 
 
-#SQLALCHEMY_DATABASE_URL = "mysql://root:14171417@mysql/TPIGL"
-#SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:14171417@localhost/TPIGL"
+#SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:14171417@mysql/TPIGL"
+# SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:14171417@localhost/TPIGL"
+# SQLALCHEMY_DATABASE_URL = "postgresql://root:14171417@postgresserver/tpigl"
+
+SQLALCHEMY_DATABASE_URL = 'postgresql+psycopg2://postgres:14171417@localhost:5433/tpigl'
 
 
 

@@ -6,11 +6,15 @@ from fastapi import Depends
 from fastapi import HTTPException
 from fastapi import status
 from fastapi.security import OAuth2PasswordBearer
+from static import Database,models
+from sqlalchemy.orm import Session
+from routers import user
 
 # Create a fake db:
 FAKE_DB = {
 'abdelalihamza2002@gmail.com': {'name': 'Hamza Abdo'}
 }
+# get_db=Database.get_db
 
 
 # Helper to read numbers using var envs

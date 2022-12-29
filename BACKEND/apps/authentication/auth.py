@@ -3,7 +3,8 @@ from fastapi import Request
 from fastapi.responses import HTMLResponse
 from ast import Param
 import os
-
+from fastapi import Depends
+from sqlalchemy.orm import Session
 from authlib.integrations.starlette_client import OAuth
 from authlib.integrations.starlette_client import OAuthError
 from fastapi import FastAPI
@@ -11,6 +12,8 @@ from fastapi import Request
 from starlette.config import Config
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.responses import HTMLResponse,JSONResponse
+from static import Database, models
+from static import Schemas
 
 
 from . import jwt1
@@ -64,10 +67,9 @@ async def login(request: Request):
 async def callback(request: Request):
     
     try:
-        
         token = await oauth.google.authorize_access_token(request)
     except OAuthError as error:
-        return HTMLResponse(f'<h1> here is the error {error.error}</h1>')
+        return HTMLResponse(f'<h1> callback function error {error.error}</h1>')
     user = token.get('userinfo')
     if user:
         request.session['user'] = dict(user)
@@ -93,7 +95,7 @@ async def callback(request: Request):
     try:
         token = await oauth.google.authorize_access_token(request)
     except OAuthError as error:
-        return HTMLResponse(f'<h1> here is the error {error.error}</h1>')
+        return HTMLResponse(f'<h1> callback2 function error {error.error}</h1>')
     user = token.get('userinfo')
     if user:
         request.session['user'] = dict(user)
@@ -105,7 +107,8 @@ async def callback(request: Request):
 
 @myapp.get('/')
 async def root():
-    return HTMLResponse('<body><a href="/auth/login">Log In</a></body>')
+    return HTMLResponse(
+        '<body><a href="/auth/login">Log In</a> <a href="/auth/signin">singup</a></body>')
 
 
 

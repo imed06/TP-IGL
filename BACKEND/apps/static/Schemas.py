@@ -14,12 +14,13 @@ class Annonce(blogbase):
 class user(BaseModel):
     name:str
     email:str
-    password:str
+    numeroDeTlphn:str
 
 class showuser(BaseModel):
     name:str
     email:str
-    blogs:List[Annonce]=[]
+    numeroDeTelephone:str
+    # blogs:List[Annonce]=[]
     class Config():
         orm_mode=True
 
