@@ -29,9 +29,10 @@
     "react-icons": "^4.7.1",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.4.2",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-simple-image-slider": "^2.4.1",
     "react-tailwindcss-datepicker": "^1.2.2",
+    "sass": "^1.57.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
