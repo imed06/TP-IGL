@@ -39,6 +39,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
 }
+#ul{
+  right: 200px;
+  
+}
 
 
 form{
@@ -90,7 +94,7 @@ body{
   padding-right: 5%;
   padding-bottom: 0;
   margin-bottom: 0;
-  background-color: #fcfaf5;
+  background-color: #fffffe;
   display: flex;
   align-items: flex-start;
    justify-content: center;
@@ -100,7 +104,7 @@ body{
 }
 .contacte_localisation_annonce,.info_annonce{
     background-color:  #1a2536;
-     
+    box-shadow: 1px 4px 2px 2px #D4BB83; 
     
     width: 40%;
     margin: 3%;
@@ -112,7 +116,8 @@ body{
     margin-bottom: 5%;  
 }
 .localisation_annonce ,.secondo_info_annonce ,.info_contact{
-    background-color: #ECE5D5;
+    background-color: #f5ebd6;
+    
     width: 100%;
     padding: 5%;
     
@@ -142,5 +147,6 @@ body{
 #Ajouter ,#Annuler {
   margin-top: 0px;
   margin: 15px;
+  box-shadow: 4px 4px 4px 4px #D4BB83;
  
 }

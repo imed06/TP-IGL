@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap'); 
+ @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Montserrat:ital,wght@1,200&display=swap'); 
+
+@font-face {
+  font-family: 'Libre Baskerville';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/librebaskerville/v14/kmKiZrc3Hgbbcjq75U4uslyuy4kn0qviTgY5KcCsww.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/montserrat/v25/JTUFjIg1_i6t8kCHKm459Wx7xQYXK0vOoz6jqyR9WXV0poK5.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+.partie_compte_utilisateur{
+    background-color: #fdfbf7;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+
+.continer{
+ background-color: #fdfbf7;
+}
+.continoure_image{
+    height: 30%;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+.nombre_f_en{
+   height: auto;
+   margin-bottom: 0;
+   padding-bottom: 0;
+   margin-left: 5%;
+   margin-right: 5%;
+}
+.nombre_f_en_secondo{
+    padding-bottom: 0;
+    margin-bottom: 0;
+    height: auto;
+}
+    
+#image_profile{
+     
+     
+    width: 150px;
+    border-radius: 50%;
+    background: #fcf3e6;
+    
+    padding: 6px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    
+    
+}
+#compte_ut{
+    box-shadow: 1px 4px 2px 2px #D4BB83;
+}
