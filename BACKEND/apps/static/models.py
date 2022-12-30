@@ -1,4 +1,4 @@
-from sqlalchemy import Column,Integer,String,ForeignKey,Boolean,TEXT
+from sqlalchemy import Column,Integer,String,ForeignKey,Boolean,TEXT,DateTime
 from .Database import Base
 from sqlalchemy.orm import relationship
 
@@ -12,6 +12,7 @@ class Annonce(Base):
     description = Column(TEXT)
     prix=Column(Integer)
     localisation =(TEXT)
+    Date = Column(DateTime)
     user_id = Column(Integer,ForeignKey('users.id'))
     creator = relationship("user",back_populates='annonces')
 
@@ -20,12 +21,13 @@ class user(Base):
 
     id = Column(Integer, primary_key=True,index=True)
     UserType = Column(Boolean,default=False)
+    token = Column(TEXT)
     name = Column(TEXT,index=True)
     email = Column(TEXT)
     numeroDeTelephone = Column(Integer)
     adresse = Column(TEXT)
-    password = Column(TEXT)
     annonces = relationship("Annonce",back_populates='creator')
+
 
 
 # class AnnonceWeb(Base):

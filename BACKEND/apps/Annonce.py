@@ -13,19 +13,9 @@ router = APIRouter(
 get_db=Database.get_db
 
 
-# @router.get('/',response_model=List[Schemas.showblog])
-
-# def getAll(db :Session = Depends(get_db),current_user:Schemas.user = Depends(oauth2.get_current_user)):
-#     return blog.get_all(db)
 
 
-@router.post('/create',status_code=status.HTTP_201_CREATED,)
-def create(request :Schemas.Annonce,db :Session = Depends(get_db)):
-    new_Annonce= models.Annonce(categories=request.categories,typeDuBien=request.typeDuBien,user_id=1)
-    db.add(new_Annonce)
-    db.commit()
-    db.refresh(new_Annonce)
-    return new_Annonce
+
 
 @router.get('/')
 def test():

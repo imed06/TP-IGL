@@ -14,7 +14,7 @@ app = FastAPI()
 models.Base.metadata.create_all(bind=Database.engine)
 
 app.mount('/auth',auth.myapp)
-# app.include_router(Annonce.router)
+app.include_router(Annonce.router)
 app.include_router(annonce.router)
 app.include_router(user.router)
 

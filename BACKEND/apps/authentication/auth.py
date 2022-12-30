@@ -15,7 +15,7 @@ from starlette.responses import HTMLResponse,JSONResponse
 from static import Database, models
 from static import Schemas
 
-
+get_db=Database.get_db
 from . import jwt1
 
 
@@ -63,8 +63,8 @@ async def login(request: Request):
 
 
 
-@myapp.get('/callback')
-async def callback(request: Request):
+@myapp.get('/callback',response_model=Schemas.showuser)
+async def callback(request: Request,db :Session = Depends( get_db)):
     
     try:
         token = await oauth.google.authorize_access_token(request)
@@ -73,11 +73,11 @@ async def callback(request: Request):
     user = token.get('userinfo')
     if user:
         request.session['user'] = dict(user)
-    if valid_email_from_db(user.email):
-        token=create_token(user.email)
-        return JSONResponse({'result': True, 'access_token': create_token(user.email)})
+    new_user=db.query(models.user).filter(models.user.email ==user.email ).first()
 
-    return 'user doesnt exist'
+    return new_user
+
+    return JSONResponse({'result': False })
 
 
 
@@ -90,7 +90,7 @@ async def login(request: Request):
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
 @myapp.get('/callback2')
-async def callback(request: Request):
+async def callback(request: Request,db :Session = Depends( get_db)):
     
     try:
         token = await oauth.google.authorize_access_token(request)
@@ -99,9 +99,14 @@ async def callback(request: Request):
     user = token.get('userinfo')
     if user:
         request.session['user'] = dict(user)
-    if valid_email_from_db(user.email):
-        return 'user already exists'
-    return user.email
+    new_user=db.query(models.user).filter(models.user.email ==user.email ).first()
+    if new_user:
+        return JSONResponse({'result': False })
+    
+    return JSONResponse({'result': True, 'access_token': create_token(user.email),
+                         'email' : user.email
+        
+        })
 
 
 

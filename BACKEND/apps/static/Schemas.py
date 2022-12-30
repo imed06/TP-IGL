@@ -1,9 +1,11 @@
 from pydantic import BaseModel
 from typing import List, Optional
+from datetime import datetime
 
 class blogbase(BaseModel):
     categories :str
     typeDuBien :str
+    Date :datetime
 
 class Annonce(blogbase):
     class Config(): 
@@ -15,12 +17,24 @@ class user(BaseModel):
     name:str
     email:str
     numeroDeTlphn:str
+    token:str
+
+class createuser(BaseModel):
+    name:str
+    email:str
+    numeroDeTelephone:str
+    token:str
+    adresse :str
+    class Config():
+        orm_mode=True
 
 class showuser(BaseModel):
     name:str
     email:str
     numeroDeTelephone:str
-    # blogs:List[Annonce]=[]
+    token:str
+    adresse :str
+    annonces : List[Annonce]=[]
     class Config():
         orm_mode=True
 
