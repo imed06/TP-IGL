@@ -9,5 +9,5 @@ router =APIRouter(prefix="/Annonce",
 tags=['Annonces'])
 
 @router.post('/',response_model=Schemas.blogbase)
-def CreerAnnonce(response:Schemas.blogbase,db : Session=Depends(get_db)):
-    return Annonce.CreerAnnonce(response,db)
+def CreerAnnonce(request:Schemas.blogbase,db : Session=Depends(get_db)):
+    return Annonce.CreerAnnonce(request,db)
