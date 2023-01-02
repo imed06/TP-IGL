@@ -5,16 +5,15 @@ from fastapi.responses import HTMLResponse
 from fastapi import Request
 from fastapi import FastAPI
 import uvicorn
-import Annonce
 from authentication import auth
-from static import Database,models
+from db import Database
+from models import models
 from routers import annonce,user
 app = FastAPI()
 
 models.Base.metadata.create_all(bind=Database.engine)
 
 app.mount('/auth',auth.myapp)
-app.include_router(Annonce.router)
 app.include_router(annonce.router)
 app.include_router(user.router)
 

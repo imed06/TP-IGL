@@ -1,20 +1,22 @@
 from sqlalchemy import Column,Integer,String,ForeignKey,Boolean,TEXT,DateTime
-from .Database import Base
+from db.Database import Base
 from sqlalchemy.orm import relationship
 
 
 class Annonce(Base):
-    __tablename__ = 'anonnces'
+    __tablename__ = 'annonces'
     id = Column(Integer, primary_key=True,index=True)
+    titre = Column(TEXT)
     categories = Column(TEXT)
     typeDuBien = Column(TEXT)
-    surfaces = Column(TEXT)
+    surfaces = Column(Integer)
     description = Column(TEXT)
     prix=Column(Integer)
-    localisation =(TEXT)
+    localisation =Column(TEXT)
     Date = Column(DateTime)
     user_id = Column(Integer,ForeignKey('users.id'))
     creator = relationship("user",back_populates='annonces')
+    images = relationship("image",back_populates='owner')
 
 class user(Base):
     __tablename__ = 'users'
@@ -29,6 +31,18 @@ class user(Base):
     annonces = relationship("Annonce",back_populates='creator')
 
 
+class image(Base):
+    __tablename__ = 'images'
+
+    id = Column(Integer, primary_key=True,index=True)
+    name = Column(TEXT)
+    annonce_id = Column(Integer,ForeignKey('annonces.id'))
+    owner = relationship("Annonce",back_populates='images')
+
+
+
+
+
 
 # class AnnonceWeb(Base):
 #     __tablename__ = 'anonncesWeb'
@@ -39,17 +53,8 @@ class user(Base):
 #     description = Column(String)
 #     prix=Column(Integer)
 #     localisation =(String)
-#     contactInfo = Column(String)
-#     contact_id = Column(Integer,ForeignKey('contacts.id'))
-#     creator = relationship("Contact",back_populates='annoncesWeb')
-
-
-# class Contact(Base):
-#     __tablename__ = 'contacts'
-#     id = Column(Integer, primary_key=True,index=True)
-#     Name = Column(String)
-#     email = Column(String)
-#     numeroDeTlphn = Column(Integer)
-#     adresse = Column(String)
-#     annoncesWeb = relationship("AnnonceWeb",back_populates='creator')
+#     contactName = Column(String)
+#     contactemail = Column(String)
+#     contactnumeroDeTlphn =Column(Integer)
+#     contactadresse = Column(String)
 
