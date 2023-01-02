@@ -11,7 +11,7 @@ import Annonce from './Components/Annonce';
 function App() {
   return (
     
-      <Home/>
+      <DetailsAnnonce/>
   );
 }
 export default App;

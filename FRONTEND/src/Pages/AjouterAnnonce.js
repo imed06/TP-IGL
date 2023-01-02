@@ -22,11 +22,11 @@ function AjouterAnnonce() {
             prenom : "",
             adresse:"",
             email :"",
-            telephone:"",
+            telephone:"+213xxxxxxxxx",
             /*localisation*/
             wilaya:"",
             commune:"",
-            adrB:"", 
+            adrB :'', 
 
 
 
@@ -45,16 +45,16 @@ function AjouterAnnonce() {
                 prenom : Yup.string().required("Ce champ est obligatoire"),
                 adresse:Yup.string().required("Ce champ est obligatoire"),
                 email :Yup.string().email("Votre adresse e-mail est invalide"),
-                telephone:Yup.string().required("ce champ est obligatoire"),
+                telephone:Yup.string().required("ce champ est obligatoire").max(10,"Votre numero de télèphone est incorrect ").min(10 ,"Votre numero de télèphone est incorrect"),
                   
                  wilaya:Yup.string().required("Ce champ est obligatoire"),
                  commune:Yup.string().required("Ce champ est obligatoire"),
-                 adresseB:Yup.string().required("Ce champ est obligatoire"), 
+                 adrB:Yup.string().required("Ce champ est obligatoire"), 
 
            }),
         
         // submit le formulaire
-        onSubmit:(values)=>{
+        onSubmit: values=>{
             console.log(values);
         },
       
@@ -70,7 +70,7 @@ function AjouterAnnonce() {
      
         
         <form  onSubmit={formik.handleSubmit} className="formulaire">
-                <div className="shadow-3xl border-b-2 border-[#1a2536] ..." id="titre_generale_div">
+                <div className="shadow-3xl border-b-2 bg-[#cfc0a0] border-[#0E213F] ..." id="titre_generale_div">
                         <h1 id="titre_generale" className=" font-LibreBaskerville "> Ajouter une nouvelle annonce</h1>
                 </div>
             <div className="Annonce rounded-md ">
@@ -198,7 +198,7 @@ function AjouterAnnonce() {
                 </div>
                <div className="contacte_localisation_annonce rounded-lg shadow-3xl">
                 <div className="info_contact rounded-lg">
-                <h1 id="titre_generale" className=" font-LibreBaskerville border-b-2 border-[#1a2536] ... ">Information de contact</h1>
+                <h1 id="titre_generale" className=" font-LibreBaskerville border-b-2 border-[#0E213F] ... ">Information de contact</h1>
                             {/* le champs pour entre le nom */}
                             <div 
                             className="pd-4 my-3">
@@ -266,7 +266,7 @@ function AjouterAnnonce() {
                                 onChange={formik.handleChange}
                                 onBlur ={formik.handleBlur}
                                 className="border-1 border-bleu-20 p-2 rounded-md focus:ring-2 focus:ring-bleu-500 ring-inset"
-                                type="tel" name="telephone" placeholder="Entre votre numéro de téléphone" />
+                                type="tel" name="telephone" placeholder="Entre votre numero de téléphone" />
                                 <p id="utile" className ="block text-sm font-medium  pb-4 font-Montserrat  text-red-600 ">
                             {formik.touched.telephone && formik.errors.telephone ? formik.errors.telephone: ""}</p>
                             </div>
@@ -275,10 +275,11 @@ function AjouterAnnonce() {
                             <div className="pd-4 my-3">
                                 <label 
                                 id ="utile"
+                                ame="adresse"
                                 className="block text-lg font-bold pb-4 font-Montserrat  text-sky-900 "
                                 htmlFor="adresse"
                                 >Adresse</label>
-                                <input type="text" id ="utile" placeholder="Entre votre Addresse"  value={formik.values.adresse}
+                                <input type="text" id ="utile" placeholder="Entre votre Addresse" name="adresse" value={formik.values.adresse}
                                 onChange = {formik.handleChange}
                                 onBlur ={formik.handleBlur}
                                 className="border-1 border-bleu-20 p-2 rounded-md focus:ring-2 focus:ring-bleu-500 ring-inset"
@@ -332,8 +333,8 @@ function AjouterAnnonce() {
                             htmlFor="nom"
                             id ="utile"
                             >Adresse de bien immobilier</label>
-                            <input  type="text" name="AdresseB" placeholder="Entre votre Addresse" 
-                             value={formik.values.adrB}
+                            <input  type="text" name="adrB" placeholder="Entre votre Addresse" 
+                            value={formik.values.adrB}
                             onChange={formik.handleChange}
                             onBlur ={formik.handleBlur}
                             id ="utile"
@@ -364,9 +365,9 @@ function AjouterAnnonce() {
             </div>
             <div className="Bottons_Ajouter_annuler">
             <button type="submit"  id="Ajouter"
-            className="text-white bg-gradient-to-br from-[#1a2536] to-sky-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-sky-900 dark:focus:ring-[#1a2536] font-medium rounded-lg text-sm px-5 py-2.5 text-center  mb-2">
+            className="text-white bg-gradient-to-br font-LibreBaskerville from-[#1a2536] to-sky-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-sky-900 dark:focus:ring-[#1a2536] font-medium rounded-lg text-sm px-5 py-2.5 text-center  mb-2">
             Ajouter</button>
-            <button type="reset"  id ="Annuler" className="text-white bg-gradient-to-br from-[#1a2536] to-sky-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-sky-900 dark:focus:ring-[#1a2536] font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+            <button type="reset"  id ="Annuler" className="text-white bg-gradient-to-br font-LibreBaskerville from-[#1a2536] to-sky-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-sky-900 dark:focus:ring-[#1a2536] font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
             Annuler</button>
                 
             </div>

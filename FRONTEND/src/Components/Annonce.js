@@ -43,8 +43,8 @@ function Annonce(props) {
         setCurrentIndex(newIndex);
     };
     return (
-        <div className='mt-8 mx-2 py-px bg-[#f7f7fd] shadow-inner rounded-lg '>
-        <div className="grid grid-cols-1  m-4">
+        <div className='mt-8 mx-2 py-px bg-white shadow-inner rounded-lg '>
+        <div className="grid grid-cols-1  m-4 ">
                     <div className=" cursor-pointer bg-white max-w-sm w-sm  rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                         <div className=" flex flex-col">
                             <div className='  w-full h-72 group'>
@@ -66,13 +66,13 @@ function Annonce(props) {
                             </div>
                             <div className=' divide-y divide-gray-300'>
                                 <div className='p-3' >
-                                    <h5 className="mb-2 text-2xl text-left font-bold tracking-tight text-gray-900 dark:text-white">In the night Apart</h5>
-                                    <p className="mb-3 font-normal text-left text-[#4B6D88] dark:text-gray-400">4 Bedrooms - 2 Bathrooms - 2.5M</p>
-                                    <h5 className="mb-2 text-2xl text-left font-bold tracking-tight text-gray-900 dark:text-white">$753,00/<span className='text-[#596D78] font-normal'>Year</span></h5>
+                                    <h5 className="mb-2 text-2xl text-left font-LibreBaskerville  tracking-tight text-gray-900 dark:text-white">In the night Apart</h5>
+                                    <p className="mb-3 font-blod text-sm font-Montserrat text-left text-[#4B6D88] dark:text-gray-400">4 Bedrooms - 2 Bathrooms - 2.5M</p>
+                                    <h5 className="mb-2 text-2xl text-left font-bold tracking-tight text-gray-900 dark:text-white">$753,00/<span className='text-[#596D78] font-blod text-lg font-Montserrat'>Year</span></h5>
                                     <div className='flex w-full justify-between flex-row p-0 '>
                                         <div></div>
                                         <div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(0, 0, 0, 0.5)" className="w-6 h-6" stroke='#C38A19'>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(0, 0, 0, 0.5)" className="w-6 h-6" stroke='white'>
                                                 <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
                                             </svg>
 

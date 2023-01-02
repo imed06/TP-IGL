@@ -14,8 +14,8 @@ export default function ConsulterAnnonce() {
      return (
     <div id="annonce_ut" className="shadow-2xl mb-6 mt-6 pb-12 bg-[#f8f3e7] px-4 pt-3 lg:mx-14 mx-0 border-t border-blueGray-200 rounded-lg text-center">
                 <div id="onglets">
-                    <div className={`onglet_cree ${stateOnglets === 1 ? 'active' : ''} ` } onClick={goCree}>Créées</div>
-                    <div className={`onglet_save ${stateOnglets === 2 ? 'active' : ''} ` } onClick={goSave}>Enregistrées</div>
+                    <div id="cree" className={`onglet_cree ${stateOnglets === 1 ? 'active' : ''} ` } onClick={goCree}>Créées</div>
+                    <div id="save" className={`onglet_save ${stateOnglets === 2 ? 'active' : ''} ` } onClick={goSave}>Enregistrées</div>
                 </div> 
       <div>        
            {stateOnglets === 1 ?    

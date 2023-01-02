@@ -33,6 +33,12 @@
     padding-top : 3px; 
    
 }
+#save ,#cree{
+    font-family: Montserrat;
+    font-size: 90%;
+    font-weight: bolder;
+   
+}
 .onglet_save{
     background-color: rgb(226, 217, 203);  
     margin-left: 10px;

@@ -1,6 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@700&family=Exo+2:ital,wght@1,100&display=swap');
+
  @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap'); 
  @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Montserrat:ital,wght@1,200&display=swap'); 
 /* @font-face{
@@ -66,12 +69,12 @@ form{
    
    padding: 15px;
    display: flex;
-   background-color: #f8f0de;; 
+
 }
 #titre_generale{
   padding-left: 8%;
   font-style: italic;
-  font-weight: bold;
+  font-weight:200;
   font-size: large;
   color: #834B09;
 }
@@ -103,7 +106,7 @@ body{
   
 }
 .contacte_localisation_annonce,.info_annonce{
-    background-color:  #1a2536;
+    background-color:  #0E213F;
     box-shadow: 1px 4px 2px 2px #D4BB83; 
     
     width: 40%;

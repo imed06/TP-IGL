@@ -5,7 +5,9 @@ module.exports = {
     extend: {
       
       fontFamily:{'Montserrat':'Montserrat' ,
-       'LibreBaskerville':'Libre Baskerville'
+       'LibreBaskerville':'Libre Baskerville',
+         'Exo2' : 'Exo+2',
+         'Dosis':'Dosis'
       
     }
     }

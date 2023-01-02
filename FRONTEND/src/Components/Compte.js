@@ -22,27 +22,27 @@ export default function Compte() {
            
            <div className="flex justify-center py-2 lg:pt-2 pt-4  ">
           
-            <div className="mr-4 p-2 text-center">
+            <div className="mr-4 p-2 text-center ">
               <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
                 2
               </span>
-              <span className="text-sm text-blueGray-400">Annonces</span>
+              <span className="font-Montserrat font-bold text-base text-blueGray-400">Annonces</span>
             </div>
             <div className="lg:mr-4 p-3 text-center">
               <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
                 89
               </span>
-              <span className="text-sm text-blueGray-400">Favoris</span>
+              <span className="font-Montserrat text-base font-bold text-blueGray-400">Favoris</span>
             </div>
           </div> 
         </div>
       </div>
       <div className="text-center mt-2">
-        <h3 className="text-xl font-semibold leading-normal text-blueGray-700 mb-2">
+        <h3 className="text-xl font-semibold font-LibreBaskerville leading-normal text-blueGray-700 mb-2">
           Imad teriki
         </h3>
         <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-          <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
+          <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400 font-LibreBaskerville"></i>
            Alger , Ouad-semar
         </div>
        

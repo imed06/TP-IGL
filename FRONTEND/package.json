@@ -17,6 +17,7 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.2.3",
+    "build-css": "^0.2.0",
     "date-fns": "^2.29.3",
     "dayjs": "^1.11.7",
     "flowbite": "^1.5.5",
@@ -33,6 +34,7 @@
     "react-scripts": "^5.0.1",
     "react-simple-image-slider": "^2.4.1",
     "react-tailwindcss-datepicker": "^1.2.2",
+    "run": "^1.4.0",
     "sass": "^1.57.1",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
@@ -40,6 +42,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

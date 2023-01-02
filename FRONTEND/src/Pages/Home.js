@@ -39,6 +39,7 @@ const Home = () => {
         const newIndex = isLastSlide ? 0 : currentIndex + 1;
         setCurrentIndex(newIndex);
     };
+    
     return (
         <div className='flex flex-col h-full' style={{ "backgroundColor": "#f5f5f5" }}>
             <div className="w-full flex flex-col sticky top-0  ">
