@@ -14,6 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
+import logo2 from '../images/logo2.png'
 
 function SideBar() {
     const [value, setValue] = useState({
@@ -178,14 +179,16 @@ function SideBar() {
                     </Box>
                 </Drawer>
             </React.Fragment>
-            <div className="w-full flex flex-col sticky top-0 divide-y divide-gray-100 ">
+            <div className="w-full flex mt-0 flex-col sticky top-0 divide-y divide-gray-100 ">
                 <nav className="w-full  mb-0 bg-white sticky top-0 border-gray-200  rounded-sm dark:bg-[#0E213F]">
                     <div className="container flex flex-wrap items-center justify-between mx-auto">
-                        <div>
-                            <Button onClick={toggleDrawer("left", true)}>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#FF9119" className="w-6 h-6">
+                        <div className=' mt-0 lg:h-16 h-10 lg:w-15 w-5'>
+                         
+                            <Button className=' mt-0 pb-10 mb-0 bg-black' onClick={toggleDrawer("left", true)}>
+                              <img src={logo2} className="absolute lg:h-15 h-10 mt-10 pt-0 lg:w-16 w-5" alt="logo" />
+                                {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#FF9119" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                                </svg>
+                                </svg> */}
                             </Button>
                         </div>
                         <div className="flex md:order-1 justify-between items-center w-1/2">
@@ -206,7 +209,7 @@ function SideBar() {
                             <div className="flex flex-col items-center px-8 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0  dark:bg-[#0E213F] md:dark:bg-[#0E213F] dark:border-gray-700">
                                 <div>
                                     <div className='cursor-pointer'>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="" className="w-6 h-6">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#D4BB83" className="w-6 h-6">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5" />
                                         </svg>
                                     </div>
