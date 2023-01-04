@@ -1,7 +1,5 @@
 import React from 'react'
 import SideBar from '../Components/SideBar'
-import Avatar from '@mui/material/Avatar';
-import { deepPurple } from '@mui/material/colors';
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 
@@ -21,16 +19,16 @@ function DetailsAnnonce() {
                 <SideBar />
             </div>
             <div className='mt-8 mx-40' >
-                <h1 className=" text-4xl dark:text-white" >Vente Niveau De Villa F3 Alger Bir Mourad Rais</h1>
+                <h1 className=" text-4xl " >Vente Niveau De Villa F3 Alger Bir Mourad Rais</h1>
                 <div className='flex flex-row justify-between mt-4'>
-                    
-                        <button className=" hover:bg-gray-200 rounded-lg hover:text-blue-700 text-black py-2 px-2  inline-flex items-center">
+
+                    <button className=" hover:bg-gray-200 rounded-lg hover:text-blue-700 text-black py-2 px-2  inline-flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="blue" className="w-5 h-5">
                             <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
                         </svg>
                         <span className='ml-1  '>Afficher toutes les photos</span>
                     </button>
-                    
+
                     <button className="hover:bg-gray-200 hover:text-red-700 text-black py-2 px-2 rounded-lg inline-flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="red" className="w-5 h-5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
@@ -60,7 +58,7 @@ function DetailsAnnonce() {
                     <div>
                         <div className=" inset-0 flex items-center justify-center">
 
-                            <button type="button" onClick={openModal} className="flex flex-row text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-full text-sm px-5 py-2.5 mr-2  dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                            <button type="button" onClick={openModal} className="flex flex-row text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 ">
                                 Afficher sur map
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 ml-1">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
@@ -125,7 +123,7 @@ function DetailsAnnonce() {
                         </Transition>
                     </div>
                     <div>
-                        <button type="button" className="text-white inline-flex items-center bg-[#F7BE38] hover:bg-[#F7BE38]/90  font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        <button type="button" className="text-white inline-flex items-center bg-[#F7BE38] hover:bg-[#F7BE38]/90  font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2  focus:outline-none ">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
                             </svg>
@@ -143,32 +141,30 @@ function DetailsAnnonce() {
                     <div className="border-t border-gray-200">
                         <dl>
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-700">Places</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">17</dd>
+                                <dt className="text-md font-medium text-gray-700">Catégorie</dt>
+                                <dd className="mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0">Vente</dd>
                             </div>
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-700">Salles de bains</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">3</dd>
+                                <dt className="text-sm font-medium text-gray-700">Type d'immobilier</dt>
+                                <dd className="mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0">Terrain</dd>
                             </div>
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-700">Surface interne</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">300 m2</dd>
+                                <dt className="text-md font-medium text-gray-700">Surface</dt>
+                                <dd className="mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0">300 m2</dd>
                             </div>
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-700">Type Sol </dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Bois solid</dd>
+                                <dt className="text-md font-medium text-gray-700">Prix</dt>
+                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">6 million</dd>
                             </div>
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-700">Chambres</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">5</dd>
-                            </div>
-                            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-700">Surface externe</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">522 m2</dd>
-                            </div>
-                            <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-700">Etage</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">1</dd>
+                                <dt className="text-md font-medium text-gray-700">Adresse</dt>
+                                <dd className="mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0">
+                                    <ul>
+                                        <li>Wilaya : Alger</li>
+                                        <li>Commune : Alger centre</li>
+                                        <li>Adresse : Sidi yahia</li>
+                                    </ul>
+                                </dd>
                             </div>
                         </dl>
                     </div>
@@ -183,7 +179,7 @@ function DetailsAnnonce() {
                     <div className="border-t border-gray-200">
                         <dl>
                             <div className="bg-white px-4 py-5  sm:px-6">
-                                <dt className="text-sm font-medium text-gray-700">Vente ou location
+                                <dt className="text-md font-medium text-gray-700">Vente ou location
                                     Niveau villa
                                     3 pièce 85m2 chacune
                                     + Cuisine + douche et toilettes + terrace
@@ -200,48 +196,46 @@ function DetailsAnnonce() {
                 </div>
                 <div>
                     <div className='flex flex-col mt-8 mb-3'>
-                        <div className='flex flex-row '>
-                            <Avatar sx={{ bgcolor: deepPurple[500], width: 45, height: 45 }} >I</Avatar>
-                            <div className='flex flex-col ml-2'>
-                                <h3 className="text-lg  font-medium leading-6 text-gray-900">Contact et Cordonnées</h3>
-                                <span className="text-sm font-medium text-gray-500">Crée par Imed Triki</span>
+                        <div className='flex flex-row justify-center '>
+                            <div className='flex flex-col mr-2'>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#FF9119" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
                             </div>
+                            <h3 className="text-lg  font-medium leading-6 text-gray-900">Contact et Cordonnées</h3>
+                            
                         </div>
-                        <div className="overflow-hidden bg-white shadow sm:rounded-lg mt-2">
+                        <div className="overflow-hidden  mt-2">
                             <div className="flex flex-row justify-around py-8 px-6 ">
                                 <div className='flex items-center flex-col'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF9119" className="w-6 h-6">
-                                        <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />
-                                    </svg>
-                                    <div className="text-gray-500 dark:text-gray-400">
-                                        <span className="text-sm font-medium text-gray-700">Triki imed</span>
+                                    <div className=' bg-[#46b5d1] p-5 rounded-full mb-4'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-5 h-5">
+                                            <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div className="text-gray-500 ">
+                                        <span className='text-black'>Nom : </span><span className="text-md font-medium text-black">Triki imed</span>
                                     </div>
                                 </div>
                                 <div className='flex items-center flex-col'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                        <path fillRule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
-                                    </svg>
-                                    <div className="text-gray-500 dark:text-gray-400">
-                                        <span className="text-sm font-medium text-gray-700">Alger</span>
+                                    <div className=' bg-[#46b5d1] p-5 rounded-full mb-4'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-5 h-5">
+                                            <path fillRule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div className="text-gray-500 ">
+                                        <span className='text-black'>Adresse : </span><span className="text-md tracking-tight font-medium text-black ">Alger,Sidi yahia 24</span>
                                     </div>
                                 </div>
-                                <div className='flex items-center flex-col'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                        <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
-                                        <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
-                                    </svg>
 
-                                    <div className="text-gray-500 dark:text-gray-400">
-                                        <span className="text-sm font-medium text-gray-700">Oued kniss</span>
-                                    </div>
-                                </div>
                                 <div className='flex items-center flex-col'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                        <path fillRule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clipRule="evenodd" />
-                                    </svg>
-
-                                    <div className="text-gray-500 dark:text-gray-400">
-                                        <span className="text-sm font-medium text-gray-700">0551236598</span>
+                                    <div className=' bg-[#46b5d1] p-5 rounded-full mb-4'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-5 h-5">
+                                            <path fillRule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clipRule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div className="text-gray-500">
+                                        <span className='text-black'>Phone : </span><span className="text-md font-medium text-[#46b5d1]">0551236598</span>
                                     </div>
                                 </div>
                             </div>
