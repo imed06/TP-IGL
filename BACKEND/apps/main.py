@@ -15,6 +15,7 @@ from sqlalchemy.orm import Session
 from fastapi import APIRouter,Depends
 from Database import get_db
 import scraper
+import scraper2
 app = FastAPI()
 
 models.Base.metadata.create_all(bind=Database.engine)
@@ -23,9 +24,13 @@ app.mount('/auth',auth.myapp)
 app.include_router(Annonce.router)
 app.include_router(user.router) 
 
-@app.post('/Annonces')
-def WebScraping(db : Session=Depends(get_db)):
-    return scraper.WebScraping(db)
+@app.post('/scraping/AnnonceAlgerie')
+def WebScraping(page_debut:int,page_fin:int,db : Session=Depends(get_db)):
+    return scraper.WebScraping(db,page_debut,page_fin)
+
+@app.post('/scraping/darjdida') #deuxieme
+def WebScraping(page_debut:int,page_fin:int,db : Session=Depends(get_db)):
+    return scraper2.WebScraping(db,page_debut,page_fin)
 
 
 @app.get('/')

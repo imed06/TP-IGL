@@ -5,7 +5,36 @@ from typing import Any, List
 import Schemas,models
 from sqlalchemy.orm import Session
 
-def WebScraping(db:Session):
+
+def WebScraping(db:Session,page_debut:int,page_fin:int):
+    if(page_debut == 1):
+        url ="http://www.annonce-algerie.com/annoncesimmobilier.asp"
+        ScraperLienAnnoncePage(url,db)
+    if(page_fin>1):
+        page_actuelle =2
+        while(page_actuelle <= page_fin):
+            url = ("http://www.annonce-algerie.com/AnnoncesImmobilier.asp?rech_cod_cat=1&rech_cod_"
+            "rub=&rech_cod_typ=&rech_cod_sou_typ=&rech_cod_pay=DZ&rech_cod_reg=&rech_cod_vil=&rech_cod"
+            "_loc=&rech_prix_min=&rech_prix_max=&rech_surf_min=&rech_surf_max=&rech_age=&rech_photo=&rech_typ_cli=&rech_order"
+            "_by=31&rech_page_num=%d")%(page_actuelle)
+            ScraperLienAnnoncePage(url,db)
+            page_actuelle=page_actuelle+1
+
+    return "webScrapping donne succesfuly"
+
+
+def ScraperLienAnnoncePage(url:str,db:Session):
+    only_a_tags = SoupStrainer(attrs={"class" : "Tableau1"})
+    page = _requests.get(url)
+    soup = _bs4.BeautifulSoup(page.content,"html.parser",parse_only=only_a_tags)
+    for link in soup.find_all('a'):
+        info = link.get('href')
+        if info[0]=="D":
+            NewUrl="http://www.annonce-algerie.com/"+info
+            ExtractionInfo(NewUrl,db)
+
+
+"""def WebScraping(db:Session,page_debut:int,page_fin:int):
     Page_Max =2
     num_Page=1
     while num_Page <= Page_Max:
@@ -33,7 +62,7 @@ def WebScraping(db:Session):
 
         num_Page=num_Page+1
 
-    return "webScrapping donne succesfuly" 
+    return "webScrapping donne succesfuly"  """
 
 def ExtractionInfo(url:str,db:Session):
     listElement =[]
