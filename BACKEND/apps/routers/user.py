@@ -16,7 +16,7 @@ get_db=Database.get_db
 
 @router.post('/', response_model=Schemas.showuser)
 def create(request:Schemas.createuser,db :Session = Depends( get_db)):
-    new_user = models.user(name=request.name,email=request.email,numeroDeTelephone = request.numeroDeTelephone,adresse=request.adresse)
+    new_user = models.user(name=request.name,email=request.email,numeroDeTelephone = request.numeroDeTelephone,adresse=request.adresse,token = request.token)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)

@@ -1,26 +1,27 @@
+from google.auth import crypt
+from google.auth import jwt
+from . import valid
 import os
-from fastapi import FastAPI,Depends,status,Request,HTTPException
+from fastapi import FastAPI, Depends, status, Request, HTTPException
 from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
 from authlib.integrations.starlette_client import OAuth
 from authlib.integrations.starlette_client import OAuthError
 from starlette.config import Config
 from starlette.middleware.sessions import SessionMiddleware
-from starlette.responses import HTMLResponse,JSONResponse
+from starlette.responses import HTMLResponse, JSONResponse
 from db import Database
 from models import models
 from schemas import Schemas
 
 
-get_db=Database.get_db
-from . import valid
+get_db = Database.get_db
 
 
 myapp = FastAPI()
 
 
-
-CREDENTIALS_EXCEPTION=valid.CREDENTIALS_EXCEPTION
+CREDENTIALS_EXCEPTION = valid.CREDENTIALS_EXCEPTION
 
 
 # OAuth settings
@@ -30,14 +31,15 @@ if GOOGLE_CLIENT_ID is None or GOOGLE_CLIENT_SECRET is None:
     raise BaseException('Missing env variables')
 
 # Set up OAuth
-config_data = {'GOOGLE_CLIENT_ID': GOOGLE_CLIENT_ID, 'GOOGLE_CLIENT_SECRET': GOOGLE_CLIENT_SECRET}
+config_data = {'GOOGLE_CLIENT_ID': GOOGLE_CLIENT_ID,
+               'GOOGLE_CLIENT_SECRET': GOOGLE_CLIENT_SECRET}
 starlette_config = Config(environ=config_data)
 oauth = OAuth(starlette_config)
 oauth.register(
     name='google',
     server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
     client_kwargs={'prompt': "consent",
-        'scope': 'openid email profile'},
+                   'scope': 'openid email profile'},
 )
 
 # Set up the middleware to read the request session
@@ -47,10 +49,11 @@ if SECRET_KEY is None:
 myapp.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
 
 # Frontend URL:
-FRONTEND_URL = os.environ.get('FRONTEND_URL') or 'http://127.0.0.1:5000/auth/callback'
+FRONTEND_URL = os.environ.get(
+    'FRONTEND_URL') or 'http://127.0.0.1:5000/auth/callback'
 
 
-#--------------------------------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------------------------------
 
 @myapp.get('/login')
 async def login(request: Request):
@@ -58,10 +61,9 @@ async def login(request: Request):
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
 
+@myapp.get('/callback', response_model=Schemas.showuser)
+async def callback(request: Request, db: Session = Depends(get_db)):
 
-@myapp.get('/callback',response_model=Schemas.showuser)
-async def callback(request: Request,db :Session = Depends( get_db)):
-    
     try:
         token = await oauth.google.authorize_access_token(request)
     except OAuthError as error:
@@ -69,48 +71,43 @@ async def callback(request: Request,db :Session = Depends( get_db)):
     user = token.get('userinfo')
     if user:
         request.session['user'] = dict(user)
-    new_user=db.query(models.user).filter(models.user.email ==user.email ).first()
-    if new_user:
-        new_user.token = token.get('id_token')
-        # 
-        db.commit()
-        return new_user
-    
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f'user not found')
+    # new_user = db.query(models.user).filter(
+    #     models.user.email == user.email).first()
+    # if new_user:
+    #     new_user.token = token.get('id_token')
+    #     #
+    #     db.commit()
+    #     return new_user
 
-
-
+    # raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+    #                     detail=f'user not found')
+    return token
 
 
 @myapp.get('/signup')
 async def login(request: Request):
-    redirect_uri = 'http://127.0.0.1:5000/auth/callback2'  # This creates the url for our /auth endpoint
+    # This creates the url for our /auth endpoint
+    redirect_uri = 'http://127.0.0.1:5000/auth/callback2'
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
+
 @myapp.get('/callback2')
-async def callback(request: Request,db :Session = Depends( get_db)):
+async def callback(request: Request, db: Session = Depends(get_db)):
     try:
         token = await oauth.google.authorize_access_token(request)
     except OAuthError as error:
         return HTMLResponse(f'<h1> callback2 function error {error.error}</h1>')
     user = token.get('userinfo')
-    new_user=db.query(models.user).filter(models.user.email ==user.email ).first()
-    if new_user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f'user not found')
-    return JSONResponse({'token': token.get('id_token') })    
+    # new_user = db.query(models.user).filter(
+    #     models.user.email == user.email).first()
+    # if new_user:
+    #     raise HTTPException(
+    #         status_code=status.HTTP_404_NOT_FOUND, detail=f'user not found')
+    # return JSONResponse({'token':  jwt.decode(token.get('access_token'), certs=public_certs)})
+    return token
 
 
 @myapp.get('/')
 async def root():
     return HTMLResponse(
         '<body><a href="/auth/login">Log In</a> <a href="/auth/signup">singup</a></body>')
-
-
-
-
-
-
-
-
-
-

@@ -9,14 +9,19 @@ class Annonce(Base):
     titre = Column(TEXT)
     categories = Column(TEXT)
     typeDuBien = Column(TEXT)
-    surfaces = Column(Integer)
+    surfaces = Column(TEXT)
     description = Column(TEXT)
-    prix=Column(Integer)
+    prix=Column(TEXT)
     localisation =Column(TEXT)
     Date = Column(DateTime)
+    nom_contact = Column(TEXT)
+    adresse_contact = Column(TEXT)
+    email_contact = Column(TEXT)
+    tlphn_contact = Column(TEXT)
     user_id = Column(Integer,ForeignKey('users.id'))
     creator = relationship("user",back_populates='annonces')
     images = relationship("image",back_populates='owner')
+    # messages = relationship("Message",back_populates='annonce')
 
 class user(Base):
     __tablename__ = 'users'
@@ -29,32 +34,26 @@ class user(Base):
     numeroDeTelephone = Column(Integer)
     adresse = Column(TEXT)
     annonces = relationship("Annonce",back_populates='creator')
+    # messages = relationship("message",back_populates='user')
 
 
 class image(Base):
     __tablename__ = 'images'
 
     id = Column(Integer, primary_key=True,index=True)
-    name = Column(TEXT)
+    lien = Column(TEXT)
     annonce_id = Column(Integer,ForeignKey('annonces.id'))
     owner = relationship("Annonce",back_populates='images')
 
 
-
-
-
-
-# class AnnonceWeb(Base):
-#     __tablename__ = 'anonncesWeb'
+# class Message(Base):
+#     __tablename__='messages'
 #     id = Column(Integer, primary_key=True,index=True)
-#     categories = Column(String)
-#     typeDuBien = Column(String)
-#     surfaces = Column(String)
-#     description = Column(String)
-#     prix=Column(Integer)
-#     localisation =(String)
-#     contactName = Column(String)
-#     contactemail = Column(String)
-#     contactnumeroDeTlphn =Column(Integer)
-#     contactadresse = Column(String)
+#     corp = Column(String)
 
+#     id_destinataire = Column(Integer)
+#     id_expediteur = Column(Integer,ForeignKey("users.id"))
+#     id_annonce = Column(Integer,ForeignKey("annonces.id"))
+
+#     annonce = relationship("Annonce",back_populates='message')
+#     user = relationship("user",back_populates='message')

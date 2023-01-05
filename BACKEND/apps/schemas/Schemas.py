@@ -2,10 +2,9 @@ from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 
-class image(BaseModel):
-    id:int
-    name:str
-    class Config():
+class Photo(BaseModel):
+    lien:str
+    class Config(): 
         orm_mode=True
 
 
@@ -14,7 +13,7 @@ class createuser(BaseModel):
     name:str
     email:str
     numeroDeTelephone:str
-    #token:str
+    token:str
     adresse :str
     class Config():
         orm_mode=True
@@ -27,9 +26,9 @@ class annoncebase(BaseModel):
     titre:str
     categories :str
     typeDuBien :str
-    surfaces :int
+    surfaces :str
     description :str
-    prix : int
+    prix : str
     localisation :str
     Date :datetime
     # creator : createuser
@@ -44,13 +43,17 @@ class showannonce(BaseModel):
     titre:str
     categories :str
     typeDuBien :str
-    surfaces :int
+    surfaces :str
     description :str
-    prix : int
+    prix : str
     localisation :str
     Date :datetime
-    creator : createuser
-    images : List[image]=[]
+    creator : Optional[createuser] = ...
+    nom_contact : Optional[str] = ...
+    adresse_contact : Optional[str] = ...
+    email_contact : Optional[str] = ...
+    tlphn_contact : Optional[str] = ...
+    images : List[Photo]=[]
     class Config(): 
         orm_mode=True
 
@@ -59,13 +62,13 @@ class showAnnonceWithoutUser(BaseModel):
     titre:str
     categories :str
     typeDuBien :str
-    surfaces :int
+    surfaces :str
     description :str
-    prix : int
+    prix : str
     localisation :str
     Date :datetime
     # creator : createuser
-    images : List[image]=[]
+    images : List[Photo]=[]
     class Config(): 
         orm_mode=True
 
@@ -102,8 +105,10 @@ class Login(BaseModel):
     password:str
 
 class Token(BaseModel):
-    access_token: str
-    token_type: str
+    id_token: str
+
+class Access_token(BaseModel):
+    token: str
 
 
 class TokenData(BaseModel):
