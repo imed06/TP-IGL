@@ -10,6 +10,8 @@ import Admin from './Pages/Admin'
 import Scrapping from './Pages/Scrapping';
 import Success from './Pages/Success'
 import {Routes , Route} from 'react-router-dom';
+import Message from './Components/Message';
+import Accueil from './Pages/Accueil';
 
 
 
@@ -18,7 +20,7 @@ function App() {
      
   return (
     
-   <Admin></Admin>
+   <DetailsAnnonce></DetailsAnnonce>
   );
 }
 export default App;
