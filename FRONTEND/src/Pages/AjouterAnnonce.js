@@ -63,7 +63,7 @@ function AjouterAnnonce() {
     
 
   return (
-    <div className="h-screen">
+    <div className="h-screen" id="ajouterAnnonce">
       <div className="w-full flex flex-col sticky top-0  ">
                 <SideBar />
      </div>  

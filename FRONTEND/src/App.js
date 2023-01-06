@@ -9,9 +9,10 @@ import Annonce from './Components/Annonce';
 import Admin from './Pages/Admin'
 import Scrapping from './Pages/Scrapping';
 import Success from './Pages/Success'
-import {Routes , Route} from 'react-router-dom';
+import {Routes , Route, BrowserRouter} from 'react-router-dom';
 import Message from './Components/Message';
 import Accueil from './Pages/Accueil';
+import SideBar from './Components/SideBar';
 
 
 
@@ -19,8 +20,13 @@ import Accueil from './Pages/Accueil';
 function App() {
      
   return (
-    
-   <DetailsAnnonce></DetailsAnnonce>
+    <div>
+    <Routes>
+        <Route path="/" element={<AjouterAnnonce/>}/>
+        <Route path="/AjouterAnnonce" element={<AjouterAnnonce></AjouterAnnonce>}></Route>
+    </Routes>
+    </div>
+   
   );
 }
 export default App;

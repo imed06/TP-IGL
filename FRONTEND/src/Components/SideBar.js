@@ -14,7 +14,8 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
-import logo2 from '../images/logo2.png'
+import logo2 from '../images/logo2.png';
+import { BrowserRouter , Link } from 'react-router-dom';
 
 function SideBar() {
     const [value, setValue] = useState({
@@ -99,6 +100,7 @@ function SideBar() {
                                 <div className="flex cursor-pointer items-center p-2 text-base font-normal text-gray-500 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                                     <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clipRule="evenodd"></path></svg>
                                     <span className="flex-1 ml-3 whitespace-nowrap">Ajouter annonce</span>
+                                    <Link to="/AjouterAnnonce"></Link>
                                 </div>
                             </li>
                             <li>
@@ -185,7 +187,7 @@ function SideBar() {
                         <div className=' mt-0 lg:h-16 h-10 lg:w-15 w-5'>
                          
                             <Button className=' mt-0 pb-10 mb-0 bg-black' onClick={toggleDrawer("left", true)}>
-                              <img src={logo2} className="absolute lg:h-15 h-10 mt-10 pt-0 lg:w-16 w-5" alt="logo" />
+                              <img src={logo2} className="absolute rounded-full lg:h-15 h-10 mt-10 pt-0 lg:w-16 w-5" alt="logo" />
                                 {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#FF9119" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg> */}
