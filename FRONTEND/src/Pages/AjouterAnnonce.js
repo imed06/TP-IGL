@@ -4,6 +4,7 @@ import SideBar from '../Components/SideBar';
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 function AjouterAnnonce() {
 
@@ -14,8 +15,9 @@ function AjouterAnnonce() {
             categorie:"",
             typeB:"",
             surface:"",
-            Description:"description",
+            Description:"",
             prix:"" ,
+            date :"" ,
 
             /* information de contact*/ 
             nom :"",
@@ -32,7 +34,7 @@ function AjouterAnnonce() {
 
         },
          // valide le formulaire
-           validationSchema: Yup.object({
+          /* validationSchema: Yup.object({
              titre:Yup.string().required("Veuillez introduire un titre pour votre annonce").max(50 ,"Votre titre ne doit pas dépasser 100 caractéres"),
              categorie:Yup.string().required("Ce champ est obligatoire"),
                typeB:Yup.string().required("Ce champ est obligatoire"),
@@ -51,11 +53,32 @@ function AjouterAnnonce() {
                  commune:Yup.string().required("Ce champ est obligatoire"),
                  adrB:Yup.string().required("Ce champ est obligatoire"), 
 
-           }),
+           }), */
         
         // submit le formulaire
         onSubmit: values=>{
             console.log(values);
+            axios.post('http://127.0.0.1:5000/Annonce/',{
+                "Titre": values.titre ,
+                "Type_annonce": values.categorie,
+                "Type_bien": values.typeB,
+                "Surface": values.surface,
+                "Description": values.Description,
+                "Prix": values.prix,
+                "Nom": values.nom,
+                "Prenom": values.prenom,
+                "Adresse": values.adresse,
+                "Email": values.email,
+                "Tel": values.telephone,
+                "Localisation": values.adrB,
+                "dateInsertion": values.date,
+        
+             }).then(response =>{
+            alert("donne subbmited with success"+response)
+             })
+            .catch(error => {
+            alert(error)
+            })
         },
       
      });
@@ -178,6 +201,28 @@ function AjouterAnnonce() {
                             {formik.touched.typeB && formik.errors.typeB ? formik.errors.typeB: ""}</p>
                         </div>
                        
+                               
+                        
+                        <div className="pd-4 my-3">
+                            <label 
+                            id ="utile"
+                            className="block text-lg font-bold pb-4 font-Montserrat  text-sky-900"
+                            htmlFor="text"
+                            >Date</label>
+                             <input 
+                            value={formik.values.date}
+                            onChange={formik.handleChange}
+                            onBlur ={formik.handleBlur}
+                            id ="utile"
+                            className="border-1  border-bleu-20 p-2 rounded-md focus:ring-2 focus:ring-bleu-500 ring-inset"
+                            type="text" name="date" 
+                            placeholder="Date" />
+                            <p id="utile" className ="block text-sm font-medium  pb-4 font-Montserrat  text-red-600 ">
+                            {formik.touched.date && formik.errors.date ? formik.errors.date:" "}</p>
+                    </div>
+
+
+
                         {/* le champs pour introduire une petite description a props de bien immobilier */}
                         <div className="pd-4 my-3">
                         <label 
@@ -191,7 +236,7 @@ function AjouterAnnonce() {
                             onBlur ={formik.handleBlur} 
                            name="description"
                            className="border-1 border-bleu-20 p-2 rounded-md focus:ring-2 focus:ring-bleu-500 ring-inset"
-                            cols="22" rows="19" ></textarea>
+                            cols="22" rows="14" ></textarea>
                             <p id="utile" className ="block text-sm font-medium  pb-4 font-Montserrat  text-red-600 ">{formik.touched.Description && formik.errors.Description ? formik.errors.Description: ""}</p>
                         </div>
                     </div>

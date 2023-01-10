@@ -21,10 +21,11 @@ function App() {
      
   return (
     <div>
-    <Routes>
-        <Route path="/" element={<AjouterAnnonce/>}/>
+     <Routes>
+        <Route path="/" element={<Scrapping></Scrapping>}/>
         <Route path="/AjouterAnnonce" element={<AjouterAnnonce></AjouterAnnonce>}></Route>
-    </Routes>
+    </Routes> 
+   
     </div>
    
   );

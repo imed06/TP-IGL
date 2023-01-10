@@ -1,0 +1,103 @@
+import React from 'react'
+import { Formik , Form , Field , ErrorMessage} from 'formik';
+import * as Yup from 'yup';
+import { useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import Axios from 'axios';
+
+export default function Scrapping() {
+   const navigate = useNavigate();
+   
+
+    const [page_debut, setPage_debut] = useState("");
+    const [page_fin, setPage_fin] = useState("");
+
+    const handleChangedebut = event => {
+      setPage_debut(event.target.page_debut);
+    } 
+    const handleChangefin = event => {
+      setPage_fin(event.target.page_fin);
+    }  
+
+  // const valShema  = Yup.object().shape({
+  //   page_debut:Yup.string().required("Veuillez introduire la page debut de la  récupération des annonces "),
+  //   page_fin:Yup.string().required("Veuillez introduire la page fin de la  récupération des annonces :")
+  //   });
+
+    /* const handleSumbit = (values)=>{
+       console.log(values);
+       alert(`page fin ${values.page_debut}. password ${values.page_fin}`);
+       const url = `http://127.0.0.1:5000/scraping/darjdida?page_debut=${values.page_debut}&page_fin=${values.page_fin}`
+       let data = JSON.stringify({
+         page_debut:values.page_debut , page_fin: values.page_fin
+       });
+       Axios.post(url,data,{headers:{"Content-Type" : "application/json"}}).then(res=>{ 
+         alert("data bay")
+       })
+    }*/
+     const handleSubmit = async(e)=>{
+         e.preventDefault();
+        const url ="http://127.0.0.1:5000/scraping/darjdida"
+        const response = await fetch(url,
+          {
+            method :'POST',
+            headers:{
+              'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify({
+              "page_debut": page_debut,
+              "page_fin":page_fin,
+            })
+          });
+          response.json().then(response =>{
+            if(response.status === 'ok'){
+              alert("product added successfully")
+            }
+            else{
+              alert("aprobleme")
+            }
+
+// setPage_debut("")
+// setPage_fin("")
+          })
+     }
+   
+  
+
+
+  return (
+    <div className='admin_page h-screen flex items-center justify-center mt-32  lg:m-10 m-2 rounded-lg bg-center bg-[#1e3252]'>
+       
+       
+       
+       
+         <Form  onSubmit={handleSubmit} className='m-4 p-28 rounded-lg' >
+            <h1 className=' text-center font-LibreBaskerville text-3xl p-6 font-bold text-yellow-600'> Lancer la récupération d'annonce : </h1>
+               
+            <div>
+                <label htmlFor="" className='font-Montserrat text-base font-extrabold text-sky-900'>Page début :</label>
+                <Field type="number" name="page_debut"
+                value={handleChangedebut} onChange = {setPage_debut}
+                 className='m-4 p-2  rounded-lg'/>
+                 <ErrorMessage name="debut"></ErrorMessage>
+                  
+            </div>
+            <div>
+                <label htmlFor="" className='mr-6 font-Montserrat font-extrabold text-base text-sky-900'>Page fin :</label>
+                <Field type="number" name="page_fin"
+               value={handleChangefin} onChange = {setPage_fin}
+                 className='m-4 p-2  rounded-lg'/>
+                 <ErrorMessage name="fin"></ErrorMessage>
+            </div>
+              
+            {/* onClick={()=>navigate('Success')} */}
+             <div>
+             <button type="submit"   id="Recuperer"
+            className="text-white bg-gradient-to-br ml-10 m-12 font-LibreBaskerville from-[#1a2536] to-sky-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-sky-900 dark:focus:ring-[#1a2536] font-medium rounded-lg text-sm px-5 py-2.5 text-center  mb-2">
+            Récupérer</button>
+             </div>     
+         </Form>
+         
+    </div>
+  )
+}
