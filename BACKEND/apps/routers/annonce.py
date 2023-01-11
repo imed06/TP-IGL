@@ -27,6 +27,14 @@ def getAll(page:int,db :Session = Depends(get_db)):
     Annonces=db.query(models.Annonce).order_by(models.Annonce.Date).all()[(page-1)*10:page*10]
     return Annonces
 
+
+# recuperer une annonces selon son id
+@router.get('/{id}',response_model=Schemas.showannonce)
+
+def get(id:int,db :Session = Depends(get_db)):
+    Annonce=db.query(models.Annonce).filter(models.Annonce.id == id).first()
+    return Annonce
+
 # recuperer les annonces qui contiennent le mot 'keyword' dans la description et le titre
 
 @router.get('/keyword',response_model=List[Schemas.showannonce])
@@ -34,6 +42,8 @@ def getAll(page:int,db :Session = Depends(get_db)):
 def getResult(db :Session = Depends(get_db),keyword:str=''):
     Annonces=db.query(models.Annonce).filter(or_(models.Annonce.description.contains(keyword),models.Annonce.titre.contains(keyword))).order_by(models.Annonce.Date.desc()).all()
     return Annonces
+
+
 
 
 # filtrer les annonces selon les 4 champs du filtre  
