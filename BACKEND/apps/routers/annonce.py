@@ -66,7 +66,7 @@ def getOwn(userid:int,db :Session = Depends(get_db)):
 
 # creer une anonnce avec les liens de ses images comme params paths --paths est une liste de chaine de caractère--
 @router.post('/',response_model=Schemas.showannonce,status_code=status.HTTP_201_CREATED)
-async def create(request :Schemas.Annonce,db :Session = Depends(get_db),userid:Optional[int]=0,paths: Union[list[str], None] = Query(default=None)):
+async def create(request :Schemas.Annonce,db :Session = Depends(get_db),userid:Optional[int]=0,paths: Union[List[str], None] = Query(default=None)):
     new_annonce= models.Annonce(titre=request.titre,categories=request.categories,typeDuBien=request.typeDuBien,user_id=userid,Date = request.Date,
                                 surfaces=request.surfaces,description=request.description,localisation=request.localisation ,prix=request.prix  )
     db.add(new_annonce)

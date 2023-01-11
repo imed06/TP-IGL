@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SideBar from '../Components/SideBar'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
-function DetailsAnnonce() {
+const DetailsAnnonce = _ => {
+    const { id } = useParams()
+    const [annonce,setAnnonce] = useState(null)
+    useEffect(() => {
+        const getAnnonce = async () => {
+            const response = await fetch("http://127.0.0.1:5000/annonce/?page=1")
+            const json = await response.json()
+            if (response.ok) {
+                console.log(json)
+                setAnnonce(json)
+            }
+        }
+        getAnnonce()
+    }, [])
     const [isOpen, setIsOpen] = useState(false)
 
     function closeModal() {
@@ -19,7 +33,7 @@ function DetailsAnnonce() {
                 <SideBar />
             </div>
             <div className='mt-8 mx-40' >
-                <h1 className=" text-4xl " >Vente Niveau De Villa F3 Alger Bir Mourad Rais</h1>
+                <h1 className=" text-4xl " >{id}</h1>
                 <div className='flex flex-row justify-between mt-4'>
 
                     <button className=" hover:bg-gray-200 rounded-lg hover:text-blue-700 text-black py-2 px-2  inline-flex items-center">
@@ -203,7 +217,7 @@ function DetailsAnnonce() {
                                 </svg>
                             </div>
                             <h3 className="text-lg  font-medium leading-6 text-gray-900">Contact et Cordonnées</h3>
-                            
+
                         </div>
                         <div className="overflow-hidden  mt-2">
                             <div className="flex flex-row justify-around py-8 px-6 ">
