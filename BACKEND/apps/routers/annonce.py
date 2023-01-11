@@ -2,6 +2,7 @@ from fastapi import APIRouter,Depends,status ,HTTPException, Query
 from typing import List,Optional
 from datetime import date,datetime
 from sqlalchemy.orm import Session
+from sqlalchemy import or_
 from starlette.responses import JSONResponse
 from typing import Union
 # -----local imports --------------------------------
@@ -31,7 +32,7 @@ def getAll(page:int,db :Session = Depends(get_db)):
 @router.get('/keyword',response_model=List[Schemas.showannonce])
 
 def getResult(db :Session = Depends(get_db),keyword:str=''):
-    Annonces=db.query(models.Annonce).filter(models.Annonce.description.contains(keyword), models.Annonce.titre.contains(keyword)).order_by(models.Annonce.Date.desc()).all()
+    Annonces=db.query(models.Annonce).filter(or_(models.Annonce.description.contains(keyword),models.Annonce.titre.contains(keyword))).order_by(models.Annonce.Date.desc()).all()
     return Annonces
 
 
