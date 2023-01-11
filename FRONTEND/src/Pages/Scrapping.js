@@ -7,8 +7,8 @@ import axios from 'axios';
 
 export default function Scrapping() {
     const navigate = useNavigate();
-    const [ page_debut , setpage_debut] = useState("");
-    const [ page_fin , setpage_fin] = useState("");
+    const [ page_debut , setpage_debut] = useState(0);
+    const [ page_fin , setpage_fin] = useState(0);
    
 
   //   const submitRegistration = async () => {
@@ -33,19 +33,15 @@ export default function Scrapping() {
     //  .catch(error => {
     //   alert(error)
     //  })
-		
-    
 		 const response = await fetch('http://127.0.0.1:5000/scraping/darjdida', {
 		 	method: 'POST',
-		 	mode: 'no-cors',
-			
 			
 		 	headers: {
 		 		'Content-Type': 'application/json'
 			},
 		 	body: JSON.stringify({
-		 		"page_debut" :  0 ,
-         "page_fin" : 0
+		 		"page_debut" :  page_debut ,
+         "page_fin" : page_fin
 		 	}),
 		 })
  
@@ -56,7 +52,8 @@ export default function Scrapping() {
 		//  		alert('Failed to add Supplier');
 		//  	}
 		//  });
-     console.log(response.json())
+    const json = await response.json()
+     console.log(json)
 	
 	};
   // };
@@ -72,15 +69,17 @@ export default function Scrapping() {
                
             <div>
                 <label htmlFor="" className='font-Montserrat text-base font-extrabold text-sky-900'>Page début :</label>
-                <input type="tel" name="debut"
+                <input type="number" name="debut"
                  value={page_debut}
                  onChange={(e) => setpage_debut(e.target.value)}
                  className='m-4 p-2  rounded-lg'/>
             
             </div>
+
             <div>
+
                 <label htmlFor="" className='mr-6 font-Montserrat font-extrabold text-base text-sky-900'>Page fin :</label>
-                <input type="tel" name="fin"
+                <input type="number" name="fin"
                  value={page_fin}
                  onChange={(e) => setpage_fin(e.target.value)}
                  className='m-4 p-2  rounded-lg'/>

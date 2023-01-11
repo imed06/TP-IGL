@@ -4,6 +4,7 @@ from bs4 import ResultSet, SoupStrainer
 from typing import Any, List
 import Schemas,models
 from sqlalchemy.orm import Session
+from starlette.responses import JSONResponse
 
 
 
@@ -20,7 +21,8 @@ def WebScraping(db:Session,respons:Schemas.infoScraping):
             url="https://darjadida.com/annonces?per_page=2%d"%(page_actuelle)
             ScraperLienAnnoncePage(url,db)
             page_actuelle = page_actuelle +1
-    return "web scraping done succuesfuly"     
+    #return "web scraping done succuesfuly"     
+    return JSONResponse({"result":"web scraping done succesfuly"})
         
 
 

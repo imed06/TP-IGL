@@ -19,13 +19,8 @@ import scraper2
 from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
+
     "http://localhost:3000",
-    "localhost:3000",
-    "http://localhost:8080",
-    "http://127.0.0.1:5000",
-    
 ]
 
 app.add_middleware(
