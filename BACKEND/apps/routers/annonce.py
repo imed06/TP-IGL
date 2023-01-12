@@ -37,17 +37,16 @@ def get(id:int,db :Session = Depends(get_db)):
 
 # recuperer les annonces qui contiennent le mot 'keyword' dans la description et le titre
 
-@router.get('/keyword',response_model=List[Schemas.showannonce])
+@router.get('/keyword/',response_model=List[Schemas.showannonce])
 
-def getResult(db :Session = Depends(get_db),keyword:str=''):
+def getResult( db :Session = Depends(get_db),keyword:str=''):
     Annonces=db.query(models.Annonce).filter(or_(models.Annonce.description.contains(keyword),models.Annonce.titre.contains(keyword))).order_by(models.Annonce.Date.desc()).all()
     return Annonces
 
 
 
-
 # filtrer les annonces selon les 4 champs du filtre  
-@router.get('/filtered',response_model=List[Schemas.showannonce])
+@router.get('/filtered/',response_model=List[Schemas.showannonce])
 def getAll(wilaya:str='',commune:str='',date1:date=None,date2:date=None,db :Session = Depends(get_db)):
 
     if date1==None and date2== None:

@@ -113,3 +113,23 @@ class Access_token(BaseModel):
 
 class TokenData(BaseModel):
     email: Optional[str] = None
+
+
+class userforMessage(BaseModel):
+    name:str
+    email:str
+    numeroDeTelephone:str
+    class Config():
+        orm_mode=True
+
+class AnnonceforMessage(BaseModel):
+    titre:str
+    class Config():
+        orm_mode=True
+
+class showMessage(BaseModel):
+    corp:str
+    annonce:AnnonceforMessage
+    user:userforMessage
+    class Config():
+        orm_mode=True

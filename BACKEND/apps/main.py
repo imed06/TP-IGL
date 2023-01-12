@@ -8,7 +8,7 @@ import uvicorn
 from authentication import auth
 from db import Database
 from models import models
-from routers import annonce,user,authenticate
+from routers import annonce,user,authenticate,messagerie
 from routers import webScraping as scraper
 
 from sqlalchemy.orm import Session
@@ -21,10 +21,11 @@ from authentication.valid import get_current_user_email
 app = FastAPI()
 models.Base.metadata.create_all(bind=Database.engine)
 
-app.mount('/auth',auth.myapp)
+# app.mount('/auth',auth.myapp)
 app.include_router(annonce.router)
 app.include_router(user.router)
 app.include_router(authenticate.router)
+app.include_router(messagerie.router)
 @app.get('/')
 async def root():
     return HTMLResponse('<body><a href="/auth">Auth</a></body>')

@@ -21,7 +21,7 @@ class Annonce(Base):
     user_id = Column(Integer,ForeignKey('users.id'))
     creator = relationship("user",back_populates='annonces')
     images = relationship("image",back_populates='owner')
-    # messages = relationship("Message",back_populates='annonce')
+    messages = relationship("Message",back_populates='annonce')
 
 class user(Base):
     __tablename__ = 'users'
@@ -34,7 +34,7 @@ class user(Base):
     numeroDeTelephone = Column(Integer)
     adresse = Column(TEXT)
     annonces = relationship("Annonce",back_populates='creator')
-    # messages = relationship("message",back_populates='user')
+    messages = relationship("Message",back_populates='user')
 
 
 class image(Base):
@@ -46,14 +46,14 @@ class image(Base):
     owner = relationship("Annonce",back_populates='images')
 
 
-# class Message(Base):
-#     __tablename__='messages'
-#     id = Column(Integer, primary_key=True,index=True)
-#     corp = Column(String)
+class Message(Base):
+    __tablename__='messages'
+    id = Column(Integer, primary_key=True,index=True)
+    corp = Column(String)
 
-#     id_destinataire = Column(Integer)
-#     id_expediteur = Column(Integer,ForeignKey("users.id"))
-#     id_annonce = Column(Integer,ForeignKey("annonces.id"))
+    id_destinataire = Column(Integer)
+    id_expediteur = Column(Integer,ForeignKey("users.id"))
+    id_annonce = Column(Integer,ForeignKey("annonces.id"))
 
-#     annonce = relationship("Annonce",back_populates='message')
-#     user = relationship("user",back_populates='message')
+    annonce = relationship("Annonce",back_populates='messages')
+    user = relationship("user",back_populates='messages')
