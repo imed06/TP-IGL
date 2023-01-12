@@ -5,18 +5,63 @@ import pic2 from '../images/pic2.jpeg'
 import pic3 from '../images/pic3.jpeg'
 import pic4 from '../images/pic4.jpeg'
 import pic5 from '../images/pic5.jpeg'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { Drawer } from '@mui/material'
 import Box from '@mui/material/Box';
 import { FcShop } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 
 const Home = () => {
-    const genererAnnonce = (id, titre, prix) => {
+    const [annonces, setAnnonces] = useState(null)
+    const [annoncesRech, setAnnoncesRech] = useState(null)
+    const [annoncesFilt, setAnnoncesFilt] = useState(null)
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [page, setPage] = useState(1);
+    const [state, setState] = useState({ right: false, });
+    const slides = [{ url: pic1 }, { url: pic2 }, { url: pic4 }, { url: pic5 }];
+
+    useEffect(() => {
+        const getAnnonces = async () => {
+            const response = await fetch("http://127.0.0.1:5000/annonce/?page=" + page)
+            const json = await response.json()
+            if (response.ok) {
+                if (json.length !== 0) {
+                    setAnnonces(json) 
+                }
+            }
+        }
+        getAnnonces()
+    }, [page])
+
+    const handleChange = (event, value) => {
+        setPage(value);
+      };
+    const prevSlide = () => {
+        const isFirstSlide = currentIndex === 0;
+        const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
+        setCurrentIndex(newIndex);
+    };
+
+    const nextSlide = () => {
+        const isLastSlide = currentIndex === slides.length - 1;
+        const newIndex = isLastSlide ? 0 : currentIndex + 1;
+        setCurrentIndex(newIndex);
+    };
+
+    const toggleDrawer = (anchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+        setState({ ...state, [anchor]: open });
+    };
+
+    const genererAnnonce = (id, titre, prix, date) => {
         return (
-            <div className=" cursor-pointer bg-white max-w-xs  rounded-lg shadow-md ">
+            <div className=" cursor-pointer bg-white max-w-xs  rounded-lg shadow-md  ">
                 <div className=" flex flex-col">
                     <div className='  w-full h-72 group'>
                         <div key={id}
@@ -45,13 +90,13 @@ const Home = () => {
                     </div>
                     <div className=' divide-y divide-gray-300'>
                         <div className='p-3' >
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 "> {titre} </h5>
+                            <h5 className="mb-1 text-2xl font-bold tracking-tight text-gray-900 "> {titre} </h5>
                             <div className='flex flex-row items-center justify-between '>
                                 <h5 className=" text-2xl  tracking-tight text-[#e95903] ">{prix}</h5>
                             </div>
                         </div>
                         <div className='flex flex-row justify-between py-2 px-3'>
-                            <div>environ 4 jours</div>
+                            <div>environ {date}</div>
                             <div onClick={toggleDrawer("right", true)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="black" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
@@ -63,93 +108,58 @@ const Home = () => {
             </div>
         )
     }
-    const [annonces, setAnnonces] = useState([])
-    const [annoncesRech, setAnnoncesRech] = useState([])
-    const slides = [
-        { url: pic1 },
-        { url: pic2 },
-        { url: pic4 },
-        { url: pic5 }
-    ];
 
-    const [currentIndex, setCurrentIndex] = useState(0);
-
-    const prevSlide = () => {
-        const isFirstSlide = currentIndex === 0;
-        const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
-        setCurrentIndex(newIndex);
-    };
-
-    const nextSlide = () => {
-        const isLastSlide = currentIndex === slides.length - 1;
-        const newIndex = isLastSlide ? 0 : currentIndex + 1;
-        setCurrentIndex(newIndex);
-    };
-
-    const [state, setState] = React.useState({
-        right: false,
-    });
-    const toggleDrawer = (anchor, open) => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
-
-        setState({ ...state, [anchor]: open });
-    };
-    React.useEffect(() => {
-        const getAnnonces = async () => {
-            const response = await fetch("http://127.0.0.1:5000/annonce/?page=1")
-            const json = await response.json()
-            if (response.ok) {
-                console.log(json)
-                setAnnonces(json)
-            }
-        }
-        getAnnonces()
-    }, [])
-    React.useEffect(() => {
-        console.log(annoncesRech)
-    }, [annoncesRech])
     return (
-        <div className='flex flex-col h-full' style={{ "backgroundColor": "#f5f5f5" }}>
-            <div className="w-full flex flex-col sticky top-0  ">
-                <SideBar setAnnoncesRech={setAnnoncesRech} />
-            </div>
-            <React.Fragment key="right">
-                <Drawer className=" h-screen w-72 sticky rounded-md top-0" anchor='right' open={state["right"]} onClose={toggleDrawer("right", false)} >
-                    <Box sx={{ width: 350 }} className="h-full" >
-                        <div className='h-full flex items-center flex-col justify-between divide-y divide-gray-300'>
-                            <div className='w-full h-16 text-lg flex flex-row justify-around items-center top-0 bg-gray-100 font-bold text-gray-900 shadow'>
-                                <div></div>
-                                <div className='flex flex-row items-center '>
-                                    <div className='cursor-pointer mr-2'>
-                                        <FcShop size={30} />
+        <div className='h-full w-full' >
+            <div className='h-full w-full flex flex-col justify-between' style={{ "backgroundColor": "#f5f5f5" }}>
+                <div className="w-full flex flex-col sticky top-0  ">
+                    <SideBar setAnnoncesRech={setAnnoncesRech} setAnnoncesFilt={setAnnoncesFilt} />
+                </div>
+                <div>
+                    <React.Fragment key="right">
+                        <Drawer className=" h-full w-72 sticky rounded-md top-0" anchor='right' open={state["right"]} onClose={toggleDrawer("right", false)} >
+                            <Box sx={{ width: 350 }} className="h-full" >
+                                <div className='h-full flex items-center flex-col justify-between divide-y divide-gray-300'>
+                                    <div className='w-full h-16 text-lg flex flex-row justify-around items-center top-0 bg-gray-100 font-bold text-gray-900 shadow'>
+                                        <div></div>
+                                        <div className='flex flex-row items-center '>
+                                            <div className='cursor-pointer mr-2'>
+                                                <FcShop size={30} />
+                                            </div>
+                                            Nom d'annoceur
+                                        </div>
+                                        <div className='cursor-pointer' onClick={toggleDrawer("right", false)}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </div>
                                     </div>
-                                    Nom d'annoceur
+                                    <div className='flex flex-row items-center p-2 w-full'>
+                                        <input type="text" className="bg-gray-50 border border-gray-500 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Ecrire" required />
+                                        <svg aria-hidden="true" className="w-8 h-8 rotate-45 ml-2 cursor-pointer" fill="blue" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
+                                    </div>
                                 </div>
-                                <div className='cursor-pointer' onClick={toggleDrawer("right", false)}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div className='flex flex-row items-center p-2 w-full'>
-                                <input type="text" className="bg-gray-50 border border-gray-500 text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Ecrire" required />
-                                <svg aria-hidden="true" className="w-8 h-8 rotate-45 ml-2 cursor-pointer" fill="blue" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
-                            </div>
-                        </div>
-                    </Box>
-                </Drawer>
-            </React.Fragment>
-            <div className='mt-8 h-screen'>
-                <div className="grid grid-cols-4 gap-3 m-8">
-                    {!annoncesRech ? annoncesRech && annoncesRech.map((annonce) => {
-                        return <Link to={`/Details/${annonce.id}`} key={annonce.id}> <div key={annonce.id}> {genererAnnonce(annonce.id, annonce.titre, annonce.prix)}</div></Link>
-                    })
-                        :  annonces && annonces.map((annonce) => {
-                            return <Link to={`/Details/${annonce.id}`} key={annonce.id}> <div key={annonce.id}> {genererAnnonce(annonce.id, annonce.titre, annonce.prix)}</div></Link>
+                            </Box>
+                        </Drawer>
+                    </React.Fragment>
+                </div>
+                <div className='mt-8 flex h-full w-full'>
+                    <div className="grid grid-cols-4 gap-3 m-8 w-full ">
+                        {annoncesRech || annoncesFilt ? annoncesRech ? annoncesRech.map((annonce) => {
+                            return <Link to={`/Details/${annonce.id}`} key={annonce.id}> <div key={annonce.id}> {genererAnnonce(annonce.id, annonce.titre, annonce.prix, annonce.Date)}</div></Link>
+                        }) : annoncesFilt.map((annonce) => {
+                            return <Link to={`/Details/${annonce.id}`} key={annonce.id}> <div key={annonce.id}> {genererAnnonce(annonce.id, annonce.titre, annonce.prix, annonce.Date)}</div></Link>
                         })
-                    }
+                            : annonces && annonces.map((annonce) => {
+                                return <Link to={`/Details/${annonce.id}`} key={annonce.id}> <div key={annonce.id}> {genererAnnonce(annonce.id, annonce.titre, annonce.prix, annonce.Date)}</div></Link>
+                            })
+                        }
+                    </div>
+                </div>
+                <div className='flex justify-center mb-10'>
+                    <Stack spacing={2}>
+                        <Pagination count={20} page={page} color="secondary" onChange={handleChange} />
+                    </Stack>
                 </div>
             </div>
         </div >

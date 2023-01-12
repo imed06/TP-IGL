@@ -7,9 +7,11 @@ import { useParams } from 'react-router-dom'
 const DetailsAnnonce = _ => {
     const { id } = useParams()
     const [annonce,setAnnonce] = useState(null)
+    const [isOpen, setIsOpen] = useState(false)
+
     useEffect(() => {
         const getAnnonce = async () => {
-            const response = await fetch("http://127.0.0.1:5000/annonce/?page=1")
+            const response = await fetch("http://127.0.0.1:5000/annonce/"+id)
             const json = await response.json()
             if (response.ok) {
                 console.log(json)
@@ -18,7 +20,6 @@ const DetailsAnnonce = _ => {
         }
         getAnnonce()
     }, [])
-    const [isOpen, setIsOpen] = useState(false)
 
     function closeModal() {
         setIsOpen(false)
@@ -27,13 +28,14 @@ const DetailsAnnonce = _ => {
     function openModal() {
         setIsOpen(true)
     }
+    
     return (
         <div className='flex flex-col  h-full' style={{ "backgroundColor": "#f5f5f5" }}>
             <div className="w-full flex flex-col  sticky top-0 ">
-                <SideBar />
+                {/* <SideBar /> */}
             </div>
             <div className='mt-8 mx-40' >
-                <h1 className=" text-4xl " >{id}</h1>
+                <h1 className=" text-4xl " >{annonce && annonce.titre}</h1>
                 <div className='flex flex-row justify-between mt-4'>
 
                     <button className=" hover:bg-gray-200 rounded-lg hover:text-blue-700 text-black py-2 px-2  inline-flex items-center">
@@ -156,27 +158,25 @@ const DetailsAnnonce = _ => {
                         <dl>
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-md font-medium text-gray-700">Catégorie</dt>
-                                <dd className="mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0">Vente</dd>
+                                <dd className="mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0">{annonce && annonce.categories}</dd>
                             </div>
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-sm font-medium text-gray-700">Type d'immobilier</dt>
-                                <dd className="mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0">Terrain</dd>
+                                <dd className="mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0">{annonce && annonce.typeDuBien}</dd>
                             </div>
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-md font-medium text-gray-700">Surface</dt>
-                                <dd className="mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0">300 m2</dd>
+                                <dd className="mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0">{annonce && annonce.surfaces}</dd>
                             </div>
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-md font-medium text-gray-700">Prix</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">6 million</dd>
+                                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{annonce && annonce.prix}</dd>
                             </div>
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt className="text-md font-medium text-gray-700">Adresse</dt>
                                 <dd className="mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0">
                                     <ul>
-                                        <li>Wilaya : Alger</li>
-                                        <li>Commune : Alger centre</li>
-                                        <li>Adresse : Sidi yahia</li>
+                                        <li>{annonce && annonce.localisation}</li>
                                     </ul>
                                 </dd>
                             </div>
@@ -193,17 +193,7 @@ const DetailsAnnonce = _ => {
                     <div className="border-t border-gray-200">
                         <dl>
                             <div className="bg-white px-4 py-5  sm:px-6">
-                                <dt className="text-md font-medium text-gray-700">Vente ou location
-                                    Niveau villa
-                                    3 pièce 85m2 chacune
-                                    + Cuisine + douche et toilettes + terrace
-
-                                    Wilaya d’Alger - bir mourad rais ( quartier les sources )
-
-                                    ( pièces détachées renault ) repère
-
-                                    vente : 2milliard 200
-                                    location : 55000DA mois</dt>
+                                <dt className="text-md font-medium text-gray-700">{annonce && annonce.description}</dt>
                             </div>
                         </dl>
                     </div>
@@ -228,7 +218,7 @@ const DetailsAnnonce = _ => {
                                         </svg>
                                     </div>
                                     <div className="text-gray-500 ">
-                                        <span className='text-black'>Nom : </span><span className="text-md font-medium text-black">Triki imed</span>
+                                        <span className='text-black'>Nom : </span><span className="text-md font-medium text-black">{annonce && annonce.creator && annonce.creator.name}</span>
                                     </div>
                                 </div>
                                 <div className='flex items-center flex-col'>
@@ -238,7 +228,7 @@ const DetailsAnnonce = _ => {
                                         </svg>
                                     </div>
                                     <div className="text-gray-500 ">
-                                        <span className='text-black'>Adresse : </span><span className="text-md tracking-tight font-medium text-black ">Alger,Sidi yahia 24</span>
+                                        <span className='text-black'>Adresse : </span><span className="text-md tracking-tight font-medium text-black ">{annonce && annonce.creator && annonce.creator.adresse}</span>
                                     </div>
                                 </div>
 
@@ -249,7 +239,7 @@ const DetailsAnnonce = _ => {
                                         </svg>
                                     </div>
                                     <div className="text-gray-500">
-                                        <span className='text-black'>Phone : </span><span className="text-md font-medium text-[#46b5d1]">0551236598</span>
+                                        <span className='text-black'>Phone : </span><span className="text-md font-medium text-[#46b5d1]">{annonce && annonce.creator && annonce.creator.numeroDeTelephone}</span>
                                     </div>
                                 </div>
                             </div>
