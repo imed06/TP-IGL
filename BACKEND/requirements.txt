@@ -21,3 +21,14 @@ typing_extensions==4.4.0
 uvicorn==0.20.0
 sqlalchemy
 passlib
+jose
+python-jose
+lxml
+bs4
+requests
+google-cloud
+google-cloud-vision
+google
+python-multipart
+pillow
+aiofiles
