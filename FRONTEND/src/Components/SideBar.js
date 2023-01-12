@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useEffect , useState } from 'react'
 import { Button } from '@mui/material';
 import Combo from './Combobox';
-import { useState } from 'react';
 import Datepicker from "react-tailwindcss-datepicker";
 import { Drawer } from '@mui/material'
 import Box from '@mui/material/Box';
@@ -16,23 +15,27 @@ import Logout from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import pic1 from '../images/pic1.jpeg'
 
-function SideBar() {
-    const [value, setValue] = useState({
-        startDate: null,
-        endDate: null
-    });
-    const [anchorEl, setAnchorEl] = React.useState(null);
+
+function SideBar({ setAnnoncesRech, setAnnoncesFilt  }) {
+    const [recherche, setRecherche] = useState("")
+    const [filter, setFilter] = useState("")
+    const [date, setValue] = useState({startDate: null,endDate: null});
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const [state, setState] = useState({left: false,right: false,});
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
+
     const handleValueChange = (newValue) => {
-        console.log("newValue:", newValue);
         setValue(newValue);
     }
+    
     const type = [
         { id: 1, name: 'Vendre' },
         { id: 2, name: 'Location' },
@@ -45,21 +48,73 @@ function SideBar() {
 
     ]
     const Commune = [
-        { id: 1, name: 'Alger' },
+        { id: 1, name: 'sidi fraj' },
         { id: 2, name: 'Location' },
         { id: 3, name: 'Loyer' },
     ]
-    const [state, setState] = React.useState({
-        left: false,
-        right: false,
-    });
+
+    const handleRecherche = async () => {
+        if (recherche !== "") {
+            const response = await fetch("http://127.0.0.1:5000/annonce/keyword/?keyword=" + recherche)
+            const json = await response.json()
+            console.log(json)
+            if (response.ok) {
+                if(json.length!==0)
+                setAnnoncesRech(json)
+                else
+                setAnnoncesRech(null)
+            }
+        }
+    }
+
+    useEffect(() => {
+        if (recherche === "") {
+            setAnnoncesRech(null)
+        }
+    }, [recherche])
+
+    useEffect(() => {
+        const handleFilter = async () => {
+            if (filter !== "Wilaya" && filter !== "Commune" && filter != "Type" && filter!=="") {
+                const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?wilaya=${filter}&commune=${filter}`)
+                const json = await response.json()
+                if (response.ok) {
+                    if(json.length!==0)
+                    setAnnoncesFilt(json)
+                    else
+                    setAnnoncesFilt(null)
+                }
+            }
+        }
+        handleFilter()
+    }, [filter])
+    
+    useEffect(() => {
+        const handleDate = async () => {
+            if (date.startDate !== null && date.endDate !== null ) {
+                const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?wilaya=${filter}&commune=${filter}&date1=${date.startDate}&date2=${date.endDate}`)
+                const json = await response.json()
+                if (response.ok) {
+                    if(json.length!==0)
+                    setAnnoncesFilt(json)
+                    else
+                    setAnnoncesFilt(null)
+                    console.log(json)
+                }
+            }
+            else setAnnoncesFilt(null)
+            
+        }
+        handleDate()
+    }, [date])
+
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
-
         setState({ ...state, [anchor]: open });
     };
+
     return (
         <div>
             <React.Fragment key="left">
@@ -165,10 +220,10 @@ function SideBar() {
                                     <svg className="w-5 h-5 text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
                                     <span className="sr-only">Search icon</span>
                                 </div>
-                                <input type="text" id="search-navbar" className="block w-full p-1 pl-10 text-lg focus-visible:border-blue-500 focus-visible:ring-blue-500 text-gray-900 border border-gray-300 rounded-lg bg-white " placeholder="Rechercher une annonce immobilière" />
+                                <input type="text" id="search-navbar" className="block w-full p-1 pl-10 text-lg focus-visible:border-blue-500 focus-visible:ring-blue-500 text-gray-900 border border-gray-300 rounded-lg bg-white " placeholder="Rechercher une annonce immobilière" onChange={(e) => { setRecherche(e.target.value) }} />
                             </div>
                             <div className="flex ml-2  mt-3 items-center">
-                                <button type="button" className="text-white bg-blue-700 hover:bg-blue-800   focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center   mb-2.5">
+                                <button type="button" className="text-white bg-blue-700 hover:bg-blue-800   focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center   mb-2.5" onClick={handleRecherche}>
                                     RECHERCHER
                                 </button>
                             </div>
@@ -288,19 +343,19 @@ function SideBar() {
                                     </div>
                                 </li>
                                 <li>
-                                    <Combo filter="Wilaya" values={Wilaya} />
+                                    <Combo filter="Wilaya" values={Wilaya} setFilter={setFilter} setAnnoncesRech={setAnnoncesRech}/>
                                 </li>
                                 <li>
-                                    <Combo filter="Commune" values={Wilaya} />
+                                    <Combo filter="Commune" values={Commune} setFilter={setFilter} setAnnoncesRech={setAnnoncesRech}/>
                                 </li>
                                 <li>
-                                    <Combo filter="Type" values={type} />
+                                    <Combo filter="Type" values={type} setFilter={setFilter} setAnnoncesRech={setAnnoncesRech}/>
                                 </li>
                                 <li>
                                     <Datepicker
                                         placeholder={"Choisir une date"}
                                         useRange={false}
-                                        value={value}
+                                        value={date}
                                         onChange={handleValueChange}
                                     />
                                 </li>

@@ -16,9 +16,24 @@ from supertokens_python import get_all_cors_headers
 from starlette.middleware.cors import CORSMiddleware
 from supertokens_python.framework.fastapi import get_middleware
 from authentication.valid import get_current_user_email
+from fastapi.middleware.cors import CORSMiddleware
+
 
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 models.Base.metadata.create_all(bind=Database.engine)
 
 # app.mount('/auth',auth.myapp)
