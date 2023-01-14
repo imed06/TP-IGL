@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path='/InfoUser' element={<RemplirInfoUser />}></Route>
           <Route path='/Home' element={<Home />}></Route>
-          <Route path='/Details' element={<DetailsAnnonce />}></Route>
+          <Route path='/Details/:id' element={<DetailsAnnonce />}></Route>
         </Routes>
       </BrowserRouter>
   );
