@@ -40,6 +40,11 @@ app.include_router(user.router)
 app.include_router(authenticate.router)
 app.include_router(messagerie.router)
 
+@app.get('/')
+def Doc():
+    return HTMLResponse(
+        '<body><a href="/docs">Documentation</a> ')
+
 
 @app.post('/Annonces')
 def WebScraping(db : Session=Depends(Database.get_db)):
