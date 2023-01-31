@@ -6,7 +6,7 @@ SQLALCHEMY_DATABASE_URL = "sqlite:///./bdd.db" #for sqlite database
 
 #SQLALCHEMY_DATABASE_URL = 'postgresql+psycopg2://postgres:14171417@localhost:5433/tpigl' # Postgresql database
 #SQLALCHEMY_DATABASE_URL = 'postgresql+psycopg2://postgres:imed2002@localhost:5432/tpigl' # Postgresql database
-
+SQLALCHEMY_DATABASE_URL = 'postgresql+psycopg2://postgres:14171417@localhost:5433/tpigl'
 
 
 
