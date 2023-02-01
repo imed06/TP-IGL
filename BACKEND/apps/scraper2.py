@@ -8,8 +8,8 @@ from sqlalchemy.orm import Session
 
 
 def WebScraping(db:Session,respons:Schemas.infoScraping):
-    page_debut= respons.page_debut
-    page_fin = respons.page_fin
+    page_debut: respons.page_debut
+    page_fin: respons.page_fin
     if(page_debut == 1):
         url ="https://darjadida.com/annonces"
         ScraperLienAnnoncePage(url,db)
@@ -100,4 +100,4 @@ def ExtractionImage(soup:_bs4.BeautifulSoup)-> List[Schemas.Photo]:
         img = Schemas.Photo(lien =element.get("href"))
         ListImg.append(img)
 
-    return ListImg
+    return ListImg 

@@ -6,7 +6,9 @@ import Schemas,models
 from sqlalchemy.orm import Session
 
 
-def WebScraping(db:Session,page_debut:int,page_fin:int):
+def WebScraping(db:Session,respons:Schemas.infoScraping):
+    page_debut: respons.page_debut
+    page_fin: respons.page_fin
     if(page_debut == 1):
         url ="http://www.annonce-algerie.com/annoncesimmobilier.asp"
         ScraperLienAnnoncePage(url,db)
@@ -38,20 +40,16 @@ def ScraperLienAnnoncePage(url:str,db:Session):
     Page_Max =2
     num_Page=1
     while num_Page <= Page_Max:
-
         only_a_tags = SoupStrainer(attrs={"class" : "Tableau1"})
         url = "http://www.annonce-algerie.com/annoncesimmobilier.asp"
-
         UrlNext=("http://www.annonce-algerie.com/AnnoncesImmobilier.asp?rech_cod_cat=1&rech_cod_"
        "rub=&rech_cod_typ=&rech_cod_sou_typ=&rech_cod_pay=DZ&rech_cod_reg=&rech_cod_vil=&rech_cod"
        "_loc=&rech_prix_min=&rech_prix_max=&rech_surf_min=&rech_surf_max=&rech_age=&rech_photo=&rech_typ_cli=&rech_order"
        "_by=31&rech_page_num=%d")%(num_Page)
-
         if(num_Page==1):
             page = _requests.get(url)
         else:
             page = _requests.get(UrlNext)
-
         soup = _bs4.BeautifulSoup(page.content,"html.parser",parse_only=only_a_tags)
         for link in soup.find_all('a'):
             info = link.get('href')
@@ -59,9 +57,7 @@ def ScraperLienAnnoncePage(url:str,db:Session):
                 NewUrl="http://www.annonce-algerie.com/"+info
             
                 ExtractionInfo(NewUrl,db)
-
         num_Page=num_Page+1
-
     return "webScrapping donne succesfuly"  """
 
 def ExtractionInfo(url:str,db:Session):
@@ -133,8 +129,3 @@ def ExtractionTitre(soup:_bs4.BeautifulSoup):
     list.pop(0)
     nvTitre = " ".join(list)
     return nvTitre # fini 
-
-
-
-
-    

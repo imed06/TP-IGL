@@ -22,8 +22,8 @@ function App() {
   return (
     <div>
      <Routes>
-        <Route path="/" element={<Scrapping></Scrapping>}/>
-        <Route path="/AjouterAnnonce" element={<AjouterAnnonce></AjouterAnnonce>}></Route>
+        <Route path="/" element={<Consultercompte/>}/>
+        <Route path="/Home" element={<Home></Home>}></Route>
     </Routes> 
    
     </div>

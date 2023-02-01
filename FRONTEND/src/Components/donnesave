@@ -1,0 +1,27 @@
+import React, { useState, useEffect } from 'react';
+
+function AnnoncesList() {
+  const [annonces, setAnnonces] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch('https://api.example.com/annonces');
+      const data = await response.json();
+      setAnnonces(data);
+    }
+    fetchData();
+  }, []);
+
+  return (
+    <div>
+      {annonces.map(annonce => (
+        <div key={annonce.id}>
+          <h2>{annonce.titre}</h2>
+          <p>{annonce.description}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default AnnoncesList;

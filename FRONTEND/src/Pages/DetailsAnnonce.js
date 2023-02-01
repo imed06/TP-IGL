@@ -200,7 +200,7 @@ function DetailsAnnonce() {
                     </div>
                     </div>
                 </div>
-                <div className="p-2 mt-5 bg-[#f8f3e7] rounded-lg shadow sm:rounded-lg">
+                <div className="p-2 mt-5 bg-[#f8f3e7] rounded-lg shadow-lg sm:rounded-lg">
                 <div className="overflow-hidden mt-4  ">
                     <div className="px-4 pb-2 sm:px-6 flex flex-row items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#FF9119" className="w-5 h-5">

@@ -19,12 +19,8 @@ import scraper2
 from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 origins = [
-    "http://localhost.tiangolo.com",
-    "https://localhost.tiangolo.com",
+
     "http://localhost:3000",
-    "localhost:3000",
-    "http://localhost:8080",
-    "http://127.0.0.1:5000",
     
 ]
 
@@ -42,13 +38,12 @@ app.include_router(Annonce.router)
 app.include_router(user.router) 
 
 @app.post('/scraping/AnnonceAlgerie')
-def WebScraping(page_debut:int,page_fin:int,db : Session=Depends(get_db)):
-    return scraper.WebScraping(db,page_debut,page_fin)
+def WebScraping(respons : Schemas.infoScraping,db : Session=Depends(get_db)):
+    return scraper.WebScraping(db,respons)
 
 @app.post('/scraping/darjdida') #deuxieme
-def WebScraping(respons:Schemas.infoScraping,db : Session=Depends(get_db)):
+def WebScraping(respons : Schemas.infoScraping,db : Session=Depends(get_db)):
     return scraper2.WebScraping(db,respons)
-
 
 @app.get('/')
 async def root():
@@ -56,9 +51,4 @@ async def root():
 
 if __name__ == '__main__':
     uvicorn.run(app, port=5000)
-
-
-
-
-
 

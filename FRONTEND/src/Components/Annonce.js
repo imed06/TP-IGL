@@ -66,9 +66,9 @@ function Annonce(props) {
                             </div>
                             <div className=' divide-y divide-gray-300'>
                                 <div className='p-3' >
-                                    <h5 className="mb-2 text-2xl text-left font-LibreBaskerville  tracking-tight text-gray-900 dark:text-white">In the night Apart</h5>
-                                    <p className="mb-3 font-blod text-sm font-Montserrat text-left text-[#4B6D88] dark:text-gray-400">4 Bedrooms - 2 Bathrooms - 2.5M</p>
-                                    <h5 className="mb-2 text-2xl text-left font-bold tracking-tight text-gray-900 dark:text-white">$753,00/<span className='text-[#596D78] font-blod text-lg font-Montserrat'>Year</span></h5>
+                                    <h5 className="mb-2 text-2xl text-left font-LibreBaskerville  tracking-tight text-gray-900 dark:text-white">{props.Titre}</h5>
+                                    <p className="mb-3 font-blod text-sm font-Montserrat text-left text-[#4B6D88] dark:text-gray-400">environ {props.date}</p>
+                                    <h5 className="mb-2 text-2xl text-left font-bold tracking-tight text-gray-900 dark:text-white">{props.prix}/<span className='text-[#596D78] font-blod text-lg font-Montserrat'>Year</span></h5>
                                     <div className='flex w-full justify-between flex-row p-0 '>
                                         <div></div>
                                         <div>

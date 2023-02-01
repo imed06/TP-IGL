@@ -7,7 +7,7 @@ export default function Message() {
         initialValues: {
             email : "",
             telephone:"",
-            obejt:"",
+            objet:"",
             message:""
         },validationSchema: Yup.object({
             email:Yup.string().required("Veuillez introduire la page debut de la  récupération des annonces "),
@@ -24,47 +24,53 @@ export default function Message() {
         
        });
   return (
-    <div className='Message shadow-lg p-5 flex  mt-32   rounded-lg bg-center '>
+    <div className='Message shadow-lg p-5 flex  mt-5  rounded-lg bg-center '>
    {/* bg-[#f8f3e7] */}
     <form className='  w-full h-[4/6] bg-[#f8f3e7] rounded-lg' onSubmit={formik.handleSubmit}>
 
        <h1 className=' text-left mt-4 mb-4 ml-[6%] font-LibreBaskerville text-3xl p-6 font-bold text-[#c5973a]'> Message : </h1>
           
-       <div className="relative z-0 w-5/6 mb-6 ml-[7%] ">
-         <input type="email" name="email" id="email" 
-           value={formik.values.email}
-           onChange={formik.handleChange}
-           onBlur ={formik.handleBlur}
-         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-         <label htmlFor="floating_email" className="peer-focus:font-medium absolute 
+       <div className=" w-5/6 mb-6 ml-[7%] ">
+       <label htmlFor="floating_email" className="peer-focus:font-medium  
          font-Montserrat font-extrabold text-base text-sky-500
          dark:text-sky-900 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 
          origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 
          peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
          peer-focus:-translate-y-6">Addresse email</label>
+         <input type="email" name="email" id="email" 
+           value={formik.values.email}
+           onChange={formik.handleChange}
+           onBlur ={formik.handleBlur}
+         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+       
       </div>
-      <div className="relative z-0  w-5/6 mb-6 ml-[7%] group">
-        <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+      <div className=" z-0  w-5/6 mb-6 ml-[7%] group">
+        <label htmlFor="floating_phone" className="peer-focus:font-medium
+        font-Montserrat font-extrabold text-sm text-sky-500  dark:text-sky-900 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 
+        peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
+         peer-focus:scale-75 peer-focus:-translate-y-6">Téléphone </label>
+          <input type="number" 
           value={formik.values.telephone}
            onChange={formik.handleChange}
            onBlur ={formik.handleBlur}
+          
          name="telephone" id="telephone" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-        <label htmlFor="floating_phone" className="peer-focus:font-medium absolute
-        font-Montserrat font-extrabold text-sm text-sky-500  dark:text-sky-900 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Téléphone (+213-xxxxxxxxx)</label>
+       
          <p id="utile" className ="block text-sm font-medium  pb-2 font-Montserrat  text-red-600 ">
              {formik.touched.telephone && formik.errors.telephone ? formik.errors.telephone: ""}</p>
       </div>
-      <div className="relative z-0 w-5/6 mb-6 ml-[7%] block ">
+      <div className=" z-0 w-5/6 mb-6 ml-[7%] block ">
+      <label htmlFor="floating_first_name" 
+        className="peer-focus:font-medium
+        font-Montserrat font-extrabold text-base text-sky-500
+          dark:text-sky-900 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Objet</label>
+         
         <input type="text" name="objet" id="objet"
            value={formik.values.objet}
            onChange={formik.handleChange}
            onBlur ={formik.handleBlur}
          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-        <label htmlFor="floating_first_name" 
-        className="peer-focus:font-medium
-        font-Montserrat font-extrabold text-base text-sky-500
-         absolute  dark:text-sky-900 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Objet</label>
-         
+        
     </div>
       <div className='w-5/6 mb-6 ml-[7%]'>
         <label htmlFor="message" 
