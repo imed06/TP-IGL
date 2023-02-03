@@ -8,14 +8,31 @@ from typing import List
 router =APIRouter(prefix="/User",
 tags=['Users'])
 
+"""
+@router.post('/', response_model=Schemas.showuser)
+def create(request:Schemas.createuser,db :Session = Depends( get_db)):
+    return user.create(request,db) """
+
 
 @router.post('/', response_model=Schemas.showuser)
 def create(request:Schemas.createuser,db :Session = Depends( get_db)):
-    return user.create(request,db)
-
+    new_user = models.user(name=request.name,email=request.email,numeroDeTelephone = request.numeroDeTelephone,adresse=request.adresse,token = request.token)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
+"""
 @router.get('/{id}',response_model=Schemas.showuser)
 def get_user(id:int,db :Session = Depends(get_db)):
     return user.get_user(id,db)
+"""
+@router.get('/{id}',response_model=Schemas.showuser,status_code=status.HTTP_404_NOT_FOUND)
+def get_user(id:int,db :Session = Depends(get_db)):
+    user=db.query(models.user).filter(models.user.id == id).first()
+    if not user: 
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f'user with id {id} not found')
+    return user
+
 
 @router.delete('/{id}')
 def delete_user(id:int,db :Session = Depends(get_db)):

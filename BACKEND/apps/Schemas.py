@@ -7,7 +7,7 @@ class Photo(BaseModel):
     lien:str
     class Config(): 
         orm_mode=True
-
+"""
 class blogbase(BaseModel): #Annonce
     Titre:str
     Type_annonce:str
@@ -26,7 +26,26 @@ class blogbase(BaseModel): #Annonce
     class Config(): 
         orm_mode=True
 
+
+
 class Annonce(blogbase):
+    class Config(): 
+        orm_mode=True """
+
+class annoncebase(BaseModel):
+    #id:int
+    titre:str
+    categories :str
+    typeDuBien :str
+    surfaces :str
+    description :str
+    prix : str
+    localisation :str
+    Date :datetime
+    # creator : createuser
+    # images : List[image]=[]
+
+class Annonce(annoncebase):
     class Config(): 
         orm_mode=True
 
@@ -48,7 +67,7 @@ class createuser(BaseModel):
     class Config():
         orm_mode=True
 
-class showuser(BaseModel):
+"""class showuser(BaseModel):
     name:str
     email:str
     numeroDeTelephone:str
@@ -56,7 +75,7 @@ class showuser(BaseModel):
     adresse :str
     annonces : List[Annonce]=[]
     class Config():
-        orm_mode=True
+        orm_mode=True"""
 
 class userforMessage(BaseModel):
     name:str
@@ -97,4 +116,58 @@ class showMessage(BaseModel):
     user:userforMessage
 
     class Config():
+        orm_mode=True
+
+class infoScraping(BaseModel):
+    page_debut:int
+    page_fin:int
+
+"""class showAnnonce(blogbase):
+    id:int
+    class Config():
+        orm_mode=True """
+
+class showAnnonceWithoutUser(BaseModel):
+    id:int
+    titre:str
+    categories :str
+    typeDuBien :str
+    surfaces :str
+    description :str
+    prix : str
+    localisation :str
+    Date :datetime
+    # creator : createuser
+    images : List[Photo]=[]
+    class Config(): 
+        orm_mode=True
+
+class showuser(BaseModel):
+    id:int
+    name:str
+    email:str
+    numeroDeTelephone:str
+    token:str
+    adresse :str
+    annonces : List[showAnnonceWithoutUser]=[]
+    class Config():
+        orm_mode=True
+
+class showannonce(BaseModel):
+    id:int
+    titre:str
+    categories :str
+    typeDuBien :str
+    surfaces :str
+    description :str
+    prix : str
+    localisation :str
+    Date :datetime
+    creator : Optional[createuser] = ...
+    nom_contact : Optional[str] = ...
+    adresse_contact : Optional[str] = ...
+    email_contact : Optional[str] = ...
+    tlphn_contact : Optional[str] = ...
+    images : List[Photo]=[]
+    class Config(): 
         orm_mode=True

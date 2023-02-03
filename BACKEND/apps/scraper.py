@@ -6,7 +6,9 @@ import Schemas,models
 from sqlalchemy.orm import Session
 
 
-def WebScraping(db:Session,page_debut:int,page_fin:int):
+def WebScraping(db:Session,respons:Schemas.infoScraping):
+    page_debut = respons.page_debut
+    page_fin = respons.page_fin
     if(page_debut == 1):
         url ="http://www.annonce-algerie.com/annoncesimmobilier.asp"
         ScraperLienAnnoncePage(url,db)

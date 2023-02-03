@@ -4,10 +4,10 @@ from bs4 import ResultSet, SoupStrainer
 from typing import Any, List
 import Schemas,models
 from sqlalchemy.orm import Session
+from starlette.responses import JSONResponse
 
 
-
-def WebScraping(db:Session,page_debut:int,page_fin:int):
+"""def WebScraping(db:Session,page_debut:int,page_fin:int):
     if(page_debut == 1):
         url ="https://darjadida.com/annonces"
         ScraperLienAnnoncePage(url,db)
@@ -18,7 +18,24 @@ def WebScraping(db:Session,page_debut:int,page_fin:int):
             url="https://darjadida.com/annonces?per_page=2%d"%(page_actuelle)
             ScraperLienAnnoncePage(url,db)
             page_actuelle = page_actuelle +1
-    return "web scraping done succuesfuly"     
+    return  JSONResponse({"result": "web scraping done succuesfuly"})
+    #return "web scraping done succuesfuly"      """
+
+def WebScraping(db:Session,respons:Schemas.infoScraping):
+    page_debut = respons.page_debut
+    page_fin = respons.page_fin
+    if(page_debut == 1):
+        url ="https://darjadida.com/annonces"
+        ScraperLienAnnoncePage(url,db)
+        
+    if(page_fin >1):
+        page_actuelle = 2
+        while(page_actuelle <= page_fin):
+            url="https://darjadida.com/annonces?per_page=2%d"%(page_actuelle)
+            ScraperLienAnnoncePage(url,db)
+            page_actuelle = page_actuelle +1
+    return  JSONResponse({"result": "web scraping done succuesfuly"})
+    #return "web scraping done succuesfuly"         
         
 
 
@@ -88,6 +105,8 @@ def ScraperAnnonce(url :str,db:Session):
         db.add(Photo)
         db.commit()
         db.refresh(Photo)
+
+    return nouvelleAnnonce
 
 def ExtractionImage(soup:_bs4.BeautifulSoup)-> List[Schemas.Photo]:
     ListImg=[]

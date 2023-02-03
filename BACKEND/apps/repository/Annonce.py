@@ -8,6 +8,7 @@ def CreerAnnonce(request:Schemas.blogbase,db:Session):
     Type_bien=request.Type_bien,Surface=request.Surface,Description=request.Description,
     Prix=request.Prix,Nom=request.Nom,Prenom=request.Prenom,Adresse=request.Adresse,Email=request.Email,
     Tel=request.Tel,Localisation=request.Localisation,user_id =1,dateInsertion=request.dateInsertion)
+    
     db.add(Nouvelle_annonce)
     db.commit()
     db.refresh(Nouvelle_annonce)
@@ -19,5 +20,4 @@ def CreerAnnonce(request:Schemas.blogbase,db:Session):
         db.commit()
         db.refresh(pht)
         
-
     return Nouvelle_annonce
