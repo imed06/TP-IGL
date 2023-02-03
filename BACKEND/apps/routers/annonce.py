@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import or_
 from starlette.responses import JSONResponse
 from typing import Union
+
 # -----local imports --------------------------------
 from db import Database
 from models import models
@@ -43,8 +44,6 @@ def getResult( db :Session = Depends(get_db),keyword:str=''):
     Annonces=db.query(models.Annonce).filter(or_(models.Annonce.description.contains(keyword),models.Annonce.titre.contains(keyword))).order_by(models.Annonce.Date.desc()).all()
     return Annonces
 
-
-
 # filtrer les annonces selon les 4 champs du filtre  
 @router.get('/filtered/',response_model=List[Schemas.showannonce])
 def getAll(wilaya:str='',commune:str='',date1:date=None,date2:date=None,db :Session = Depends(get_db)):
@@ -66,13 +65,6 @@ def getOwn(userid:int,db :Session = Depends(get_db)):
     Annonces=db.query(models.Annonce).filter(models.Annonce.user_id == userid).order_by(models.Annonce.Date).all()
     return Annonces
 
-# router.mount('/Users/mac/Desktop/TP/BACKEND/apps/routers/static',StaticFiles(directory='/Users/mac/Desktop/TP/BACKEND/apps/routers/static'),name='static')
-
-    
-
-
-
-
 
 # creer une anonnce avec les liens de ses images comme params paths --paths est une liste de chaine de caractère--
 @router.post('/',response_model=Schemas.showannonce,status_code=status.HTTP_201_CREATED)
@@ -90,10 +82,6 @@ async def create(request :Schemas.Annonce,db :Session = Depends(get_db),userid:O
         db.refresh(New_Photo)
 
     return new_annonce
-
-
-
-
 
 # endpoint pour supprimer une annonce 
 @router.delete('/{id}')

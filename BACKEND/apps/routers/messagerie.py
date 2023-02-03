@@ -1,4 +1,4 @@
-from fastapi import APIRouter,Depends,HTTPException,status
+from fastapi import APIRouter,Depends
 from db import Database
 from models import models
 from schemas import Schemas
@@ -11,7 +11,7 @@ router = APIRouter(
 )
 get_db=Database.get_db
 
-
+# methode post pour envoyer un message
 
 @router.post('/messagerie')
 def send_message(message:str,user_id :int,annonce_id:int,db :Session = Depends(get_db)):
@@ -22,6 +22,8 @@ def send_message(message:str,user_id :int,annonce_id:int,db :Session = Depends(g
     db.commit()
     db.refresh(message)
     return message
+
+# methode get pour recuperer des messages
 
 @router.get('/messagerie',response_model=List[Schemas.showMessage])
 def Consulter_messagerie(user_id:int,db :Session = Depends(get_db)):

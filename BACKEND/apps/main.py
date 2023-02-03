@@ -1,11 +1,8 @@
 import uvicorn
 from fastapi import FastAPI,Depends
 from fastapi.responses import HTMLResponse
-
-from fastapi import Request
 from fastapi import FastAPI
 import uvicorn
-from authentication import auth
 from db import Database
 from models import models
 from routers import annonce,user,authenticate,messagerie
@@ -43,7 +40,7 @@ app.include_router(messagerie.router)
 @app.get('/')
 def Doc():
     return HTMLResponse(
-        '<body><a href="/docs">Documentation</a> ')
+        '<body><a href="/redoc">Documentation</a> ')
 
 
 @app.post('/Annonces')

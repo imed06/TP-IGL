@@ -1,14 +1,14 @@
-from fastapi import APIRouter,Depends,status ,HTTPException, Query
-from typing import List,Optional
-from datetime import date,datetime
+from fastapi import APIRouter,Depends,status ,HTTPException
 from sqlalchemy.orm import Session
-from starlette.responses import JSONResponse
-from typing import Union
+
+
 # -----local imports --------------------------------
 from db import Database
 from models import models
 from schemas import Schemas
 from authentication import valid
+
+
 get_current_user_email = valid.get_current_user_email
 
 router = APIRouter(
@@ -18,7 +18,7 @@ router = APIRouter(
 
 get_db=Database.get_db
 
-# recuperer les annonces selon le numero de page
+# login
 
 @router.post('/login',response_model = Schemas.showuser)
 
@@ -30,7 +30,7 @@ def login(request :Schemas.Token , db :Session = Depends(get_db)):
     else:
             return user
 
-
+# signup
 
 @router.post('/singup',response_model=Schemas.Access_token,status_code=status.HTTP_201_CREATED)
 async def singup(request :Schemas.Token ,db :Session = Depends(get_db)):
