@@ -1,25 +1,31 @@
 import React, { useEffect } from 'react'
-import SideBar from '../Components/SideBar'
+import NavBar from '../Components/NavBar'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import Messagerie from './Messagerie'
 
 const DetailsAnnonce = _ => {
     const { id } = useParams()
-    const [annonce,setAnnonce] = useState(null)
+    const [annonce, setAnnonce] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
         const getAnnonce = async () => {
-            const response = await fetch("http://127.0.0.1:5000/annonce/"+id)
+            const response = await fetch("http://127.0.0.1:5000/annonce/" + id)
             const json = await response.json()
             if (response.ok) {
-                console.log(json)
                 setAnnonce(json)
             }
         }
         getAnnonce()
-    }, [])
+    },[])
+
+    useEffect(() => {
+        annonce?.images.map((i) => {
+            console.log(i)
+        })
+    }, [annonce])
 
     function closeModal() {
         setIsOpen(false)
@@ -28,47 +34,35 @@ const DetailsAnnonce = _ => {
     function openModal() {
         setIsOpen(true)
     }
-    
+
     return (
         <div className='flex flex-col  h-full' style={{ "backgroundColor": "#f5f5f5" }}>
             <div className="w-full flex flex-col  sticky top-0 ">
-                {/* <SideBar /> */}
+                <NavBar setAnnoncesRech={() => null} setAnnoncesFilt={() => null} />
             </div>
             <div className='mt-8 mx-40' >
                 <h1 className=" text-4xl " >{annonce && annonce.titre}</h1>
                 <div className='flex flex-row justify-between mt-4'>
-
+                    <div></div>
                     <button className=" hover:bg-gray-200 rounded-lg hover:text-blue-700 text-black py-2 px-2  inline-flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="blue" className="w-5 h-5">
                             <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
                         </svg>
                         <span className='ml-1  '>Afficher toutes les photos</span>
                     </button>
-
-                    <button className="hover:bg-gray-200 hover:text-red-700 text-black py-2 px-2 rounded-lg inline-flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="red" className="w-5 h-5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                        <span className='ml-1 '>Sauvegarder</span>
-                    </button>
                 </div>
                 <div className='grid grid-cols-3 grid-flow-col gap-2 mt-2'>
+                    {annonce ? annonce?.images.slice(0, 3).map((image) => {
+                        return (<img
+                            className='object-cover rounded-md w-full h-full'
+                            src={"http://www.annonce-algerie.com" + image.lien}
+                            alt='/'
+                        />
+                        )
+                    })
+                        : null
 
-                    <img
-                        className='object-cover rounded-md w-full h-full'
-                        src='https://images.unsplash.com/photo-1602002418082-a4443e081dd1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80'
-                        alt='/'
-                    />
-                    <img
-                        className='object-cover rounded-md w-full h-full'
-                        src='https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80'
-                        alt='/'
-                    />
-                    <img
-                        className='object-cover rounded-md w-full h-full'
-                        src='https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80'
-                        alt='/'
-                    />
+                    }
                 </div>
                 <div className='flex flex-row justify-between mt-8'>
                     <div>
@@ -81,7 +75,7 @@ const DetailsAnnonce = _ => {
                                 </svg>
                             </button>
                         </div>
-                        <Transition appear show={isOpen} as={Fragment}>
+                        {/* <Transition appear show={isOpen} as={Fragment}>
                             <Dialog as="div" className="relative z-10" onClose={closeModal}>
                                 <Transition.Child
                                     as={Fragment}
@@ -136,16 +130,9 @@ const DetailsAnnonce = _ => {
                                     </div>
                                 </div>
                             </Dialog>
-                        </Transition>
+                        </Transition> */}
                     </div>
-                    <div>
-                        <button type="button" className="text-white inline-flex items-center bg-[#F7BE38] hover:bg-[#F7BE38]/90  font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2  focus:outline-none ">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-                            </svg>
-                            <span className='ml-1'>CONTACTER</span>
-                        </button>
-                    </div>
+                    <Messagerie annonce={annonce} />
                 </div>
                 <div className="overflow-hidden bg-white shadow sm:rounded-lg mt-4">
                     <div className="px-4 py-5 sm:px-6 flex flex-row">
@@ -243,7 +230,6 @@ const DetailsAnnonce = _ => {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
