@@ -6,6 +6,7 @@ from schemas import Schemas
 from models import models
 from datetime import datetime
 from sqlalchemy.orm import Session
+from starlette.responses import JSONResponse 
 
 def WebScraping(db:Session):
     Page_Max =2
@@ -35,7 +36,7 @@ def WebScraping(db:Session):
 
         num_Page=num_Page+1
 
-    return "webScrapping donne succesfuly" 
+    return JSONResponse({"result":"webScrapping donne succesfuly"})
 
 def ExtractionInfo(url:str,db:Session):
     listElement =[]
