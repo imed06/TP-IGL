@@ -66,7 +66,9 @@ function AjouterAnnonce() {
         onSubmit: values=>{
             console.log(values);
             let concatPhotos = photos.map(photo => photo.lien).join('&paths=');
-            concatPhotos = concatPhotos.slice(0, -1);
+            
+            concatPhotos = concatPhotos.slice(0, -7);
+            alert("le contenu inse "+concatPhotos)
             const API = `http://127.0.0.1:5000/annonce/?userid=`+user.id+`&paths=${concatPhotos}`;
             
                 
