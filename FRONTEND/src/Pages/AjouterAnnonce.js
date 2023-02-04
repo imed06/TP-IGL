@@ -7,9 +7,10 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
+import { useAuthContext } from '../hooks/useAuthContext';
 function AjouterAnnonce() {
  const navigate = useNavigate();
+ const { user } = useAuthContext()
  const [photos, setPhotos] = useState([{lien: ''}]);
 
  const handleAddPhoto = () => {
@@ -57,14 +58,14 @@ function AjouterAnnonce() {
                prix:Yup.string().required("Ce champ est obligatoire").matches(/^\d+$/, 'Seuls les nombres sont autorisés') ,
                date:Yup.string().required("Ce champ est obligatoire"),
                  
-                nom :Yup.string().required("Ce champ est obligatoire"),
-                prenom : Yup.string().required("Ce champ est obligatoire"),
-                adresse:Yup.string().required("Ce champ est obligatoire"),
-                email :Yup.string().email("Votre adresse e-mail est invalide"),
-                telephone:Yup.string().required("ce champ est obligatoire").matches(/^\d+$/, 'Seuls les nombres sont autorisés').max(10,"Votre numero de télèphone est incorrect ").min(10 ,"Votre numero de télèphone est incorrect"),
+              //  nom :Yup.string().required("Ce champ est obligatoire"),
+              //  prenom : Yup.string().required("Ce champ est obligatoire"),
+              //  adresse:Yup.string().required("Ce champ est obligatoire"),
+              //  email :Yup.string().email("Votre adresse e-mail est invalide"),
+              //  telephone:Yup.string().required("ce champ est obligatoire").matches(/^\d+$/, 'Seuls les nombres sont autorisés').max(10,"Votre numero de télèphone est incorrect ").min(10 ,"Votre numero de télèphone est incorrect"),
                   
-                 wilaya:Yup.string().required("Ce champ est obligatoire"),
-                 commune:Yup.string().required("Ce champ est obligatoire"),
+               //  wilaya:Yup.string().required("Ce champ est obligatoire"),
+              ///   commune:Yup.string().required("Ce champ est obligatoire"),
                  adrB:Yup.string().required("Ce champ est obligatoire"), 
 
            }), 
@@ -72,8 +73,8 @@ function AjouterAnnonce() {
         // submit le formulaire
         onSubmit: values=>{
             console.log(values);
-            axios.post('http://127.0.0.1:5000/Annonce/',{
-                "Titre": values.titre ,
+            axios.post('http://127.0.0.1:5000/annonce/?userid='+user.id,{
+               /* "Titre": values.titre ,
                 "Type_annonce": values.categorie,
                 "Type_bien": values.typeB,
                 "Surface": values.surface,
@@ -87,6 +88,16 @@ function AjouterAnnonce() {
                 "Localisation": values.adrB,
                 "dateInsertion": values.date,
                 "photo": photos
+*/
+
+                "titre": values.titre,
+                "categories": values.categorie,
+                "typeDuBien": values.typeB,
+                "surfaces": values.surface,
+                "description": values.Description,
+                "prix": values.prix,
+                "localisation": values.adrB,
+                "Date": values.date ,
         
              })
             .catch(error => {
@@ -101,7 +112,7 @@ function AjouterAnnonce() {
   return (
     <div className="h-full mr-8 ml-8 mt-5 rounded-xl"   id="ajouterAnnonce">
         
-        <form  onSubmit={formik.handleSubmit} className="formulaire">
+        <form  onSubmit={formik.handleSubmit} className="formulaire rounded-xl">
                 <div className="shadow-3xl border-b-2 bg-[#fdfdfd] border-[#0E213F] ..." id="titre_generale_div">
                         <h1 id="titre_generale" className=" text-xl font-extrabold"> Ajouter une nouvelle annonce</h1>
                 </div>

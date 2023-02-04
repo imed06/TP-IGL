@@ -9,13 +9,12 @@ import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { Navigate, useNavigate } from 'react-router-dom';
 import AnnonceTemplate from './AnnonceTemplate';
 import { Link } from 'react-router-dom';
-
+import { useAuthContext } from '../hooks/useAuthContext';
 export default function ConsulterAnnonce() {
-    const { id } = useParams()
-    const [user,setUser] = useState(null) ;
-    const [ads , setAds] = useState([]) ;
+   
+   
     const navigate = useNavigate();
-     
+    const { user } = useAuthContext() 
 
     const [annonces, setAnnonces] = useState([]);
 

@@ -8,27 +8,28 @@ import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { useAuthContext } from '../hooks/useAuthContext';
+
 
 export default function Compte() {
-  const { id } = useParams()
-    const [user,setUser] = useState(null)
-    
+    const [Utilisateur,setUser] = useState(null)
+    const { user } = useAuthContext()
 
-    useEffect(() => {
-        const getUser = async () => {
+    // useEffect(() => {
+    //     const getUser = async () => {
           
-            const response = await fetch("http://127.0.0.1:5000/user/"+user.id)
+    //         const response = await fetch("http://127.0.0.1:5000/user/"+user.id)
             
-            const json = await response.json()
-            if (response.ok) {
-                console.log(json)
-                setUser(json)
-            }
-        }
+    //         const json = await response.json()
+    //         if (response.ok) {
+    //             console.log(json)
+    //             setUser(json)
+    //         }
+    //     }
        
-        getUser()
+    //     getUser()
      
-    }, [])
+     /*}, [])*/
   return (
 
 
@@ -71,7 +72,7 @@ export default function Compte() {
                        </div>
                        <div className='flex justify-center flex-col ml-2'>
                          <div><h3 className=' ml-4 text-lg font-semibold text-slate-700'>Identificateur</h3></div>
-                         <div><h4 className='ml-3 text-lg text-slate-600 '>{user && id}</h4></div>
+                         <div><h4 className='ml-3 text-lg text-slate-600 '>{user && user.id}</h4></div>
                       </div>
                    </div>
                    <div className='flex mb-3 mt-3 ml-8 mr-2 '> 
