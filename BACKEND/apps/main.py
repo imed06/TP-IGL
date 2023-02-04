@@ -15,6 +15,8 @@ from sqlalchemy.orm import Session
 from fastapi import APIRouter,Depends
 from Database import get_db
 
+from routers import webScraping2 as scraper2
+
 
 
 from fastapi.responses import HTMLResponse
@@ -29,14 +31,18 @@ app.include_router(Annonce.router)
 app.include_router(user.router) 
 
 
-
+"""
 @app.post('/scraping/AnnonceAlgerie',response_model=str)
 def WebScraping(respons:Schemas.infoScraping,db : Session=Depends(get_db)):
     return scraper.WebScraping(db,respons)
 
 @app.post('/scraping/darjdida',response_model=str) #deuxieme
 def WebScraping(respons:Schemas.infoScraping,db : Session=Depends(get_db)):
-    return scraper2.WebScraping(db,respons)
+    return scraper2.WebScraping(db,respons) """
+
+@app.post('/Annonces/scrapper2')
+def WebScraping2(db : Session=Depends(Database.get_db)):
+    return scraper2.WebScraping(db)
 
 @app.get("/")
 async def read_main():
