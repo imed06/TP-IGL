@@ -31,19 +31,9 @@ function AjouterAnnonce() {
             surface:"",
             Description:"",
             prix:"" ,
-            date :"" ,
-            adrB :'', 
-           // information de contact 
-           /* nom :"",
-            prenom : "",
-            adresse:"",
-            email :"",
-            telephone:"",
-            //localisation
-            wilaya:"",
-            commune:"",
-            Ajouter_photos:'' ,*/ 
             
+            adrB :'', 
+           
             
 
 
@@ -57,16 +47,7 @@ function AjouterAnnonce() {
                surface:Yup.string().required("Ce champ est obligatoire"),
                Description:Yup.string().required("Veuillez entroduire une description pour votre annonce").max(500,"Votre déscription ne doit pas dépasser 500 caractéres"),
                prix:Yup.string().required("Ce champ est obligatoire").matches(/^\d+$/, 'Seuls les nombres sont autorisés') ,
-               date:Yup.string().required("Ce champ est obligatoire"),
-                 
-              //  nom :Yup.string().required("Ce champ est obligatoire"),
-              //  prenom : Yup.string().required("Ce champ est obligatoire"),
-              //  adresse:Yup.string().required("Ce champ est obligatoire"),
-              //  email :Yup.string().email("Votre adresse e-mail est invalide"),
-              //  telephone:Yup.string().required("ce champ est obligatoire").matches(/^\d+$/, 'Seuls les nombres sont autorisés').max(10,"Votre numero de télèphone est incorrect ").min(10 ,"Votre numero de télèphone est incorrect"),
-                  
-               //  wilaya:Yup.string().required("Ce champ est obligatoire"),
-              ///   commune:Yup.string().required("Ce champ est obligatoire"),
+              
                  adrB:Yup.string().required("Ce champ est obligatoire"), 
 
            }), 
@@ -74,22 +55,13 @@ function AjouterAnnonce() {
         // submit le formulaire
         onSubmit: values=>{
             console.log(values);
-            axios.post('http://127.0.0.1:5000/annonce/?userid='+user.id,{
-               /* "Titre": values.titre ,
-                "Type_annonce": values.categorie,
-                "Type_bien": values.typeB,
-                "Surface": values.surface,
-                "Description": values.Description,
-                "Prix": values.prix,
-                "Nom": values.nom,
-                "Prenom": values.prenom,
-                "Adresse": values.adresse,
-                "Email": values.email,
-                "Tel": values.telephone,
-                "Localisation": values.adrB,
-                "dateInsertion": values.date,
-                "photo": photos
-*/
+            let concatPhotos = photos.map(photo => photo.lien).join('&paths=');
+            concatPhotos = concatPhotos.slice(0, -1);
+            const API = `http://127.0.0.1:5000/annonce/?userid=`+user.id+`&paths=${concatPhotos}`;
+            
+                
+            axios.post(API,{
+              
 
                 "titre": values.titre,
                 "categories": values.categorie,
@@ -98,7 +70,7 @@ function AjouterAnnonce() {
                 "description": values.Description,
                 "prix": values.prix,
                 "localisation": values.adrB,
-                "Date": values.date ,
+                
         
              })
             .catch(error => {
@@ -224,23 +196,7 @@ function AjouterAnnonce() {
                        
                                
                         
-                        <div className="pd-4 my-3">
-                            <label 
-                            id ="utile"
-                            className="block text-lg font-medium pb-4  text-sky-900"
-                            htmlFor="text"
-                            >Date</label>
-                             <input 
-                            value={formik.values.date}
-                            onChange={formik.handleChange}
-                            onBlur ={formik.handleBlur}
-                            id ="utile"
-                            className="border-1  border-bleu-20 p-2 rounded-md focus:ring-2 focus:ring-bleu-500 ring-inset"
-                            type="text" name="date" 
-                            placeholder="Date" />
-                            <p id="utile" className ="block text-sm font-medium  pb-4 font-Montserrat  text-red-600 ">
-                            {formik.touched.date && formik.errors.date ? formik.errors.date:" "}</p>
-                    </div>
+                     
                      {/* le champs pour entre l'adresse de bien immobilier */}
                      <div className="pd-4 my-3">
                             <label className="block text-lg font-medium pb-4  text-sky-900 "
@@ -257,7 +213,25 @@ function AjouterAnnonce() {
                             {formik.touched.adrB && formik.errors.adrB ? formik.errors.adrB: ""}</p>
                         </div>
 
-
+                           {/* le champs pour ajouter une photo */}
+                           <div className="pd-4 "  >
+                            <label className="block text-lg font-medium pb-4  text-sky-900 "
+                            htmlFor="nom"
+                            id ="utile"
+                            >Ajouter des photos</label>
+                         {photos.map((photos, index) => (
+                            <input key={index}
+                             aria-describedby="file_input_help" 
+                             value={photos.lien} onChange={e => handleChangePhoto(index, e.target.value)}
+                             onClick={handleAddPhoto}
+                             name="Ajouter_photos" type="file"
+                            id ="utile"
+                            className="border-1 border-bleu-20 p-0 m-2 rounded-md focus:ring-2 focus:ring-bleu-500 ring-inset
+                            text-sky-900 border border-yellow-500 cursor-pointer bg-yellow-100 font-Montserrat text-sm 
+                             dark:text-yellow-500 focus:outline-none dark:bg-[#1a2536] dark:border-sky-900 dark:placeholder-gray-400"
+                             />  ))}
+                            <p id ="utile" className=" font-Montserrat mt-1 pl-2 text-xs font-semibold text-gray-900 dark:text-gray-900">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+                        </div>
 
                         {/* le champs pour introduire une petite description a props de bien immobilier */}
                         <div className="pd-4 my-3">
