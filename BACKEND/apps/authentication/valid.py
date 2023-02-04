@@ -29,7 +29,7 @@ CREDENTIALS_EXCEPTION = HTTPException(
 
 
 GOOGLE_CLIENT_SECRET='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'
-CLIENT_ID='947244733594-bitcc5abv7f4d8gfbrr50bujjc19q16t.apps.googleusercontent.com'
+CLIENT_ID='309969578058-djuekces314halkds6uofbht02himl4o.apps.googleusercontent.com'
 
 
 def get_user_email(token: str = Depends(oauth2_scheme)):
@@ -81,6 +81,7 @@ def create_access_token(*, data: dict, expires_delta: timedelta = None):
     else:
         expire = datetime.utcnow() + timedelta(minutes=9000)
     to_encode.update({'exp': expire})
+
     encoded_jwt = jwt.encode(to_encode, API_SECRET_KEY, algorithm=API_ALGORITHM)
     return encoded_jwt
 

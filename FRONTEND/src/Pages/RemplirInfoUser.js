@@ -1,10 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsFillPersonFill, BsFillTelephoneFill, BsTelephoneFill } from 'react-icons/bs';
 import { FaMapMarkerAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 
+function RemplirInfoUser({email,token}) {
+    const { dispatch } = useAuthContext()
+    const navigate = useNavigate()
+    const [nom, setNom] = useState(null);
+    const [prenom, setPrenom] = useState(null);
+    const [adresse, setAdresse] = useState(null);
+    const [tel, setTel] = useState(null);
+    const Email = email
+    const Token = token
 
-function RemplirInfoUser() {
+    const handleSubmit = async () => {
+
+        if (nom !== null && prenom !== null && adresse !== null && tel !== null) {
+            const response = await fetch("http://localhost:5000/user", {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: nom + " " + prenom,
+                    email: Email,
+                    numeroDeTelephone: tel,
+                    adresse: adresse,
+                    token: Token
+                })
+            })
+            const json = await response.json()
+            console.log(json)
+            if (response.ok) {
+                localStorage.setItem('user',JSON.stringify(json))
+                dispatch({type: 'LOGIN', payload: json})
+                navigate("/Home");
+            }
+        }
+    }
 
     return (
         <div className="bg-gray-200">
@@ -22,28 +55,26 @@ function RemplirInfoUser() {
                             <div className='flex flex-row items-center justify-between'>
                                 <BsFillPersonFill className="w-6 h-6 mr-2" />
                                 <div className='flex flex-row items-center justify-between'>
-                                    <input type="text" name="nom" id="nom" className="bg-gray-50 border mr-1 border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 " placeholder="Nom" required="" />
-                                    <input type="text" name="prénom" id="prénom" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 " placeholder="Prénom" required="" />
+                                    <input type="text" name="nom" id="nom" className="bg-gray-50 border mr-1 border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 " placeholder="Nom" required="" onChange={(e) => setNom(e.target.value)} />
+                                    <input type="text" name="prénom" id="prénom" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 " placeholder="Prénom" required="" onChange={(e) => setPrenom(e.target.value)} />
                                 </div>
                             </div>
 
                             <div className='flex flex-row items-center'>
                                 <FaMapMarkerAlt className="w-6 h-6 mr-2" />
-                                <input type="text" name="adresse" id="adresse" placeholder="Adresse" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 " required="" />
+                                <input type="text" name="adresse" id="adresse" placeholder="Adresse" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 " required="" onChange={(e) => setAdresse(e.target.value)} />
                             </div>
                             <div className='flex flex-row items-center'>
                                 <BsFillTelephoneFill className="w-6 h-6 mr-2" />
-                                <input type="tel" pattern="0[5-7]{1}[0-9]{8}" name="numTel" id="numTel" placeholder="Numéro Tel" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 " required="" />
+                                <input type="num" name="numTel" id="numTel" placeholder="Numéro Tel" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 " required="" onChange={(e) => setTel(e.target.value)} />
                             </div>
-                            
-                            <button type="button" className="w-full text-white bg-blue-600  focus:ring-4 focus:outline-none font-medium rounded-lg text-md px-5 py-2.5 text-center ">Créer un compte</button>
-                            <p className="text-sm font-light text-gray-500 ">
-                                Vous n'avez pas un compte? <a href="#" className="font-bold hover:underline  text-blue-600 ">Login here</a>
-                            </p>
+
+                            <button type="button" className="w-full text-white bg-blue-600  focus:ring-4 focus:outline-none font-medium rounded-lg text-md px-5 py-2.5 text-center " onClick={handleSubmit}>Créer un compte</button>
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
     );
 }

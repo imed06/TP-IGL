@@ -34,6 +34,7 @@ def getAll(page:int,db :Session = Depends(get_db)):
 
 def get(id:int,db :Session = Depends(get_db)):
     Annonce=db.query(models.Annonce).filter(models.Annonce.id == id).first()
+    if not Annonce : return JSONResponse({"result": 'not found'})
     return Annonce
 
 # recuperer les annonces qui contiennent le mot 'keyword' dans la description et le titre
@@ -69,7 +70,8 @@ def getOwn(userid:int,db :Session = Depends(get_db)):
 # creer une anonnce avec les liens de ses images comme params paths --paths est une liste de chaine de caractère--
 @router.post('/',response_model=Schemas.showannonce,status_code=status.HTTP_201_CREATED)
 async def create(request :Schemas.Annonce,db :Session = Depends(get_db),userid:Optional[int]=0,paths: Union[List[str], None] = Query(default=None)):
-    new_annonce= models.Annonce(titre=request.titre,categories=request.categories,typeDuBien=request.typeDuBien,user_id=userid,Date = request.Date,
+    date_actuelle = datetime.now()
+    new_annonce= models.Annonce(titre=request.titre,categories=request.categories,typeDuBien=request.typeDuBien,user_id=userid,Date = date_actuelle,
                                 surfaces=request.surfaces,description=request.description,localisation=request.localisation ,prix=request.prix  )
     db.add(new_annonce)
     db.commit()
@@ -91,6 +93,7 @@ def delete_Annonce(id:int,db :Session = Depends(get_db)):
     images = db.query(models.image).filter(models.image.annonce_id ==id).all()
     for image in images:
         db.query(models.image).filter(models.image.id == image.id).delete()
+    db.query(models.Message).filter(models.Message.id_annonce == id).delete()
     db.query(models.Annonce).filter(models.Annonce.id == id).delete()
     db.commit()
     return JSONResponse({"result": True})

@@ -40,7 +40,7 @@ app.include_router(messagerie.router)
 @app.get('/')
 def Doc():
     return HTMLResponse(
-        '<body><a href="/redoc">Documentation</a> ')
+        '<body><a href="/docs">Documentation</a> ')
 
 
 @app.post('/Annonces')

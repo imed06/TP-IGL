@@ -30,7 +30,7 @@ class annoncebase(BaseModel):
     description :str
     prix : str
     localisation :str
-    Date :datetime
+    # Date :datetime
     # creator : createuser
     # images : List[image]=[]
 

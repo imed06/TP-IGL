@@ -4,6 +4,7 @@ from models import models
 from schemas import Schemas
 from sqlalchemy.orm import Session
 from typing import List
+from starlette.responses import JSONResponse
 
 router = APIRouter(
     prefix='/user',
@@ -16,6 +17,8 @@ get_db=Database.get_db
 
 @router.post('/', response_model=Schemas.showuser)
 def create(request:Schemas.createuser,db :Session = Depends( get_db)):
+    user=db.query(models.user).filter(models.user.email == request.email).first()
+    if user : raise HTTPException(status_code=status.HTTP_302_FOUND)
     new_user = models.user(name=request.name,email=request.email,numeroDeTelephone = request.numeroDeTelephone,adresse=request.adresse,token = request.token)
     db.add(new_user)
     db.commit()
@@ -46,4 +49,4 @@ def get_user(id:int,db :Session = Depends(get_db)):
 def delete_user(id:int,db :Session = Depends(get_db)):
     user=db.query(models.user).filter(models.user.id == id).delete()
     db.commit()
-    return 'user deleted'
+    return JSONResponse({"result": True})
