@@ -43,9 +43,6 @@ def Doc():
         '<body><a href="/docs">Documentation</a> ')
 
 
-@app.post('/Annonces/scrapper1')
-def WebScraping(db : Session=Depends(Database.get_db)):
-    return scraper.WebScraping(db)
 
 @app.post('/protected')
 def test(current_email: str = Depends(get_current_user_email)):
