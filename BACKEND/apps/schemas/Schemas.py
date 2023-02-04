@@ -85,6 +85,7 @@ class showuser(BaseModel):
     name:str
     email:str
     numeroDeTelephone:str
+    UserType : bool
     token:str
     adresse :str
     annonces : List[showAnnonceWithoutUser]=[]
