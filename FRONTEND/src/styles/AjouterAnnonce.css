@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@700&family=Exo+2:ital,wght@1,100&display=swap');
+
+ @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap'); 
+ @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Montserrat:ital,wght@1,200&display=swap'); 
+
+
+body {
+  margin: 0;
+  padding: 0;
+
+}
+#ul{
+  right: 200px;
+  
+}
+
+
+form{
+   width: auto;
+   height: auto;
+   
+   margin: 0px;
+   padding: 0px;
+   padding-top: 0%;
+   display: flex;
+   flex-direction: column;
+   justify-items: center;
+   justify-content: center ;
+   background-color: #F5F5F5;
+}
+#titre_generale_div{
+   margin: 0px;
+   
+   justify-items: flex-start;
+   padding-left: 20px;
+   
+   padding: 15px;
+   display: flex;
+
+}
+#titre_generale{
+  padding-left: 8%;
+  color: #D4BB83;
+}
+.add_forme{
+  display: flex; 
+  
+}
+
+
+
+ 
+body{
+  padding: 0px;
+  margin: 0px;
+ width: 100%;
+}
+.Annonce{
+  width: 100%;
+  padding-left: 0%;
+  padding-right: 0%;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  background-color: #fdfdfd;
+  display: flex;
+  align-items: center;
+   flex-direction:column;
+   justify-content: center;
+   
+  flex-wrap: wrap;
+  
+}
+.contacte_localisation_annonce,.info_annonce{
+    background-color:  #f1f4f8;
+    box-shadow: 1px 4px 2px 2px #c4c4c4; 
+    
+    width: 70%;
+    margin: 1%;
+    margin-bottom: 2%;
+    padding: 0.5%;
+}
+
+.info_contact{
+    margin-bottom: 5%;  
+}
+.localisation_annonce ,.secondo_info_annonce ,.info_contact{
+    background-color: #fcfcfc;
+    
+    width: 100%;
+    padding: 5%;
+    
+   
+    
+}
+
+#utile{
+  margin-left:  20px;;
+  width: 90%;
+  text-align: start;
+  
+}
+.Bottons_Ajouter_annuler{
+  background-color: #fcfaf5;
+  
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 12%;
+  padding-bottom: 30px;
+  margin: 0px;
+  
+  
+}
+#Ajouter ,#Annuler {
+  margin-top: 0px;
+  margin: 15px;
+  box-shadow: 4px 4px 4px 4px #D4BB83;
+ 
+}
