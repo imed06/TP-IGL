@@ -43,7 +43,7 @@ def Doc():
         '<body><a href="/docs">Documentation</a> ')
 
 
-@app.post('/Annonces')
+@app.post('/Annonces/scrapper1')
 def WebScraping(db : Session=Depends(Database.get_db)):
     return scraper.WebScraping(db)
 
