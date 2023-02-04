@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { useAuthContext } from './hooks/useAuthContext';
 import CreeNouvelleAnnonce from './Pages/CreeNouvelleAnnonce';
 import Consultercompte from './Pages/Consultercompte';
+import Scrapping from './Pages/Scrapping';
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-       
+        <Route path ='/Scrapping' element ={!user?<Scrapping/>:<Navigate to="/" />}></Route>
         <Route path='/InfoUser' element={!user ? <RemplirInfoUser email={email} token={token} /> : <Navigate to="/" />}></Route>
         <Route path='/' element={!user?<Authentification setEmail={setEmail} setToken={setToken} />: <Navigate to="/Home" />}></Route>
         <Route path='/Home' element={user ? <Home /> : <Navigate to="/" />}></Route>

@@ -24,7 +24,7 @@ function AjouterAnnonce() {
  };
      const formik = useFormik({
         initialValues: {
-            /* description de l'annonce */
+            // description de l'annonce 
             titre:"",
             categorie:"",
             typeB:"",
@@ -32,18 +32,19 @@ function AjouterAnnonce() {
             Description:"",
             prix:"" ,
             date :"" ,
-
-            /* information de contact*/ 
-            nom :"",
+            adrB :'', 
+           // information de contact 
+           /* nom :"",
             prenom : "",
             adresse:"",
             email :"",
             telephone:"",
-            /*localisation*/
+            //localisation
             wilaya:"",
             commune:"",
-            adrB :'', 
-            Ajouter_photos:''
+            Ajouter_photos:'' ,*/ 
+            
+            
 
 
 
@@ -240,6 +241,21 @@ function AjouterAnnonce() {
                             <p id="utile" className ="block text-sm font-medium  pb-4 font-Montserrat  text-red-600 ">
                             {formik.touched.date && formik.errors.date ? formik.errors.date:" "}</p>
                     </div>
+                     {/* le champs pour entre l'adresse de bien immobilier */}
+                     <div className="pd-4 my-3">
+                            <label className="block text-lg font-medium pb-4  text-sky-900 "
+                            htmlFor="nom"
+                            id ="utile"
+                            >Adresse de bien immobilier</label>
+                            <input  type="text" name="adrB" placeholder="Entre votre Addresse" 
+                            value={formik.values.adrB}
+                            onChange={formik.handleChange}
+                            onBlur ={formik.handleBlur}
+                            id ="utile"
+                            className="border-1 border-bleu-20 p-2 rounded-md focus:ring-2 focus:ring-bleu-500 ring-inset"/>
+                            <p id="utile"  className ="block text-sm font-medium  pb-4 font-Montserrat  text-red-600 ">
+                            {formik.touched.adrB && formik.errors.adrB ? formik.errors.adrB: ""}</p>
+                        </div>
 
 
 
@@ -261,81 +277,7 @@ function AjouterAnnonce() {
                         </div>
                     </div>
                 </div>
-               <div className="contacte_localisation_annonce rounded-lg shadow-3xl">
-                
-
-
-
-                {/* la locatisation  */}
-                    <div className="localisation_annonce rounded-lg ">
-                    <h1 id="titre_generale" className=" text-lg font-bold border-b-2 text-left border-[#1a2536] ... ">Localisation</h1>
-                        {/* le champs pour entre les wilaya*/}
-                        <div className="pd-4 my-3">
-                            <label className="block text-lg font-medium pb-4   text-sky-900 " id ="utile"
-                            >Wilaya</label>
-                            <input type="text" id ="utile" placeholder="Entre votre wilaya" name="wilaya" value={formik.values.wilaya}
-                                onChange = {formik.handleChange}
-                                onBlur ={formik.handleBlur}
-                                className="border-1 border-bleu-20 p-2 rounded-md focus:ring-2 focus:ring-bleu-500 ring-inset"
-                                 />
-                            <p id="utile"className ="block text-sm font-medium  pb-4 font-Montserrat  text-red-600 ">
-                            {formik.touched.wilaya && formik.errors.wilaya ? formik.errors.wilaya: ""}</p>
-                        </div>
-
-                        {/* le champs pour entre la commune*/}
-                        <div className="pd-4 my-3">
-                            <label className="block text-lg font-medium pb-4   text-sky-900 "
-                            id ="utile"
-                            >Commune</label>
-                            <input type="text" id ="utile" placeholder="Entre votre wilaya" name="commune" value={formik.values.commune}
-                                onChange = {formik.handleChange}
-                                onBlur ={formik.handleBlur}
-                                className="border-1 border-bleu-20 p-2 rounded-md focus:ring-2 focus:ring-bleu-500 ring-inset"
-                                 />
-                            
-                            <p id="utile"  className ="block text-sm font-medium  pb-4 font-Montserrat  text-red-600 ">
-                            {formik.touched.commune && formik.errors.commune ? formik.errors.commune: ""}</p>
-                        </div>
-
-                            {/* le champs pour entre l'adresse de bien immobilier */}
-                            <div className="pd-4 my-3">
-                            <label className="block text-lg font-medium pb-4  text-sky-900 "
-                            htmlFor="nom"
-                            id ="utile"
-                            >Adresse de bien immobilier</label>
-                            <input  type="text" name="adrB" placeholder="Entre votre Addresse" 
-                            value={formik.values.adrB}
-                            onChange={formik.handleChange}
-                            onBlur ={formik.handleBlur}
-                            id ="utile"
-                            className="border-1 border-bleu-20 p-2 rounded-md focus:ring-2 focus:ring-bleu-500 ring-inset"/>
-                            <p id="utile"  className ="block text-sm font-medium  pb-4 font-Montserrat  text-red-600 ">
-                            {formik.touched.adrB && formik.errors.adrB ? formik.errors.adrB: ""}</p>
-                        </div>
-
-                            {/* le champs pour ajouter une photo */}
-                             <div className="pd-4 "  >
-                            <label className="block text-lg font-medium pb-4  text-sky-900 "
-                            htmlFor="nom"
-                            id ="utile"
-                            >Ajouter des photos</label>
-                         {photos.map((photos, index) => (
-                            <input key={index}
-                             aria-describedby="file_input_help" 
-                             value={photos.lien} onChange={e => handleChangePhoto(index, e.target.value)}
-                             onClick={handleAddPhoto}
-                             name="Ajouter_photos" type="file"
-                            id ="utile"
-                            className="border-1 border-bleu-20 p-0 m-2 rounded-md focus:ring-2 focus:ring-bleu-500 ring-inset
-                            text-sky-900 border border-yellow-500 cursor-pointer bg-yellow-100 font-Montserrat text-sm 
-                             dark:text-yellow-500 focus:outline-none dark:bg-[#1a2536] dark:border-sky-900 dark:placeholder-gray-400"
-                             />  ))}
-                            <p id ="utile" className=" font-Montserrat mt-1 pl-2 text-xs font-semibold text-gray-900 dark:text-gray-900">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
-                        </div>
-                       
-                </div>
-                </div>
-                
+               
             </div>
             <div className="Bottons_Ajouter_annuler bg-[#ffffff]">
             <button type="submit"  id="Ajouter"
