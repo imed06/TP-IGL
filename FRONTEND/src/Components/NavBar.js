@@ -15,10 +15,12 @@ import PersonIcon from '@mui/icons-material/Person';
 import { useLogout } from '../hooks/useLogout';
 import { useNavigate } from 'react-router-dom';
 import SideBar from './SideBar';
-
+import { Link } from 'react-router-dom'
+import { useAuthContext } from '../hooks/useAuthContext';
 
 function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
-    const {logout} = useLogout()
+    const { user } = useAuthContext()
+    const { logout } = useLogout()
     const navigate = useNavigate()
     const [recherche, setRecherche] = useState("")
     const [filter, setFilter] = useState("")
@@ -26,7 +28,7 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const [state, setState] = useState({ left: false, right: false, });
-    const handleLogout = () =>{
+    const handleLogout = () => {
         logout()
         navigate("/")
     }
@@ -100,7 +102,7 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
         { id: 47, name: "Ghardaïa" },
         { id: 48, name: "Relizane" },
         { id: 49, name: "Timimoun" },
-        { id: 50, name:"Bordj Badji Mokhtar"},
+        { id: 50, name: "Bordj Badji Mokhtar" },
         { id: 51, name: "Ouled Djellal" },
         { id: 52, name: "Béni Abbès" },
         { id: 53, name: "In Salah" },
@@ -122,7 +124,6 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
         if (recherche !== "") {
             const response = await fetch("http://127.0.0.1:5000/annonce/keyword/?keyword=" + recherche)
             const json = await response.json()
-            console.log(json)
             if (response.ok) {
                 if (json.length !== 0) {
                     json.sort((a, b) => b.Date.localeCompare(a.Date));
@@ -142,16 +143,37 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
 
     useEffect(() => {
         const handleFilter = async () => {
-            if (filter !== "Wilaya" && filter !== "Commune" && filter !== "Type" && filter !== "") {
-                const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?wilaya=${filter}&commune=${filter}`)
+            if (filter !== "Wilaya") {
+                const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?wilaya=${filter}`)
                 const json = await response.json()
                 if (response.ok) {
                     if (json.length !== 0) {
                         json.sort((a, b) => b.Date.localeCompare(a.Date));
                         setAnnoncesFilt(json)
                     }
-                    else
-                        setAnnoncesFilt(null)
+                    
+                }
+            }
+            if (filter !== "Commune") {
+                const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?commune=${filter}`)
+                const json = await response.json()
+                if (response.ok) {
+                    if (json.length !== 0) {
+                        json.sort((a, b) => b.Date.localeCompare(a.Date));
+                        setAnnoncesFilt(json)
+                    }
+                    
+                }
+            }
+            if (filter !== "Type") {
+                const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?typeDuBien=${filter}`)
+                const json = await response.json()
+                if (response.ok) {
+                    if (json.length !== 0) {
+                        json.sort((a, b) => b.Date.localeCompare(a.Date));
+                        setAnnoncesFilt(json)
+                    }
+             
                 }
             }
         }
@@ -170,7 +192,6 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
                     }
                     else
                         setAnnoncesFilt(null)
-                    console.log(json)
                 }
             }
             else setAnnoncesFilt(null)
@@ -188,6 +209,7 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
 
     const handleClearAll = () => {
         setFilter(null)
+        setAnnoncesFilt(null)
         setRecherche("")
     }
 
@@ -279,7 +301,7 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
                                                     aria-haspopup="true"
                                                     aria-expanded={open ? 'true' : undefined}
                                                 >
-                                                    <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                                                    <Avatar sx={{ width: 32, height: 32, backgroundColor: "green" }}>{user.name[0]}</Avatar>
                                                 </IconButton>
                                             </Tooltip>
                                         </Box>
@@ -318,17 +340,18 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
                                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                         >
-                                            <MenuItem>
+                                            <Link to="/user"><MenuItem>
                                                 <ListItemIcon>
                                                     <PersonIcon fontSize="small" />
                                                 </ListItemIcon>
                                                 Accéder à mon compte
                                             </MenuItem>
-                                            <MenuItem>
+                                            </Link>
+                                            <MenuItem onClick={handleLogout}>
                                                 <ListItemIcon>
                                                     <Logout fontSize="small" />
                                                 </ListItemIcon>
-                                                <button onClick={handleLogout}>Se déconnecter</button>
+                                                Se déconnecter
                                             </MenuItem>
                                         </Menu>
                                     </React.Fragment>
@@ -364,6 +387,7 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
                                         useRange={false}
                                         value={date}
                                         onChange={handleValueChange}
+                                        primaryColor={"blue"}
                                     />
                                 </li>
                                 <li>

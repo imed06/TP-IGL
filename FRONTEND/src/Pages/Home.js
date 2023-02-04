@@ -42,6 +42,10 @@ const Home = () => {
         setState({ ...state, [anchor]: open });
     };
 
+    useEffect(()=>{
+        console.log(annoncesFilt)
+    },[annoncesFilt])
+
     return (
         <div className='h-full w-full' >
             <div className='h-full w-full flex flex-col justify-between' style={{ "backgroundColor": "#f5f5f5" }}>

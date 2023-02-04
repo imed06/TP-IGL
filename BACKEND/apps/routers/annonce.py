@@ -25,7 +25,7 @@ get_db=Database.get_db
 @router.get('/',response_model=List[Schemas.showannonce])
 
 def getAll(page:int,db :Session = Depends(get_db)):
-    Annonces=db.query(models.Annonce).order_by(models.Annonce.Date).all()[(page-1)*10:page*10]
+    Annonces=db.query(models.Annonce).order_by(models.Annonce.Date).all()[(page-1)*24:page*24]
     return Annonces
 
 
@@ -47,14 +47,14 @@ def getResult( db :Session = Depends(get_db),keyword:str=''):
 
 # filtrer les annonces selon les 4 champs du filtre  
 @router.get('/filtered/',response_model=List[Schemas.showannonce])
-def getAll(wilaya:str='',commune:str='',date1:date=None,date2:date=None,db :Session = Depends(get_db)):
+def getAll(wilaya:str='',commune:str='',typeDuBien:str='',date1:date=None,date2:date=None,db :Session = Depends(get_db)):
 
     if date1==None and date2== None:
-        Annonces=db.query(models.Annonce).filter( models.Annonce.localisation.contains(wilaya) ,models.Annonce.localisation.contains(commune) ).order_by(models.Annonce.Date.desc()).all()
+        Annonces=db.query(models.Annonce).filter( models.Annonce.localisation.contains(wilaya) ,models.Annonce.localisation.contains(commune),models.Annonce.typeDuBien.contains(typeDuBien) ).order_by(models.Annonce.Date.desc()).all()
     else : 
         date1 = datetime.combine(date1,datetime.min.time())
         date2 = datetime.combine(date2, datetime.max.time())
-        return db.query(models.Annonce).filter( models.Annonce.localisation.contains(wilaya) ,models.Annonce.localisation.contains(commune),models.Annonce.Date >= date1,models.Annonce.Date <=date2).order_by(models.Annonce.Date.desc()).all()
+        return db.query(models.Annonce).filter( models.Annonce.localisation.contains(wilaya) ,models.Annonce.localisation.contains(commune),models.Annonce.typeDuBien.contains(typeDuBien),models.Annonce.Date >= date1,models.Annonce.Date <=date2).order_by(models.Annonce.Date.desc()).all()
 
     return Annonces
 

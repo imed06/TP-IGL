@@ -5,19 +5,19 @@ function AnnonceTemplate(props) {
     const images = annonce.images
 
     return (
-        <div className=" cursor-pointer bg-white max-w-xs  rounded-lg shadow-md  ">
+        <div className=" cursor-pointer bg-white max-w-xs  rounded-md shadow-md  ">
             <div className=" flex h-96 flex-col">
                 <div className='w-full h-72 group'>
-                    {images.length !== 0 ? <div key={annonce.id}
+                    {images.length !== 0 && images[0].lien.includes("/upload") ? <div key={annonce.id}
                         style={{ backgroundImage: `url(${"http://www.annonce-algerie.com" + images[0].lien})` }}
-                        className='w-full flex-col justify-between flex items-center h-full rounded-md bg-center bg-cover duration-500'
+                        className='w-full flex-col justify-between flex items-center h-full rounded-t-md  bg-center bg-cover duration-500'
                     >
-                    </div> :
-                        <div key={annonce.id}
+                    </div>
+                         : <div key={annonce.id}
                             style={{ backgroundImage: `url(${pic1})` }}
-                            className='w-full flex-col justify-between flex items-center h-full rounded-md bg-center bg-cover duration-500'
+                            className='w-full flex-col justify-between flex items-center h-full rounded-t-md bg-center bg-cover duration-500'
                         >
-                        </div>
+                    </div>
                     }
                 </div>
                 <div className=' divide-y divide-gray-300'>

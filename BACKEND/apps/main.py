@@ -12,7 +12,7 @@ from sqlalchemy.orm import Session
 from starlette.middleware.cors import CORSMiddleware
 from authentication.valid import get_current_user_email
 from fastapi.middleware.cors import CORSMiddleware
-
+from routers import webScraping2 as scraper2
 
 
 app = FastAPI()
@@ -51,6 +51,13 @@ def WebScraping(db : Session=Depends(Database.get_db)):
 def test(current_email: str = Depends(get_current_user_email)):
     return 'welcome to protected web'
 
+@app.post('/Annonces/scrapper1')
+def WebScraping(db : Session=Depends(Database.get_db)):
+    return scraper.WebScraping(db)
+
+@app.post('/Annonces/scrapper2')
+def WebScraping2(db : Session=Depends(Database.get_db)):
+    return scraper2.WebScraping(db)
 
 
 if __name__ == '__main__':

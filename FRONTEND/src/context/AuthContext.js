@@ -1,4 +1,5 @@
 import { createContext, useEffect, useReducer } from 'react'
+import { useAnnonceContext } from '../hooks/useAnnonceContext'
 
 export const AuthContext = createContext()
 
@@ -25,8 +26,6 @@ export const AuthContextProvider = ({ children }) => {
             dispatch({ type: 'LOGIN', payload: user })
         }
     }, [])
-
-    console.log('AuthContext state:', state)
 
     return (
         <AuthContext.Provider value={{ ...state, dispatch }}>

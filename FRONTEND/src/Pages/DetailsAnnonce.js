@@ -4,6 +4,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Messagerie from './Messagerie'
+import { Link } from "react-router-dom"
 
 const DetailsAnnonce = _ => {
     const { id } = useParams()
@@ -16,16 +17,11 @@ const DetailsAnnonce = _ => {
             const json = await response.json()
             if (response.ok) {
                 setAnnonce(json)
+                console.log(json)
             }
         }
         getAnnonce()
-    },[])
-
-    useEffect(() => {
-        annonce?.images.map((i) => {
-            console.log(i)
-        })
-    }, [annonce])
+    }, [])
 
     function closeModal() {
         setIsOpen(false)
@@ -34,6 +30,10 @@ const DetailsAnnonce = _ => {
     function openModal() {
         setIsOpen(true)
     }
+
+    const openMap = (url) => {
+        window.open(url, '_blank', 'noreferrer');
+    };
 
     return (
         <div className='flex flex-col  h-full' style={{ "backgroundColor": "#f5f5f5" }}>
@@ -51,24 +51,33 @@ const DetailsAnnonce = _ => {
                         <span className='ml-1  '>Afficher toutes les photos</span>
                     </button>
                 </div>
-                <div className='grid grid-cols-3 grid-flow-col gap-2 mt-2'>
-                    {annonce ? annonce?.images.slice(0, 3).map((image) => {
-                        return (<img
-                            className='object-cover rounded-md w-full h-full'
-                            src={"http://www.annonce-algerie.com" + image.lien}
-                            alt='/'
-                        />
-                        )
-                    })
-                        : null
+                {annonce ? annonce?.images.length !== 0 ? (
+                    <div className='grid grid-cols-3 grid-flow-col gap-2 mt-2'>
+                        {
+                            annonce?.images.slice(0, 3).map((image) => {
+                                return (<img
+                                    className='object-cover rounded-md w-full h-full'
+                                    src={"http://www.annonce-algerie.com" + image.lien}
+                                    alt='/'
+                                />
+                                )
+                            })
+                        }
+                    </div>
+                ) : <div className='flex items-center flex-col justify-center'>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gray" class="w-28 h-28 mt-10">
+                        <path d="M12 9a3.75 3.75 0 100 7.5A3.75 3.75 0 0012 9z" />
+                        <path fill-rule="evenodd" d="M9.344 3.071a49.52 49.52 0 015.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 01-3 3h-15a3 3 0 01-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 001.11-.71l.822-1.315a2.942 2.942 0 012.332-1.39zM6.75 12.75a5.25 5.25 0 1110.5 0 5.25 5.25 0 01-10.5 0zm12-1.5a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
+                    </svg>
 
-                    }
+                    <h2 className='text-slate-500 text-center '>Aucune Photo disponible</h2>
                 </div>
+                    : null
+                }
                 <div className='flex flex-row justify-between mt-8'>
                     <div>
                         <div className=" inset-0 flex items-center justify-center">
-
-                            <button type="button" onClick={openModal} className="flex flex-row text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 ">
+                            <button type="button" onClick={() => openMap('https://www.google.com/maps/place/'+annonce.localisation)} className="flex flex-row text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 ">
                                 Afficher sur map
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 ml-1">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
@@ -226,7 +235,7 @@ const DetailsAnnonce = _ => {
                                         </svg>
                                     </div>
                                     <div className="text-gray-500">
-                                        <span className='text-black'>Phone : </span><span className="text-md font-medium text-[#46b5d1]">{annonce && annonce.creator && annonce.creator.numeroDeTelephone}</span>
+                                        <span className='text-black'>Phone : </span><span className="text-md font-medium text-[#46b5d1]">{annonce && annonce.creator && "0"+annonce.creator.numeroDeTelephone}</span>
                                     </div>
                                 </div>
                             </div>
