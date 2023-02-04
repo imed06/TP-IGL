@@ -10,6 +10,7 @@ function Admin() {
     const [load2, setLoad2] = useState(false);
     const [load1, setLoad1] = useState(false);
     const { logout } = useLogout()
+    const [users, setUsers] = useState()
 
     const handleLogout = () => {
         logout()
@@ -27,6 +28,7 @@ function Admin() {
                 },
             });
             if (response.ok) {
+                const json = await response.json()
                 setLoad1(true);
             }
 
@@ -54,6 +56,7 @@ function Admin() {
             });
 
             if (response.ok) {
+                const json = await response.json()
                 setLoad2(true);
             }
 
@@ -81,27 +84,27 @@ function Admin() {
     }
     // bg-[#1e3252]
     return (
-        <div className='admin_page flex flex-col w-full items-center justify-center  rounded-lg bg-center '>
+        <div className='admin_page flex flex-col w-full items-center justify-center  rounded-lg bg-center ' style={{ backgroundColor: "#E6F0FF", minHeight: "100vh" }}>
             <div className=" flex items-center bg-white justify-between p-2 shadow-md w-full ">
                 <div></div>
                 <div className='flex '>
                     <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-8" alt="Flowbite Logo" />
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap ">Immobilier</span>
+                    <span className="self-center text-2xl font-semibold whitespace-nowrap ">Real Estate</span>
                 </div>
                 <div className='bg-white'></div>
             </div>
-            <div className=' flex items-center py-16 pr-20 pl-20 rounded-lg  justify-center flex-col bg-[#e4e7ec] w-full'>
-                <h1 className=' text-center  text-2xl  font-semibold text-yellow-600'> Lancer la récupération d'annonce : </h1>
-                <div className='other-component mt-6 rounded-lg  bg-[#e4e7ec]'>
+            <div className=' flex items-center py-16 pr-20 pl-20 rounded-lg  justify-center flex-col  w-full'>
+                <h1 className=' text-center  text-2xl  font-semibold text-yellow-600'> Lancer la récupération d'annonce</h1>
+                <div className='other-component mt-6 rounded-lg  '>
                     <div id="onglets" className='p-5 mt-6 '>
-                        <div id="cree" className={`onglet_cree ${stateOnglets === 1 ? 'active' : ''} `} onClick={scrappe1}>site 1 : Annonce Algerie</div>
-                        <div id="save" className={`onglet_save ${stateOnglets === 2 ? 'active' : ''} `} onClick={scrappe2}>site 2 : feedly</div>
+                        <div id="cree" className={`onglet_cree ${stateOnglets === 1 ? 'active' : ''} hover:bg-gray-200 rounded-lg cursor-pointer text-black py-2 px-2  text-lg items-center`} onClick={scrappe1}>site 1 : Annonce Algerie</div>
+                        <div id="save" className={`onglet_save ${stateOnglets === 2 ? 'active' : ''} hover:bg-gray-200 rounded-lg cursor-pointer text-black py-2 px-2  text-lg  items-center`} onClick={scrappe2}>site 2 : feedly</div>
                     </div>
 
                     {stateOnglets === 1 ?
 
                         <div>
-                            <div className='ml-10 mr-10 mt-5 mb-10    p-16 rounded-lg' >
+                            <div className='ml-10 mr-10  mb-10    p-16 rounded-lg' >
                                 <h3 className='text-center font-Montserrat text-sky-900 mb-6 text-base  font-extrabold'>site : AnnonceAlgerie</h3>
 
 
@@ -116,14 +119,14 @@ function Admin() {
                                     <div>
                                         <button onClick={handleClick1} disabled={loading}
                                             id="Recuperer"
-                                            className="text-white bg-gradient-to-br ml-5 mr-5 font-LibreBaskerville from-[#1a2536] to-sky-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-sky-900 dark:focus:ring-[#1a2536] font-medium rounded-lg text-sm px-5 py-2 text-center  mb-2">
+                                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
 
                                             {loading ? "Loading..." : " Récupérer"}
                                         </button>
 
 
                                         <button type="submit" id="Recuperer" onClick={handleLogout}
-                                            className="text-white bg-gradient-to-br mr-5 font-LibreBaskerville from-[#1a2536] to-sky-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-sky-900 dark:focus:ring-[#1a2536] font-medium rounded-lg text-sm px-5 py-2 text-center  mb-2">
+                                            className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                                             Déconnecter
                                         </button>
                                     </div>
@@ -137,7 +140,7 @@ function Admin() {
 
                         :
                         <div>
-                            <div className='ml-10 mr-10 mt-5 mb-10    p-16 rounded-lg' >
+                            <div className='ml-10 mr-10  mb-10    p-16 rounded-lg' >
                                 <h3 className='text-center font-Montserrat text-sky-900 mb-6 text-base font-extrabold'>site : feedly</h3>
 
 
@@ -153,27 +156,70 @@ function Admin() {
                                     <div>
                                         <button onClick={handleClick2} disabled={loading}
                                             id="Recuperer"
-                                            className="text-white bg-gradient-to-br ml-5 mr-5 font-LibreBaskerville from-[#1a2536] to-sky-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-sky-900 dark:focus:ring-[#1a2536] font-medium rounded-lg text-sm px-5 py-2 text-center  mb-2">
+                                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
 
                                             {loading ? "Loading..." : " Récupérer"}
                                         </button>
 
 
                                         <button type="submit" id="Recuperer" onClick={handleLogout}
-                                            className="text-white bg-gradient-to-br mr-5 font-LibreBaskerville from-[#1a2536] to-sky-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-sky-900 dark:focus:ring-[#1a2536] font-medium rounded-lg text-sm px-5 py-2 text-center  mb-2">
+                                            className=" focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                                             Déconnecter
                                         </button>
                                     </div>
 
                                 </div>
-
-
                             </div>
                         </div>
                     }
 
                 </div>
+
+                <h1 className=' text-center  text-2xl  font-semibold text-yellow-600'> Liste des Utilisateurs</h1>
+
+                <div class="m-8 w-full bg-white overflow-x-auto">
+
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-white dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    nom
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    email
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    numero De Telephone
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    adresse
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {users && users.map((m) => {
+                                return (
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            {!m.UserType && m.name}
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {!m.UserType && m.email}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {!m.UserType && m.numeroDeTelephone}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {!m.UserType && m.adresse}
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
         </div>
     )
 }
