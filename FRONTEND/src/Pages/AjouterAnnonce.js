@@ -33,7 +33,17 @@ function AjouterAnnonce() {
             prix:"" ,
             
             adrB :'', 
-           
+           // information de contact 
+           /* nom :"",
+            prenom : "",
+            adresse:"",
+            email :"",
+            telephone:"",
+            //localisation
+            wilaya:"",
+            commune:"",
+            Ajouter_photos:'' ,*/ 
+           // date :"" ,
             
 
 
