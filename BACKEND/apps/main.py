@@ -10,11 +10,8 @@ from db import Database
 from models import models
 from routers import annonce,user,authenticate,messagerie
 from routers import webScraping as scraper
-
 from sqlalchemy.orm import Session
-from supertokens_python import get_all_cors_headers
 from starlette.middleware.cors import CORSMiddleware
-from supertokens_python.framework.fastapi import get_middleware
 from authentication.valid import get_current_user_email
 from fastapi.middleware.cors import CORSMiddleware
 from routers import webScraping2 as scraper2
