@@ -3,20 +3,29 @@ import pic1 from '../images/pic1.jpeg'
 function AnnonceTemplate(props) {
     const annonce = props.annonce
     const images = annonce.images
-    const filePaths = images[0]?.lien.split(",").map(path => path.replace(/"/g, ''));
-    const image = require('../images/'+filePaths[0]);
+    var filePaths
+    var image
+    if (!images[0]?.lien.includes("/upload")) {
+         filePaths = images[0]?.lien.split(",").map(path => path.replace(/"/g, ''));
+         if(filePaths !== undefined)
+         image = require('../images/' + filePaths[0]);
+    }
 
     return (
         <div className=" cursor-pointer bg-white max-w-xs  rounded-md shadow-md  ">
             <div className=" flex h-96 flex-col">
                 <div className='w-full h-72 group'>
-                    {images.length !== 0 && images[0].lien.includes("/upload") ? <div key={annonce.id}
+                    {images.length !== 0 ? images[0].lien.includes("/upload") ? <div key={annonce.id}
                         style={{ backgroundImage: `url(${"http://www.annonce-algerie.com" + images[0].lien})` }}
                         className='w-full flex-col justify-between flex items-center h-full rounded-t-md  bg-center bg-cover duration-500'
                     >
                     </div>
                          : <div key={annonce.id}
                             style={{ backgroundImage: `url(${image})` }}
+                            className='w-full flex-col justify-between flex items-center h-full rounded-t-md bg-center bg-cover duration-500'
+                        >
+                        </div>:<div key={annonce.id}
+                            style={{ backgroundImage: `url(${pic1})` }}
                             className='w-full flex-col justify-between flex items-center h-full rounded-t-md bg-center bg-cover duration-500'
                         >
                         </div>
