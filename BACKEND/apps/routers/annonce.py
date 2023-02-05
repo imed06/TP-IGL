@@ -104,6 +104,7 @@ def delete_Annonce(id:int,db :Session = Depends(get_db)):
     images = db.query(models.image).filter(models.image.annonce_id ==id).all()
     for image in images:
         db.query(models.image).filter(models.image.id == image.id).delete()
+    db.query(models.Message).filter(models.Message.id_annonce == id).delete()
     db.query(models.Annonce).filter(models.Annonce.id == id).delete()
     db.commit()
     return JSONResponse({"result": True})
