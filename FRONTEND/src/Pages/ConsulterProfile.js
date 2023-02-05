@@ -61,7 +61,7 @@ const ConsulterProfile = () => {
                 <div className="w-1/4 m-3 mt-8 h-full overflow-y-auto py-4 px-6  text-black bg-white flex sticky top-10 flex-col rounded-md  ">
                     <div className="flex flex-col text-2xl items-center pl-2.5 mb-5 ">
                         <span className="self-center text-xl whitespace-nowrap mb-8 ">{user.name}</span>
-                        <Avatar sx={{ width: 100, height: 100, fontSize: 50, backgroundColor: '#0b57d0' }}>{user.name[0]}</Avatar>
+                        <Avatar sx={{ width: 100, height: 100, fontSize: 50, backgroundColor: '#0b57d0' }}>i</Avatar>
                     </div>
                     <div>
                         <ul className="space-y-2 mt-10">

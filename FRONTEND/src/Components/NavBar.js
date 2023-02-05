@@ -301,7 +301,7 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
                                                     aria-haspopup="true"
                                                     aria-expanded={open ? 'true' : undefined}
                                                 >
-                                                    <Avatar sx={{ width: 32, height: 32, backgroundColor: "green" }}>{user.name[0]}</Avatar>
+                                                    <Avatar sx={{ width: 32, height: 32, backgroundColor: "green" }}>i</Avatar>
                                                 </IconButton>
                                             </Tooltip>
                                         </Box>
