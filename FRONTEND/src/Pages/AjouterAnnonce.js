@@ -14,9 +14,8 @@ function AjouterAnnonce() {
     const [surface, setSurface] = useState()
     const [prix, setPrix] = useState()
     const [localisation, setLocalisation] = useState()
-    const [image, setImage] = useState([])
+    const [filePaths, setFilePaths] = useState([]);
     const [description, setDescription] = useState()
-    const images = []
 
     useEffect(() => {
         images.push(image)
@@ -25,7 +24,7 @@ function AjouterAnnonce() {
 
     const handleAjouterAnnonce = async () => {
         console.log(encodeURIComponent(images.join(',')))
-        const response = await fetch(`http://localhost:5000/annonce?userid=${user.id}&paths=${encodeURIComponent(JSON.stringify(images))}`, {
+        const response = await fetch(`http://localhost:5000/annonce?userid=${user.id}&paths=${filePaths}`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -49,6 +48,11 @@ function AjouterAnnonce() {
         localStorage.setItem('user', JSON.stringify(user))
         dispatchAnnonce({ type: 'SET_ANNONCE', payload: user.annonces })
     }
+    const handleImageChange = (event) => {
+        const selectedFiles = Array.from(event.target.files);
+        const filePaths = selectedFiles.map((file) => file.name);
+        setFilePaths(filePaths);
+      };
     return (
         <div className='flex flex-col items-center h-screen w-full'>
             <div className=" flex items-center bg-white justify-between p-2 shadow-md w-full ">
@@ -126,7 +130,7 @@ function AjouterAnnonce() {
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                             Images
                         </label>
-                        <input multiple="multiple" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="file" onChange={(e) => setImage(e.target.files[0].name)} />
+                        <input multiple="multiple" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="file" onChange={handleImageChange} />
                     </div>
                 </div>
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
