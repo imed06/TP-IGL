@@ -3,6 +3,7 @@ from db import Database
 from models import models
 from schemas import Schemas
 from sqlalchemy.orm import Session
+from starlette.responses import JSONResponse
 from typing import List
 
 router = APIRouter(
