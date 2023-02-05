@@ -10,6 +10,7 @@ const DetailsAnnonce = _ => {
     const { id } = useParams()
     const [annonce, setAnnonce] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
+    const [image,setImage] = useState(null)
 
     useEffect(() => {
         const getAnnonce = async () => {
@@ -17,7 +18,7 @@ const DetailsAnnonce = _ => {
             const json = await response.json()
             if (response.ok) {
                 setAnnonce(json)
-                console.log(json)
+                setImage(require('../images/' + json.images[0]?.lien.split(",").map(path => path.replace(/"/g, ''))))
             }
         }
         getAnnonce()
@@ -51,7 +52,7 @@ const DetailsAnnonce = _ => {
                         <span className='ml-1  '>Afficher toutes les photos</span>
                     </button>
                 </div>
-                {annonce ? annonce?.images.length !== 0 ? (
+                {annonce ? annonce?.images.length !== 0 && annonce?.images[0].lien.includes("/upload") ? (
                     <div className='grid grid-cols-3 grid-flow-col gap-2 mt-2'>
                         {
                             annonce?.images.slice(0, 3).map((image) => {
@@ -64,13 +65,13 @@ const DetailsAnnonce = _ => {
                             })
                         }
                     </div>
-                ) : <div className='flex items-center flex-col justify-center'>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gray" class="w-28 h-28 mt-10">
-                        <path d="M12 9a3.75 3.75 0 100 7.5A3.75 3.75 0 0012 9z" />
-                        <path fill-rule="evenodd" d="M9.344 3.071a49.52 49.52 0 015.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 01-3 3h-15a3 3 0 01-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 001.11-.71l.822-1.315a2.942 2.942 0 012.332-1.39zM6.75 12.75a5.25 5.25 0 1110.5 0 5.25 5.25 0 01-10.5 0zm12-1.5a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
-                    </svg>
+                ) : <div className='grid grid-cols-3 grid-flow-col gap-2 mt-2'>
+                    <img
+                        className='object-cover rounded-md w-full h-full'
+                        src={image}
+                        alt='/'
+                    />
 
-                    <h2 className='text-slate-500 text-center '>Aucune Photo disponible</h2>
                 </div>
                     : null
                 }
@@ -84,62 +85,6 @@ const DetailsAnnonce = _ => {
                                 </svg>
                             </button>
                         </div>
-                        {/* <Transition appear show={isOpen} as={Fragment}>
-                            <Dialog as="div" className="relative z-10" onClose={closeModal}>
-                                <Transition.Child
-                                    as={Fragment}
-                                    enter="ease-out duration-300"
-                                    enterFrom="opacity-0"
-                                    enterTo="opacity-100"
-                                    leave="ease-in duration-200"
-                                    leaveFrom="opacity-100"
-                                    leaveTo="opacity-0"
-                                >
-                                    <div className="fixed inset-0 bg-black bg-opacity-25" />
-                                </Transition.Child>
-
-                                <div className="fixed inset-0 overflow-y-auto">
-                                    <div className="flex min-h-full items-center justify-center p-4 text-center">
-                                        <Transition.Child
-                                            as={Fragment}
-                                            enter="ease-out duration-300"
-                                            enterFrom="opacity-0 scale-95"
-                                            enterTo="opacity-100 scale-100"
-                                            leave="ease-in duration-200"
-                                            leaveFrom="opacity-100 scale-100"
-                                            leaveTo="opacity-0 scale-95"
-                                        >
-                                            <Dialog.Panel className="w-full max-w-3xl h-screen transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all flex justify-between flex-col">
-                                                <Dialog.Title
-                                                    as="h3"
-                                                    className="text-lg font-medium leading-6 text-gray-900 flex flex-row items-center"
-                                                >
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                                                    </svg>
-                                                    Position
-                                                </Dialog.Title>
-                                                <div className="mt-2 h-full">
-                                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3238.879189409016!2d-0.5906774804453733!3d35.72918958085848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd7e62b744aa1023%3A0xc2ed0bd1129073ff!2sPALAIS%20D&#39;OR!5e0!3m2!1sen!2sdz!4v1671441155728!5m2!1sen!2sdz" className='w-full h-full rounded-lg border' allowfullscreen></iframe>
-                                                </div>
-
-                                                <div className="mt-4 flex flex-row justify-center">
-
-                                                    <button
-                                                        type="button"
-                                                        className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                                        onClick={closeModal}
-                                                    >
-                                                        Fermer
-                                                    </button>
-                                                </div>
-                                            </Dialog.Panel>
-                                        </Transition.Child>
-                                    </div>
-                                </div>
-                            </Dialog>
-                        </Transition> */}
                     </div>
                     <Messagerie annonce={annonce} />
                 </div>
