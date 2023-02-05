@@ -3,6 +3,8 @@ import pic1 from '../images/pic1.jpeg'
 function AnnonceTemplate(props) {
     const annonce = props.annonce
     const images = annonce.images
+    const filePaths = images[0]?.lien.split(",").map(path => path.replace(/"/g, ''));
+    const image = require('../images/'+filePaths[0]);
 
     return (
         <div className=" cursor-pointer bg-white max-w-xs  rounded-md shadow-md  ">
@@ -14,10 +16,10 @@ function AnnonceTemplate(props) {
                     >
                     </div>
                          : <div key={annonce.id}
-                            style={{ backgroundImage: `url(${pic1})` }}
+                            style={{ backgroundImage: `url(${image})` }}
                             className='w-full flex-col justify-between flex items-center h-full rounded-t-md bg-center bg-cover duration-500'
                         >
-                    </div>
+                        </div>
                     }
                 </div>
                 <div className=' divide-y divide-gray-300'>
