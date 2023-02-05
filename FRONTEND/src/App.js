@@ -18,8 +18,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/InfoUser' element={!user ? <RemplirInfoUser email={email} token={token} /> : <Navigate to="/Home" />}></Route>
-        <Route path='/' element={!user ? <Authentification setEmail={setEmail} setToken={setToken} />: <Navigate to="/Home" />}></Route>
+        <Route path='/InfoUser' element={<RemplirInfoUser email={email} token={token} /> }></Route>
+        <Route path='/' element={<Authentification setEmail={setEmail} setToken={setToken} />}></Route>
         <Route path='/Home' element={user ? <Home /> : <Navigate to="/" />}></Route>
         <Route path='/Details/:id' element={user?<DetailsAnnonce />: <Navigate to="/" />}></Route>
         <Route path='/user' element={user ? <ConsulterProfile />: <Navigate to="/" />}></Route>
