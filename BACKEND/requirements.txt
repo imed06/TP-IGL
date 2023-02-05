@@ -32,3 +32,4 @@ google
 python-multipart
 pillow
 aiofiles
+selenium
