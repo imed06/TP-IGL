@@ -40,7 +40,7 @@ app.include_router(authenticate.router)
 app.include_router(messagerie.router)
 @app.get('/')
 async def root():
-    return HTMLResponse('<body><a href="/auth">Auth</a></body>')
+    return HTMLResponse('<body><a href="/docs">Documentation</a></body>')
 
 @app.post('/Annonces')
 def WebScraping(db : Session=Depends(Database.get_db)):
