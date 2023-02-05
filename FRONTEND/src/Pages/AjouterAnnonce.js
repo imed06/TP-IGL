@@ -17,13 +17,8 @@ function AjouterAnnonce() {
     const [filePaths, setFilePaths] = useState([]);
     const [description, setDescription] = useState()
 
-    useEffect(() => {
-        images.push(image)
-        console.log(images)
-    }, [image])
 
     const handleAjouterAnnonce = async () => {
-        console.log(encodeURIComponent(images.join(',')))
         const response = await fetch(`http://localhost:5000/annonce?userid=${user.id}&paths=${filePaths}`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
