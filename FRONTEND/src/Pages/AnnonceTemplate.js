@@ -4,11 +4,10 @@ function AnnonceTemplate(props) {
     const annonce = props.annonce
     const images = annonce.images
     var filePaths
-    var image
-    if (!images[0]?.lien.includes("/upload")) {
-         filePaths = images[0]?.lien.split(",").map(path => path.replace(/"/g, ''));
-         if(filePaths !== undefined)
-         image = require('../images/' + filePaths[0]);
+    var image = null
+    if (!images[0]?.lien.includes("/upload") && !images[0]?.lien.includes("/algerie") && images[0]?.lien != "[]" && images.length !=0) {
+        filePaths = images[0]?.lien.split(",").map(path => path.replace(/"/g, ''));
+        image = require('../images/' + filePaths[0]);
     }
 
     return (
@@ -20,15 +19,19 @@ function AnnonceTemplate(props) {
                         className='w-full flex-col justify-between flex items-center h-full rounded-t-md  bg-center bg-cover duration-500'
                     >
                     </div>
-                         : <div key={annonce.id}
+                        : images[0].lien.includes("/algerie") ? <div key={annonce.id}
+                            style={{ backgroundImage: `url(${images[0].lien})` }}
+                            className='w-full flex-col justify-between flex items-center h-full rounded-t-md  bg-center bg-cover duration-500'
+                        >
+                        </div> :  <div key={annonce.id}
                             style={{ backgroundImage: `url(${image})` }}
                             className='w-full flex-col justify-between flex items-center h-full rounded-t-md bg-center bg-cover duration-500'
                         >
-                        </div>:<div key={annonce.id}
+                        </div> : <div key={annonce.id}
                             style={{ backgroundImage: `url(${pic1})` }}
                             className='w-full flex-col justify-between flex items-center h-full rounded-t-md bg-center bg-cover duration-500'
                         >
-                        </div>
+                    </div>
                     }
                 </div>
                 <div className=' divide-y divide-gray-300'>

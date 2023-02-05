@@ -10,7 +10,7 @@ const DetailsAnnonce = _ => {
     const { id } = useParams()
     const [annonce, setAnnonce] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
-    const [image,setImage] = useState(null)
+    const [image, setImage] = useState(null)
 
     useEffect(() => {
         const getAnnonce = async () => {
@@ -18,12 +18,19 @@ const DetailsAnnonce = _ => {
             const json = await response.json()
             if (response.ok) {
                 setAnnonce(json)
-                setImage(require('../images/' + json.images[0]?.lien.split(",").map(path => path.replace(/"/g, ''))))
+                var image = json.images[0]?.lien.split(",")
+                image = image.map((m)=>
+                     "../images/"+ m
+                    
+
+                )
+                console.log(image)
+                
+                setImage(image)
             }
         }
         getAnnonce()
     }, [])
-
     function closeModal() {
         setIsOpen(false)
     }
@@ -65,20 +72,38 @@ const DetailsAnnonce = _ => {
                             })
                         }
                     </div>
-                ) : <div className='grid grid-cols-3 grid-flow-col gap-2 mt-2'>
-                    <img
-                        className='object-cover rounded-md w-full h-full'
-                        src={image}
-                        alt='/'
-                    />
+                ) : annonce?.images[0].lien.includes("/algerie") ?
+                    (<div className='grid grid-cols-3 grid-flow-col gap-2 mt-2'>
+                        {
+                            annonce?.images.slice(0, 3).map((image) => {
+                                return (<img
+                                    className='object-cover rounded-md w-full h-full'
+                                    src={image.lien}
+                                    alt='/'
+                                />
+                                )
+                            })
+                        }
+                    </div>
+                    ) : <div className='grid grid-cols-3 grid-flow-col gap-2 mt-2'>
+                        {
+                            image?.slice(0, 1).map((image) => {
+                                return (<img
+                                    className='object-cover rounded-md w-full h-full'
+                                    src={image}
+                                    alt='/'
+                                />
+                                )
+                            })
+                        }
 
-                </div>
+                    </div>
                     : null
                 }
                 <div className='flex flex-row justify-between mt-8'>
                     <div>
                         <div className=" inset-0 flex items-center justify-center">
-                            <button type="button" onClick={() => openMap('https://www.google.com/maps/place/'+annonce.localisation)} className="flex flex-row text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 ">
+                            <button type="button" onClick={() => openMap('https://www.google.com/maps/place/' + annonce.localisation)} className="flex flex-row text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 ">
                                 Afficher sur map
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 ml-1">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
@@ -180,7 +205,7 @@ const DetailsAnnonce = _ => {
                                         </svg>
                                     </div>
                                     <div className="text-gray-500">
-                                        <span className='text-black'>Phone : </span><span className="text-md font-medium text-[#46b5d1]">{annonce && annonce.creator && "0"+annonce.creator.numeroDeTelephone}</span>
+                                        <span className='text-black'>Phone : </span><span className="text-md font-medium text-[#46b5d1]">{annonce && annonce.creator && "0" + annonce.creator.numeroDeTelephone}</span>
                                     </div>
                                 </div>
                             </div>

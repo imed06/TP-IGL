@@ -17,6 +17,15 @@ function Admin() {
         navigate("/")
     }
 
+    useEffect(()=>{
+        const GetUsers = async () =>{
+            const response = await fetch("http://localhost:5000/user/users")
+            const json = await response.json()
+            setUsers(json)
+        }
+        GetUsers()
+    },[])
+
     //------------------------------------------------------------------------------------------------------//
     const handleClick1 = async () => {
         setLoading(true);
@@ -199,18 +208,18 @@ function Admin() {
                         <tbody>
                             {users && users.map((m) => {
                                 return (
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    !m.UserType && <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {!m.UserType && m.name}
+                                            {m.name}
                                         </th>
                                         <td class="px-6 py-4">
-                                            {!m.UserType && m.email}
+                                            {m.email}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {!m.UserType && m.numeroDeTelephone}
+                                            {m.numeroDeTelephone}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {!m.UserType && m.adresse}
+                                            {m.adresse}
                                         </td>
                                     </tr>
                                 )

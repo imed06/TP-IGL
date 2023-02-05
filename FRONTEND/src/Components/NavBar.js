@@ -143,37 +143,39 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
 
     useEffect(() => {
         const handleFilter = async () => {
-            if (filter !== "Wilaya") {
-                const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?wilaya=${filter}`)
-                const json = await response.json()
-                if (response.ok) {
-                    if (json.length !== 0) {
-                        json.sort((a, b) => b.Date.localeCompare(a.Date));
-                        setAnnoncesFilt(json)
+            if (filter !== "") {
+                if (filter !== "Wilaya") {
+                    const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?wilaya=${filter}`)
+                    const json = await response.json()
+                    if (response.ok) {
+                        if (json.length !== 0) {
+                            json.sort((a, b) => b.Date.localeCompare(a.Date));
+                            setAnnoncesFilt(json)
+                        }
+
                     }
-                    
                 }
-            }
-            if (filter !== "Commune") {
-                const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?commune=${filter}`)
-                const json = await response.json()
-                if (response.ok) {
-                    if (json.length !== 0) {
-                        json.sort((a, b) => b.Date.localeCompare(a.Date));
-                        setAnnoncesFilt(json)
+                if (filter !== "Commune") {
+                    const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?commune=${filter}`)
+                    const json = await response.json()
+                    if (response.ok) {
+                        if (json.length !== 0) {
+                            json.sort((a, b) => b.Date.localeCompare(a.Date));
+                            setAnnoncesFilt(json)
+                        }
+
                     }
-                    
                 }
-            }
-            if (filter !== "Type") {
-                const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?typeDuBien=${filter}`)
-                const json = await response.json()
-                if (response.ok) {
-                    if (json.length !== 0) {
-                        json.sort((a, b) => b.Date.localeCompare(a.Date));
-                        setAnnoncesFilt(json)
+                if (filter !== "Type") {
+                    const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?typeDuBien=${filter}`)
+                    const json = await response.json()
+                    if (response.ok) {
+                        if (json.length !== 0) {
+                            json.sort((a, b) => b.Date.localeCompare(a.Date));
+                            setAnnoncesFilt(json)
+                        }
+
                     }
-             
                 }
             }
         }

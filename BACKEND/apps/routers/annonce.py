@@ -24,7 +24,7 @@ get_db=Database.get_db
 @router.get('/',response_model=List[Schemas.showannonce])
 
 def getAll(page:int,db :Session = Depends(get_db)):
-    Annonces=db.query(models.Annonce).order_by(models.Annonce.Date).all()[(page-1)*24:page*24]
+    Annonces=db.query(models.Annonce).order_by(models.Annonce.Date.desc()).limit(24).offset((page - 1) * 24).all()
     return Annonces
 
 

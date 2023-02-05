@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import AnnonceTemplate from './AnnonceTemplate';
+import { useAnnonceContext } from '../hooks/useAnnonceContext';
 
 
 const Home = () => {
@@ -24,7 +25,7 @@ const Home = () => {
             if (response.ok) {
                 if (json.length !== 0) {
                     json.sort((a, b) => b.Date.localeCompare(a.Date));
-                    setAnnonces(json) 
+                    setAnnonces(json)
                 }
             }
         }
@@ -35,16 +36,13 @@ const Home = () => {
         setPage(value);
       };
 
+
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
         setState({ ...state, [anchor]: open });
     };
-
-    useEffect(()=>{
-        console.log(annoncesFilt)
-    },[annoncesFilt])
 
     return (
         <div className='h-full w-full' >

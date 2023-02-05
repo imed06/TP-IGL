@@ -50,7 +50,7 @@ const Authentification = ({ setEmail, setToken }) => {
                 localStorage.setItem('user', JSON.stringify(json))
                 dispatch({ type: 'LOGIN', payload: json })
                 dispatchAnnonce({ type: 'SET_ANNONCE', payload: json.annonces })
-                navigate("/Home")
+                navigate("/InfoUser")
             } else {
                 localStorage.setItem('user', JSON.stringify(json))
                 dispatch({ type: 'LOGIN', payload: json })

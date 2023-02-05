@@ -18,7 +18,7 @@ const ConsulterProfile = () => {
     const { user } = useAuthContext()
     const { Annonce, dispatchAnnonce } = useAnnonceContext()
     const [messages, setMessage] = useState()
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(true)
 
     const handleDeleteAnnone = async (id) => {
         setOpen(true)
@@ -39,7 +39,6 @@ const ConsulterProfile = () => {
             const json = await response.json()
             if (response.ok) {
                 setMessage(json)
-                console.log(json)
             }
         }
         handleGetMessage()
@@ -53,7 +52,7 @@ const ConsulterProfile = () => {
                 <SideBar />
                 <div className='flex '>
                     <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-8" alt="Flowbite Logo" />
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap ">Immobilier</span>
+                    <span className="self-center text-2xl font-semibold whitespace-nowrap ">Real Estate</span>
                 </div>
                 <div className='bg-white'></div>
             </div>
@@ -162,7 +161,7 @@ const ConsulterProfile = () => {
                                 <tbody>
                                     {messages && messages.map((m) => {
                                         return(
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={m.id}>
                                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     {m.corp}
                                                 </th>
