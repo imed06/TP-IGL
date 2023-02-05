@@ -40,4 +40,4 @@ def get_user(id:int,db :Session = Depends(get_db)):
 def delete_user(id:int,db :Session = Depends(get_db)):
     user=db.query(models.user).filter(models.user.id == id).delete()
     db.commit()
-    return 'user deleted'
+    return JSONResponse({"result": True})
