@@ -5,7 +5,6 @@ from fastapi.responses import HTMLResponse
 from fastapi import Request
 from fastapi import FastAPI
 import uvicorn
-from authentication import auth
 from db import Database
 from models import models
 from routers import annonce,user,authenticate,messagerie
