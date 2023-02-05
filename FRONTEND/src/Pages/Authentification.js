@@ -33,6 +33,8 @@ const Authentification = ({ setEmail, setToken }) => {
     const onSuccessSignUp = async (credentialResponse) => {
         const id_token = credentialResponse.credential
         var decoded = jwt_decode(id_token);
+        setToken(id_token)
+        setEmail(decoded.email)
         const response = await fetch("http://localhost:5000/authenticate/singup", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
@@ -60,6 +62,7 @@ const Authentification = ({ setEmail, setToken }) => {
 
     const onSuccessLogin = async (credentialResponse) => {
         const id_token = credentialResponse.credential
+        setToken(id_token)
         const response = await fetch("http://localhost:5000/authenticate/login", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
