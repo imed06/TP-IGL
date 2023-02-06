@@ -10,7 +10,8 @@ const DetailsAnnonce = _ => {
     const { id } = useParams()
     const [annonce, setAnnonce] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
-    const [image, setImage] = useState(null)
+    const [image, setImage] = useState([])
+    var Image = [];
 
     useEffect(() => {
         const getAnnonce = async () => {
@@ -18,19 +19,22 @@ const DetailsAnnonce = _ => {
             const json = await response.json()
             if (response.ok) {
                 setAnnonce(json)
-                var image = json.images[0]?.lien.split(",")
-                image = image.map((m)=>
-                     "../images/"+ m
-                    
-
-                )
-                console.log(image)
-                
-                setImage(image)
+                console.log(json)
+                if (json.images.length !== 0) {
+                    Image = json.images[0]?.lien.split(",")
+                    if (Image !== undefined) {
+                        Image = Image.map((m) =>
+                            "images/" + m
+                        )
+                        console.log(Image)
+                        setImage(Image)
+                    }
+                }
             }
         }
         getAnnonce()
     }, [])
+
     function closeModal() {
         setIsOpen(false)
     }
@@ -59,7 +63,7 @@ const DetailsAnnonce = _ => {
                         <span className='ml-1  '>Afficher toutes les photos</span>
                     </button>
                 </div>
-                {annonce ? annonce?.images.length !== 0 && annonce?.images[0].lien.includes("/upload") ? (
+                {annonce && annonce?.images.length !== 0 ? annonce?.images[0].lien.includes("/upload") ? (
                     <div className='grid grid-cols-3 grid-flow-col gap-2 mt-2'>
                         {
                             annonce?.images.slice(0, 3).map((image) => {
@@ -87,18 +91,18 @@ const DetailsAnnonce = _ => {
                     </div>
                     ) : <div className='grid grid-cols-3 grid-flow-col gap-2 mt-2'>
                         {
-                            image?.slice(0, 1).map((image) => {
+                            image.length !== 0 && image.slice(0, 3).map((m) => {
                                 return (<img
                                     className='object-cover rounded-md w-full h-full'
-                                    src={image}
-                                    alt='/'
+                                    src={require(`../${m}`)} alt='/'
                                 />
                                 )
                             })
+
                         }
 
                     </div>
-                    : null
+                    : <h1 className='flex justify-center text-3xl mt-8 mb-16'>Aucune images disponible</h1>
                 }
                 <div className='flex flex-row justify-between mt-8'>
                     <div>
