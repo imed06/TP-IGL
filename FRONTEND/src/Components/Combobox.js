@@ -4,7 +4,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 function Combo(props) {
     const people = props.values
-    const [selected, setSelected] = useState({name:props.filter})
+    const [selected, setSelected] = useState({name:""})
     const [query, setQuery] = useState('')
     const filteredPeople =
         query === ''
@@ -17,7 +17,15 @@ function Combo(props) {
             )
 
     useEffect(()=>{
-        if(selected.name!=="Wilaya" && selected.name!=="Commune" && selected.name!=="Type"){
+        if(selected.name!=="Wilaya"){
+            props.setFilter(selected.name)
+            props.setAnnoncesRech(null)
+        }
+        if(selected.name!=="Commune"){
+            props.setFilter(selected.name)
+            props.setAnnoncesRech(null)
+        }
+        if(selected.name!=="Type"){
             props.setFilter(selected.name)
             props.setAnnoncesRech(null)
         }

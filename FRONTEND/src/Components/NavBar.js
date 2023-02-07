@@ -24,6 +24,9 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
     const navigate = useNavigate()
     const [recherche, setRecherche] = useState("")
     const [filter, setFilter] = useState("")
+    const [wilaya, setWilaya] = useState("")
+    const [commune, setCommune] = useState("")
+    const [Type, setType] = useState("")
     const [date, setValue] = useState({ startDate: null, endDate: null });
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -46,6 +49,7 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
     }
 
     const type = [
+        { id: 0, name: '' },
         { id: 1, name: 'Terrain' },
         { id: 2, name: 'Terrain Agricole' },
         { id: 3, name: 'Appartement' },
@@ -53,6 +57,7 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
         { id: 5, name: 'Bungalow' },
     ]
     const Wilaya = [
+        { id: 0, name: '' },
         { id: 1, name: "Adrar" },
         { id: 2, name: "Chlef" },
         { id: 3, name: "Laghouat" },
@@ -110,14 +115,15 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
         { id: 55, name: "Touggert" },
         { id: 56, name: "Djanet" },
         { id: 57, name: "El M'Ghair" },
-        { id: 58, name: "El Meniaa" }
+        { id: 58, name: "El Meniaa" },
     ]
 
 
     const Commune = [
-        { id: 1, name: 'sidi fraj' },
-        { id: 2, name: 'Location' },
-        { id: 3, name: 'Loyer' },
+        { id: 1, name: '' },
+        { id: 2, name: 'sidi fraj' },
+        { id: 3, name: 'Location' },
+        { id: 4, name: 'Loyer' },
     ]
 
     const handleRecherche = async () => {
@@ -141,46 +147,19 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
         }
     }, [recherche])
 
-    useEffect(() => {
-        const handleFilter = async () => {
-            if (filter !== "") {
-                if (filter !== "Wilaya") {
-                    const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?wilaya=${filter}`)
-                    const json = await response.json()
-                    if (response.ok) {
-                        if (json.length !== 0) {
-                            json.sort((a, b) => b.Date.localeCompare(a.Date));
-                            setAnnoncesFilt(json)
-                        }
 
-                    }
-                }
-                if (filter !== "Commune") {
-                    const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?commune=${filter}`)
-                    const json = await response.json()
-                    if (response.ok) {
-                        if (json.length !== 0) {
-                            json.sort((a, b) => b.Date.localeCompare(a.Date));
-                            setAnnoncesFilt(json)
-                        }
-
-                    }
-                }
-                if (filter !== "Type") {
-                    const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?typeDuBien=${filter}`)
-                    const json = await response.json()
-                    if (response.ok) {
-                        if (json.length !== 0) {
-                            json.sort((a, b) => b.Date.localeCompare(a.Date));
-                            setAnnoncesFilt(json)
-                        }
-
-                    }
+    const handleFilter = async () => {
+        if (wilaya !== "Wilaya" && commune !== "Commune" && Type !== "Type") {
+            const response = await fetch(`http://127.0.0.1:5000/annonce/filtered/?wilaya=${wilaya}&commune=${commune}&typeDuBien=${Type}`)
+            const json = await response.json()
+            if (response.ok) {
+                if (json.length !== 0) {
+                    json.sort((a, b) => b.Date.localeCompare(a.Date));
+                    setAnnoncesFilt(json)
                 }
             }
         }
-        handleFilter()
-    }, [filter])
+    }
 
     useEffect(() => {
         const handleDate = async () => {
@@ -210,7 +189,7 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
     };
 
     const handleClearAll = () => {
-        setFilter(null)
+
         setAnnoncesFilt(null)
         setRecherche("")
     }
@@ -367,21 +346,16 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
                         <div className="flex justify-center items-center">
                             <ul className="flex flex-row mt-0 mr-6 space-x-16 text-sm font-medium items-center">
                                 <li>
-                                    <div className='flex flex-row items-center'>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="orange" className="w-5 h-5 mr-1">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
-                                        </svg>
-                                        <span className='text-lg'>filter par : </span>
-                                    </div>
+                                    <span>Wilaya</span>
+                                    <Combo filter="Wilaya" values={Wilaya} setFilter={setWilaya} setAnnoncesRech={setAnnoncesRech} />
                                 </li>
                                 <li>
-                                    <Combo filter="Wilaya" values={Wilaya} setFilter={setFilter} setAnnoncesRech={setAnnoncesRech} />
+                                    <span>Commune</span>
+                                    <Combo filter="Commune" values={Commune} setFilter={setCommune} setAnnoncesRech={setAnnoncesRech} />
                                 </li>
                                 <li>
-                                    <Combo filter="Commune" values={Commune} setFilter={setFilter} setAnnoncesRech={setAnnoncesRech} />
-                                </li>
-                                <li>
-                                    <Combo filter="Type" values={type} setFilter={setFilter} setAnnoncesRech={setAnnoncesRech} />
+                                    <span>Type immobilier</span>
+                                    <Combo filter="Type" values={type} setFilter={setType} setAnnoncesRech={setAnnoncesRech} />
                                 </li>
                                 <li>
                                     <Datepicker
@@ -391,6 +365,11 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
                                         onChange={handleValueChange}
                                         primaryColor={"blue"}
                                     />
+                                </li>
+                                <li>
+                                    <button type="button" className="text-white bg-green-700 hover:bg-green-800   focus:outline-non font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center " onClick={handleFilter}>
+                                        Filtrer
+                                    </button>
                                 </li>
                                 <li>
                                     <button type="button" className="text-white bg-orange-700 hover:bg-orange-800   focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2 text-center inline-flex items-center " onClick={handleClearAll}>
