@@ -5,9 +5,10 @@ function AnnonceTemplate(props) {
     const images = annonce.images
     var filePaths
     var image = null
-    if (!images[0]?.lien.includes("/upload") && !images[0]?.lien.includes("/algerie") && images[0]?.lien != "[]" && images.length !=0) {
+    if (!images[0]?.lien.includes("/upload") && !images[0]?.lien.includes("/algerie") && images[0]?.lien != "[]" && images.length != 0) {
         filePaths = images[0]?.lien.split(",").map(path => path.replace(/"/g, ''));
-        image = require('../images/' + filePaths[0]);
+        image = "images/" + filePaths[0]
+
     }
 
     return (
@@ -23,10 +24,14 @@ function AnnonceTemplate(props) {
                             style={{ backgroundImage: `url(${images[0].lien})` }}
                             className='w-full flex-col justify-between flex items-center h-full rounded-t-md  bg-center bg-cover duration-500'
                         >
-                        </div> :  <div key={annonce.id}
-                            style={{ backgroundImage: `url(${image})` }}
+                        </div> : <div key={annonce.id}
+
                             className='w-full flex-col justify-between flex items-center h-full rounded-t-md bg-center bg-cover duration-500'
                         >
+                            <img
+                                className='object-cover rounded-md w-full h-full'
+                                src={require(`../${image}`)} alt='/'
+                            />
                         </div> : <div key={annonce.id}
                             style={{ backgroundImage: `url(${pic1})` }}
                             className='w-full flex-col justify-between flex items-center h-full rounded-t-md bg-center bg-cover duration-500'

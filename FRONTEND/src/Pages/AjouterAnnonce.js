@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import SideBar from '../Components/SideBar'
 import { useAnnonceContext } from '../hooks/useAnnonceContext'
 import { useAuthContext } from '../hooks/useAuthContext'
@@ -47,15 +47,17 @@ function AjouterAnnonce() {
         const selectedFiles = Array.from(event.target.files);
         const filePaths = selectedFiles.map((file) => file.name);
         setFilePaths(filePaths);
-      };
+    };
     return (
         <div className='flex flex-col items-center h-screen w-full'>
             <div className=" flex items-center bg-white justify-between p-2 shadow-md w-full ">
                 <SideBar />
-                <div className='flex '>
-                    <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-8" alt="Flowbite Logo" />
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap ">Real Estate</span>
-                </div>
+                <Link to="/Home">
+                    <div className='flex '>
+                        <img src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-8" alt="Flowbite Logo" />
+                        <span className="self-center text-2xl font-semibold whitespace-nowrap ">Real Estate</span>
+                    </div>
+                </Link>
                 <div className='bg-white'></div>
             </div>
             <div>
