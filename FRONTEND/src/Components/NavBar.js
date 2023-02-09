@@ -124,6 +124,10 @@ function NavBar({ setAnnoncesRech, setAnnoncesFilt }) {
         { id: 2, name: 'sidi fraj' },
         { id: 3, name: 'Location' },
         { id: 4, name: 'Loyer' },
+        {id:  5, name: 'ain turk'},
+        {id:  6, name: 'Oran'},
+        {id:  7, name: 'TALA MERKHA'},
+
     ]
 
     const handleRecherche = async () => {

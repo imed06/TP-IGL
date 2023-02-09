@@ -57,7 +57,7 @@ function Admin() {
     const handleClick2 = async () => {
         setLoading(true);
         try {
-            const response = await fetch("http://127.0.0.1:5000/Annonces/scrapper1", {
+            const response = await fetch("http://127.0.0.1:5000/Annonces/scrapper2", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -107,7 +107,7 @@ function Admin() {
                 <div className='other-component mt-6 rounded-lg  '>
                     <div id="onglets" className='p-5 mt-6 '>
                         <div id="cree" className={`onglet_cree ${stateOnglets === 1 ? 'active' : ''} hover:bg-gray-200 rounded-lg cursor-pointer text-black py-2 px-2  text-lg items-center`} onClick={scrappe1}>site 1 : Annonce Algerie</div>
-                        <div id="save" className={`onglet_save ${stateOnglets === 2 ? 'active' : ''} hover:bg-gray-200 rounded-lg cursor-pointer text-black py-2 px-2  text-lg  items-center`} onClick={scrappe2}>site 2 : feedly</div>
+                        <div id="save" className={`onglet_save ${stateOnglets === 2 ? 'active' : ''} hover:bg-gray-200 rounded-lg cursor-pointer text-black py-2 px-2  text-lg  items-center`} onClick={scrappe2}>site 2 : Darjadida</div>
                     </div>
 
                     {stateOnglets === 1 ?
@@ -122,7 +122,7 @@ function Admin() {
 
                                     <div>
 
-                                        <h3 className='m-3  p-2  text-base font-bold text-sky-600' id='myH3'>  {load1 ? "récuperation d'annonce et fait avec succès" : " "} </h3>
+                                        <h3 className='m-3  p-2  text-base font-bold text-sky-600' id='myH3'>  {load1 ? "Récuperation d'annonces faite avec succès" : " "} </h3>
                                     </div>
 
                                     <div>
@@ -150,7 +150,7 @@ function Admin() {
                         :
                         <div>
                             <div className='ml-10 mr-10  mb-10    p-16 rounded-lg' >
-                                <h3 className='text-center font-Montserrat text-sky-900 mb-6 text-base font-extrabold'>site : feedly</h3>
+                                <h3 className='text-center font-Montserrat text-sky-900 mb-6 text-base font-extrabold'>site : Darjadida</h3>
 
 
 
@@ -158,7 +158,7 @@ function Admin() {
 
                                     <div>
 
-                                        <h3 className='m-3  p-2  text-base font-bold text-sky-600' id='myH3'>  {load2 ? "récuperation d'annonce et fait avec succès" : " "} </h3>
+                                        <h3 className='m-3  p-2  text-base font-bold text-sky-600' id='myH3'>  {load2 ? "Récuperation d'annonces faite avec succès" : " "} </h3>
                                     </div>
 
 
